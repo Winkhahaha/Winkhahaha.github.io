@@ -51,12 +51,12 @@
   };
 </script>
 
-  <meta name="description" content="1.登陆界面（简易制作，丑勿喷）:login.jsp: 1234567891011121314151617181920&amp;lt;%@ page contentType=&amp;quot;text&#x2F;html;charset=UTF-8&amp;quot; language=&amp;quot;java&amp;quot; %&amp;gt;&amp;lt;script type=&amp;quot;text&#x2F;javascript&amp;quot; src=&amp;q">
+  <meta name="description" content="1.登陆界面（简易制作，丑勿喷）:login.jsp:">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaEE之--登录页面(用户名、密码、验证码)">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;10&#x2F;JavaEE%E4%B9%8B--%E7%99%BB%E5%BD%95%E9%A1%B5%E9%9D%A2(%E7%94%A8%E6%88%B7%E5%90%8D%E3%80%81%E5%AF%86%E7%A0%81%E3%80%81%E9%AA%8C%E8%AF%81%E7%A0%81)&#x2F;index.html">
 <meta property="og:site_name" content="秘境">
-<meta property="og:description" content="1.登陆界面（简易制作，丑勿喷）:login.jsp: 1234567891011121314151617181920&amp;lt;%@ page contentType=&amp;quot;text&#x2F;html;charset=UTF-8&amp;quot; language=&amp;quot;java&amp;quot; %&amp;gt;&amp;lt;script type=&amp;quot;text&#x2F;javascript&amp;quot; src=&amp;q">
+<meta property="og:description" content="1.登陆界面（简易制作，丑勿喷）:login.jsp:">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20190422183437305.PNG">
 <meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;2019042219401437.PNG?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70">
@@ -245,7 +245,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>1.登陆界面（简易制作，丑勿喷）:<br>login.jsp:</p>
+        <p>1.登陆界面（简易制作，丑勿喷）:<br>login.jsp:</p><a id="more"></a>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot; src=&quot;js/js.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;登录页面&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div id=&quot;top&quot;&gt;&lt;span style=&quot;color:red&quot;&gt;$&#123;errors&#125;&lt;/span&gt;&lt;/div&gt;</span><br><span class="line">&lt;form id=&quot;login&quot; action=&quot;/servlet/LoginServlet&quot; method=&quot;post&quot;&gt;</span><br><span class="line">    用户名:&lt;input type=&quot;text&quot; name=&quot;user&quot; id=&quot;user&quot; /&gt;&lt;br&gt;</span><br><span class="line">    密&amp;nbsp;&amp;nbsp;&amp;nbsp;码:&lt;input type=&quot;password&quot; name=&quot;pwd&quot; id=&quot;pwd&quot; /&gt;&lt;br&gt;</span><br><span class="line">    验证码(点击图片更换验证码):&lt;br&gt;</span><br><span class="line">    &lt;input name=&quot;check&quot; type=&quot;text&quot; id=&quot;check&quot; maxlength=&quot;4&quot; class=&quot;check_input&quot; /&gt;&lt;br&gt;</span><br><span class="line">    &lt;img src=&quot;images/checkcode.png&quot; id=&quot;safecode&quot; onclick=&quot;reloadcode()&quot;/&gt;&lt;br&gt;</span><br><span class="line">    &lt;input type=&quot;submit&quot; value=&quot;确定&quot;&gt;</span><br><span class="line">    &lt;input type=&quot;reset&quot; value=&quot;重置&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/form&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 <p><img src="https://img-blog.csdnimg.cn/20190422183437305.PNG" alt="在这里插入图片描述"><br>注:<br>1.action=”/servlet/LoginServlet”为登录界面表单提交后,将页面请求转发到LoginServlet处理登录请求。<br>2.  &lt; src=”images/checkcode.png” id=”safecode” onclick=”reloadcode()”/&gt;该语句用于处理更换验证码操作。<br>3.  &lt;script type=”text/javascript” src=”js/js.js” 用于响应js.js文件中的函数。<br><strong>4. <div id="top"><span style="color:red">${errors}</span></div>用于传递登录出现问题时的信息.</strong></p>
 <p>2.页面验证码制作:</p>
