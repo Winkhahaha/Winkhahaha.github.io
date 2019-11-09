@@ -51,30 +51,31 @@
   };
 </script>
 
-  <meta name="description" content="联系博主:mineok@foxmail.com">
-<meta property="og:type" content="website">
-<meta property="og:title" content="秘境">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;index.html">
+  <meta name="description" content="Java JUC 简介 在 Java 5.0 提供了 java.util.concurrent （简称 JUC ）包，在此包中增加了在并发编程中很常用 的实用工具类，用于定义类似于线程的自定义子系统，包括线程池、异步 IO 和轻量级任务框架。提供可调的、灵活的线程池。还提供了设计用于多线程上下文中的 Collection 实现等。 一、volatile关键字以及内存可见性内存可见性（Memory">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java-对JUC的学习">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;10&#x2F;Java-%E5%AF%B9JUC%E7%9A%84%E5%AD%A6%E4%B9%A0&#x2F;index.html">
 <meta property="og:site_name" content="秘境">
-<meta property="og:description" content="联系博主:mineok@foxmail.com">
+<meta property="og:description" content="Java JUC 简介 在 Java 5.0 提供了 java.util.concurrent （简称 JUC ）包，在此包中增加了在并发编程中很常用 的实用工具类，用于定义类似于线程的自定义子系统，包括线程池、异步 IO 和轻量级任务框架。提供可调的、灵活的线程池。还提供了设计用于多线程上下文中的 Collection 实现等。 一、volatile关键字以及内存可见性内存可见性（Memory">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-11-09T14:27:03.901Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/">
+<link rel="canonical" href="http://yoursite.com/2019/11/10/Java-%E5%AF%B9JUC%E7%9A%84%E5%AD%A6%E4%B9%A0/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome: true,
-    isPost: false,
+    isHome: false,
+    isPost: true,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>秘境</title>
+  <title>Java-对JUC的学习 | 秘境</title>
   
 
 
@@ -179,176 +180,10 @@
             
 
   <div class="posts-expand">
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/10/Python%E5%9F%BA%E7%A1%80-2-%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%8F%8A%E5%85%B6%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="多做有趣的事.">
-      <meta itemprop="description" content="联系博主:mineok@foxmail.com">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="秘境">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/10/Python%E5%9F%BA%E7%A1%80-2-%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%8F%8A%E5%85%B6%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">Python基础-2-基本数据类型及其常用方法</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-11-10 00:54:52" itemprop="dateCreated datePublished" datetime="2019-11-10T00:54:52+08:00">2019-11-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-09 22:27:42" itemprop="dateModified" datetime="2019-11-09T22:27:42+08:00">2019-11-09</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
       
-          <h1 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h1><p>1.in 和 not in</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">name = <span class="string">"abc"</span>    <span class="comment"># "aaa"是字符串,"a"是字符</span></span><br><span class="line"><span class="comment"># if "a" in name: # in:判断字符是否包含在字符串,也可以是相邻的子序列:"ab","bc",输出ok,"ac"报错</span></span><br><span class="line"><span class="comment">#     print("ok")</span></span><br><span class="line"><span class="comment"># else:</span></span><br><span class="line"><span class="comment">#     print("error!")</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="string">"d"</span> <span class="keyword">not</span> <span class="keyword">in</span> name:     <span class="comment"># not in:反向同上</span></span><br><span class="line">    print(<span class="string">"ok"</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">"error!"</span>)</span><br></pre></td></tr></table></figure>
-<p>布尔值:False和True(not False,not True)<br><img src="https://img-blog.csdnimg.cn/20190925190759654.png" alt="在这里插入图片描述"></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">name = <span class="string">"abc"</span>    <span class="comment"># "aaa"是字符串,"a"是字符</span></span><br><span class="line">v = <span class="string">"a"</span> <span class="keyword">not</span> <span class="keyword">in</span> name</span><br><span class="line">v1 = <span class="string">"a"</span> <span class="keyword">in</span> name</span><br><span class="line">print(v)   <span class="comment"># False</span></span><br><span class="line">print(v1)  <span class="comment"># True</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdnimg.cn/20190925191716556.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20190925192237386.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="2-基本数据类型"><a href="#2-基本数据类型" class="headerlink" title="2.基本数据类型"></a>2.基本数据类型</h2><p><img src="https://img-blog.csdnimg.cn/20190925222438551.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>注:python3没有长整形!<br><img src="https://img-blog.csdnimg.cn/20190925223006525.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># int</span></span><br><span class="line">a = <span class="number">111</span></span><br><span class="line">b = <span class="string">"123"</span></span><br><span class="line">print(type(b))</span><br><span class="line">b = int(b)      <span class="comment"># 转换类型,将字符串转换为数字</span></span><br><span class="line">print(a+b)</span><br><span class="line"></span><br><span class="line">num = <span class="string">"b"</span></span><br><span class="line">v = int(num,base=<span class="number">16</span>)    <span class="comment"># 按照base=的进制转换为十进制,将16进制的num转换为十进制</span></span><br><span class="line">print(v)</span><br><span class="line"></span><br><span class="line">age = <span class="number">8</span></span><br><span class="line"><span class="comment"># 1 1 二进制</span></span><br><span class="line"><span class="comment"># 2 10</span></span><br><span class="line"><span class="comment"># 3 11</span></span><br><span class="line"><span class="comment"># 4 100</span></span><br><span class="line"><span class="comment"># 5 101</span></span><br><span class="line">r = age.bit_length() <span class="comment"># 表示当前数字的二进制至少是多少位</span></span><br><span class="line">print(r)</span><br></pre></td></tr></table></figure>
-<h2 id="字符串方法"><a href="#字符串方法" class="headerlink" title="字符串方法"></a>字符串方法</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">test = <span class="string">"alEX"</span></span><br><span class="line">v = test.capitalize()   <span class="comment"># 首字母大写,其他全小写</span></span><br><span class="line">print(v)</span><br><span class="line"></span><br><span class="line">v1 = test.casefold()    <span class="comment"># 全部变小写,包括很多未知的也变小写(此方法更牛逼)</span></span><br><span class="line">print(v1)</span><br><span class="line"></span><br><span class="line">v2 = test.lower()       <span class="comment"># 变小写(比较平庸)</span></span><br><span class="line">print(v2)</span><br><span class="line">print(test.islower())   <span class="comment"># 是否全是小写</span></span><br><span class="line">print(test.upper())     <span class="comment"># 转换为大写</span></span><br><span class="line">print(test.isupper())   <span class="comment"># 是否全是大写</span></span><br><span class="line"></span><br><span class="line">v3 = test.center(<span class="number">20</span>,<span class="string">"*"</span>)   <span class="comment"># 设置整个字符串宽度,内容居中,两边用"*"填充(不写默认是空格,只支持传入一个字符)</span></span><br><span class="line">print(v3)                  <span class="comment"># ********alEX********</span></span><br><span class="line">print(test.ljust(<span class="number">20</span>,<span class="string">"*"</span>))   <span class="comment"># alEX****************</span></span><br><span class="line">print(test.rjust(<span class="number">20</span>,<span class="string">"*"</span>))   <span class="comment"># ****************alEX</span></span><br><span class="line">print(test.zfill(<span class="number">20</span>))       <span class="comment"># 0000000000000000alEX,只能用0填充</span></span><br><span class="line"></span><br><span class="line">test1 = <span class="string">"alexlalexr"</span></span><br><span class="line">v4 = test1.count(<span class="string">"a"</span>)  <span class="comment"># 计算该字符或者字符串子序列在字符串出现几次</span></span><br><span class="line">print(v4)</span><br><span class="line">v5 = test1.count(<span class="string">"al"</span>,<span class="number">3</span>,<span class="number">8</span>) <span class="comment"># 从3开始到8结束查找某字符或子序列在3~8区间内出现的次数</span></span><br><span class="line">print(v5)</span><br><span class="line"></span><br><span class="line">v6 = test.endswith(<span class="string">"EX"</span>)  <span class="comment"># 以什么结尾</span></span><br><span class="line">v7 = test.startswith(<span class="string">"al"</span>) <span class="comment"># 以什么开始</span></span><br><span class="line">print(v6)</span><br><span class="line">print(v7)</span><br><span class="line"></span><br><span class="line">test2 = <span class="string">"alexalex"</span></span><br><span class="line">v8 = test2.find(<span class="string">"ex"</span>) <span class="comment"># 从开始往后找,找到第一个后得到其位置</span></span><br><span class="line">print(v8)</span><br><span class="line">v9 = test2.find(<span class="string">"ex"</span>,<span class="number">5</span>,<span class="number">8</span>) <span class="comment"># 在区间[5,8)之间寻找</span></span><br><span class="line">print(v9)</span><br><span class="line"></span><br><span class="line">test4 = <span class="string">"I am &#123;name&#125;,age &#123;a&#125;"</span></span><br><span class="line">print(test4)</span><br><span class="line">v10 = test4.format(name=<span class="string">"hahaha"</span>,a=<span class="number">19</span>)  <span class="comment"># 格式化,将字符串中占位符&#123;&#125;替换为指定的值</span></span><br><span class="line">print(v10)</span><br><span class="line"></span><br><span class="line">v11 = test4.format_map(&#123;<span class="string">"name"</span>:<span class="string">"alex"</span>,<span class="string">"a"</span>:<span class="number">19</span>&#125;)  <span class="comment"># 格式化,传入的值&#123;"name":"alex","a":19&#125;</span></span><br><span class="line">print(v11)</span><br><span class="line"></span><br><span class="line">v11 = test2.index(<span class="string">'ex'</span>) <span class="comment"># index如果找不到直接报错</span></span><br><span class="line">print(v11)</span><br><span class="line"></span><br><span class="line">test = <span class="string">"user236_+"</span></span><br><span class="line">v12 = test.isalnum()    <span class="comment"># 判断字符串中是否只是包含字母数字</span></span><br><span class="line">print(v12)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">"12345678\t9"</span></span><br><span class="line">v =s.expandtabs(<span class="number">6</span>)      <span class="comment"># 进行断句6,123456没有\t,到了78\t出现,于是78后面用\t补齐为六位</span></span><br><span class="line">print(v,len(v))</span><br><span class="line"></span><br><span class="line">test = <span class="string">"asdf"</span></span><br><span class="line">v1 = test.isalpha()     <span class="comment"># 是否是字母汉字</span></span><br><span class="line">v2 = test.isalnum()</span><br><span class="line">print(v1)</span><br><span class="line">print(v2)</span><br><span class="line"></span><br><span class="line">test1 = <span class="string">"123"</span></span><br><span class="line">v3=test1.isdecimal()    <span class="comment"># 判断是否是十进制数字</span></span><br><span class="line">v4=test1.isdigit()  <span class="comment"># 可以判断特殊数字,不支持中文</span></span><br><span class="line">v5 = test1.isnumeric()   <span class="comment"># 判断数字包括中文数字</span></span><br><span class="line">print(v3,v4,v5)</span><br><span class="line"></span><br><span class="line">test2 = <span class="string">"ksdjlf\n"</span></span><br><span class="line">v6 = test2.isprintable()    <span class="comment"># 字符串是否包含不可显示的字符 \t \n</span></span><br><span class="line">print(v6)</span><br><span class="line"></span><br><span class="line">test3 = <span class="string">"sdf 更好 t "</span> <span class="comment"># 判断字符串是否全是空格</span></span><br><span class="line">v7 = test3.isspace()</span><br><span class="line">print(v7)</span><br><span class="line"></span><br><span class="line">test4 = <span class="string">"Return null"</span>   <span class="comment"># 判断是否为标题以及变成标题</span></span><br><span class="line">v8 = test4.title()</span><br><span class="line">print(v8)</span><br><span class="line">print(v8.istitle())</span><br><span class="line"></span><br><span class="line">test5 = <span class="string">"一日不见兮"</span></span><br><span class="line">t = <span class="string">" "</span>  <span class="comment"># 将字符串拆解成单个字符,在字符间隔中插入" "</span></span><br><span class="line">print(t.join(test5))   <span class="comment"># 一 日 不 见 兮</span></span><br><span class="line"></span><br><span class="line">test6 = <span class="string">"xalex"</span></span><br><span class="line">print(test6.lstrip())   <span class="comment"># 去掉左边空格(还可以去除\t,\n)</span></span><br><span class="line">print(test6.rstrip())   <span class="comment"># 去掉右边空格</span></span><br><span class="line">print(test6.strip())    <span class="comment"># 去掉所有空格</span></span><br><span class="line">print(test6.lstrip(<span class="string">"x"</span>)) <span class="comment"># 去掉左右所有的指定内容中所匹配到的子序列</span></span><br><span class="line">print(test6.rstrip(<span class="string">"x"</span>))</span><br><span class="line"></span><br><span class="line">v9 = <span class="string">"admin:ejdlksjf:adm"</span></span><br><span class="line">m = str.maketrans(<span class="string">"admin"</span>,<span class="string">"11111"</span>)  <span class="comment"># 设定对应的转换关系</span></span><br><span class="line">print(v9.translate(m))  <span class="comment"># 根据转换关系替换</span></span><br><span class="line"></span><br><span class="line">test7 = <span class="string">"test,sa,dsf,h,hh"</span></span><br><span class="line">print(test7.partition(<span class="string">"s"</span>))     <span class="comment"># 只能永远将字符串按照""分成三份</span></span><br><span class="line">print(test7.rpartition(<span class="string">"s"</span>))    <span class="comment"># 从右边的第一个""开始分,分成三份</span></span><br><span class="line">print(test7.split(<span class="string">"s"</span>))         <span class="comment"># 分割成任意份(也可以指定数量参数).但是"s"不在得到的分割部分中</span></span><br><span class="line">print(test7.split(<span class="string">"s"</span>,<span class="number">2</span>))</span><br><span class="line">print(test7.rsplit())</span><br><span class="line"></span><br><span class="line">test8 = <span class="string">"test\nsads\nfh\nhh"</span>  <span class="comment"># 分割,只能根据,true,false是否保留换行</span></span><br><span class="line">print(test8.splitlines(<span class="literal">False</span>))</span><br><span class="line"></span><br><span class="line">test9 = <span class="string">"backend1,1,1,1"</span></span><br><span class="line">print(test9.startswith(<span class="string">"b"</span>))    <span class="comment"># 判断是否以""开头,以""结尾</span></span><br><span class="line">print(test9.endswith(<span class="string">"1"</span>))</span><br><span class="line"></span><br><span class="line">test10 = <span class="string">"aIexex"</span></span><br><span class="line">print(test10.swapcase()) <span class="comment"># 大小写转换 AiEX</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">"_123"</span>.isidentifier())    <span class="comment"># 判断是否为正确的变量名写法</span></span><br><span class="line"></span><br><span class="line">print(test10[<span class="number">2</span>])    <span class="comment"># 通过索引获取字符串中某一个字符</span></span><br><span class="line"></span><br><span class="line">print(test10[<span class="number">0</span>:<span class="number">1</span>]) <span class="comment"># 通过索引范围[0,1),切片</span></span><br><span class="line">print(test10[<span class="number">0</span>:<span class="number">-1</span>])     <span class="comment"># aIe</span></span><br><span class="line">print(len(test10))  <span class="comment"># 字符串长度</span></span><br><span class="line"></span><br><span class="line">print(test10.replace(<span class="string">"ex"</span>,<span class="string">"bbb"</span>))   <span class="comment"># aIexex --&gt; aIbbbbbb</span></span><br><span class="line">print(test10.replace(<span class="string">"ex"</span>,<span class="string">"bbb"</span>,<span class="number">1</span>)) <span class="comment"># aIbbbex只替换第一个"ex"</span></span><br><span class="line"></span><br><span class="line">index = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> index &lt; len(test10):	<span class="comment"># 逐个输出字符串中的所有字符</span></span><br><span class="line">    print(test10[index])</span><br><span class="line">    index+=<span class="number">1</span></span><br><span class="line">print(<span class="string">"输出完毕"</span>)</span><br><span class="line">v10 = range(<span class="number">100</span>)    <span class="comment"># 帮我们创建连续的数字,在py27中会立即在内存中创建0~99,在py3中不会立即在内存创建除非使用循环</span></span><br><span class="line">v10 = range(<span class="number">0</span>,<span class="number">100</span>,<span class="number">5</span>)    <span class="comment"># 通过设置5为步长,按照步长跳着取数字:0,5,10......</span></span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> v10:</span><br><span class="line">    print(item)</span><br></pre></td></tr></table></figure>
-<h2 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h2><p> for循环<br> for 变量名 in 字符串<br> print(变量名)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> test10:</span><br><span class="line"><span class="comment">#   continue</span></span><br><span class="line">    <span class="comment">#   break</span></span><br><span class="line">    print(i)</span><br><span class="line"></span><br><span class="line">test11 = input(<span class="string">": "</span>)</span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> range(<span class="number">0</span>,len(test11)):</span><br><span class="line">    print(test11[item]+<span class="string">"..."</span>+str(item))</span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdnimg.cn/20190927155546300.png" alt="在这里插入图片描述"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
   
   
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/10/Python%E5%9F%BA%E7%A1%80-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="多做有趣的事.">
-      <meta itemprop="description" content="联系博主:mineok@foxmail.com">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="秘境">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/10/Python%E5%9F%BA%E7%A1%80-1/" class="post-title-link" itemprop="url">Python基础-1</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-11-10 00:54:52" itemprop="dateCreated datePublished" datetime="2019-11-10T00:54:52+08:00">2019-11-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-09 22:27:13" itemprop="dateModified" datetime="2019-11-09T22:27:13+08:00">2019-11-09</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p> python执行效率低，开发效率高；<br>java执行效率高，开发效率低。<br><img src="https://img-blog.csdnimg.cn/20190927161517441.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20190927161538349.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="pypy现在不是主流。"><a href="#pypy现在不是主流。" class="headerlink" title="pypy现在不是主流。"></a>pypy现在不是主流。</h2><p><strong>Linux下安装python3</strong><br><img src="https://img-blog.csdnimg.cn/20190927161611192.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h1 id="1-第一句python："><a href="#1-第一句python：" class="headerlink" title="1.第一句python："></a>1.第一句python：</h1><p><img src="https://img-blog.csdnimg.cn/20190927161634427.png" alt="在这里插入图片描述"><br><strong>–后缀名是否可以注意？<br>–导入模块时，如果不是.py可能会出错<br>–所以文件后缀名以后都必须是.py</strong><br><em>为什么#!/usr/bin/env python?<br>#!/usr/bin/env python</em></p>
-<h1 id="coding-utf-8"><a href="#coding-utf-8" class="headerlink" title="-- coding:utf-8 --"></a>-<em>- coding:utf-8 -</em>-</h1><p><img src="https://img-blog.csdnimg.cn/20190927161710523.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20190927161723644.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20190927161733881.png" alt="在这里插入图片描述"></p>
-<h2 id="3"><a href="#3" class="headerlink" title="3."></a>3.</h2><p><img src="https://img-blog.csdnimg.cn/20190927161814232.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h1 id="4-执行一个操作"><a href="#4-执行一个操作" class="headerlink" title="4.执行一个操作"></a>4.执行一个操作</h1><p><strong>input的用法：</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">n = input(<span class="string">'请输入用户名: '</span>)	<span class="comment"># 永远等待，直到用户输入了值,就会将输入的值赋给n</span></span><br><span class="line">n2 = input(<span class="string">'请输入密码: '</span>)   <span class="comment"># n，n1是变量，代指某一个变化的值，数字字母下划线,但不能用数字开头，不能使用python的关键字</span></span><br><span class="line">print(n)</span><br><span class="line">print(n2)</span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdnimg.cn/20190927161953304.png" alt="在这里插入图片描述"></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">n = input('请输入用户名: ')	# 永远等待，直到用户输入了值,就会将输入的值赋给n</span></span><br><span class="line"><span class="string">n2 = input('请输入密码: ')</span></span><br><span class="line"><span class="string">print(n)</span></span><br><span class="line"><span class="string">print(n2)</span></span><br><span class="line"><span class="string">"""</span>                 <span class="comment"># 多行注释</span></span><br><span class="line"></span><br><span class="line">n = <span class="string">"root1"</span></span><br><span class="line">n2 = <span class="string">"root2"</span></span><br><span class="line">print(n)</span><br><span class="line">print(n2)	<span class="comment"># 真正到解释器执行时，就变成print("root1"),print("root2")</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdnimg.cn/2019092716202077.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20190927162031140.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>sum函数：</strong><br><img src="https://img-blog.csdnimg.cn/20190927162056765.png" alt="在这里插入图片描述"></p>
-<h1 id="5-条件语句"><a href="#5-条件语句" class="headerlink" title="5.条件语句"></a>5.条件语句</h1><p><img src="https://img-blog.csdnimg.cn/20190927162117391.png" alt="在这里插入图片描述"></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">inp = input(<span class="string">"请输入级别："</span>)</span><br><span class="line"><span class="keyword">if</span> inp == <span class="string">"A"</span>:</span><br><span class="line">	print(<span class="string">"AAA"</span>)</span><br><span class="line"><span class="keyword">elif</span> inp == <span class="string">"B"</span>:</span><br><span class="line">	print(<span class="string">"BBB"</span>)</span><br><span class="line"><span class="keyword">elif</span> inp == <span class="string">"C"</span>:</span><br><span class="line">	print(<span class="string">"CCC"</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">	print(<span class="string">"ERROR!"</span>)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># pass</span></span><br><span class="line"><span class="keyword">if</span> <span class="number">1</span>==<span class="number">1</span>：</span><br><span class="line">    <span class="keyword">pass</span>         <span class="comment"># 直接去执行下面的语句</span></span><br><span class="line"><span class="keyword">else</span>：</span><br><span class="line">    <span class="keyword">print</span>（<span class="string">"end"</span>）</span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdnimg.cn/20190927162156362.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h1 id="6-基本数据类型"><a href="#6-基本数据类型" class="headerlink" title="6.基本数据类型"></a>6.基本数据类型</h1><p><img src="https://img-blog.csdnimg.cn/2019092716221599.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/2019092716223336.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20190927162240780.png" alt="在这里插入图片描述"><br><strong>让字符串重复多少次</strong><br><img src="https://img-blog.csdnimg.cn/20190927162251147.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20190927162315727.png" alt="在这里插入图片描述"><br><strong>数字</strong><br><img src="https://img-blog.csdnimg.cn/20190927162423108.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>注:39 // 8 = 4    取的是商</strong></p>
-<h1 id="7-循环"><a href="#7-循环" class="headerlink" title="7.循环"></a>7.循环</h1><p><img src="https://img-blog.csdnimg.cn/20190927162516821.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20190927162530104.png" alt="在这里插入图片描述"></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">count = <span class="number">1</span></span><br><span class="line"><span class="keyword">while</span> count&lt;=<span class="number">10</span>:</span><br><span class="line">	print(count)</span><br><span class="line">	count = count + <span class="number">1</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdnimg.cn/20190927162600907.png" alt="在这里插入图片描述"></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">count = <span class="number">1</span></span><br><span class="line"><span class="keyword">while</span> count&lt;=<span class="number">100</span>:</span><br><span class="line">	<span class="keyword">if</span> count % <span class="number">2</span> == <span class="number">0</span>:      <span class="comment"># 输出前一百的偶数</span></span><br><span class="line">		print(count)</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		<span class="keyword">pass</span></span><br><span class="line">	count = count+<span class="number">1</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">count = <span class="number">1</span></span><br><span class="line">add = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span> count&lt;=<span class="number">100</span>:</span><br><span class="line">	add = count + add     <span class="comment"># 前一百的和</span></span><br><span class="line">	count = count + <span class="number">1</span></span><br><span class="line">print(add)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">count = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> count&lt;<span class="number">3</span>:               <span class="comment"># 只给三次登录机会</span></span><br><span class="line">	inp = input(<span class="string">"请输入密码: "</span>)</span><br><span class="line">	<span class="keyword">if</span> inp == <span class="string">"admin"</span>:</span><br><span class="line">		print(<span class="string">"登录成功!"</span>)</span><br><span class="line">		<span class="keyword">break</span></span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		print(<span class="string">"登录失败,还有"</span>+str(<span class="number">2</span>-count)+<span class="string">"次机会!"</span>)  <span class="comment"># str(number)用于数字和字符串拼接</span></span><br><span class="line">		count = count + <span class="number">1</span></span><br><span class="line"><span class="keyword">if</span> count == <span class="number">3</span>:</span><br><span class="line">	print(<span class="string">"今日登录次数耗尽!"</span>)</span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdnimg.cn/20190927162650951.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/10/Java-%E5%AF%B9JUC%E7%9A%84%E5%AD%A6%E4%B9%A0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -362,8 +197,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/10/Java-%E5%AF%B9JUC%E7%9A%84%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">Java-对JUC的学习</a>
+          Java-对JUC的学习
         </h1>
 
         <div class="post-meta">
@@ -394,7 +228,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Java-JUC-简介"><a href="#Java-JUC-简介" class="headerlink" title="Java JUC 简介"></a>Java JUC 简介</h1><p> <strong>在 Java 5.0 提供了 java.util.concurrent （简称 JUC ）包，在此包中增加了在并发编程中很常用 的实用工具类，用于定义类似于线程的自定义子系统，包括线程池、异步 IO 和轻量级任务框架。提供可调的、灵活的线程池。还提供了设计用于多线程上下文中的 Collection 实现等。</strong></p>
+        <h1 id="Java-JUC-简介"><a href="#Java-JUC-简介" class="headerlink" title="Java JUC 简介"></a>Java JUC 简介</h1><p> <strong>在 Java 5.0 提供了 java.util.concurrent （简称 JUC ）包，在此包中增加了在并发编程中很常用 的实用工具类，用于定义类似于线程的自定义子系统，包括线程池、异步 IO 和轻量级任务框架。提供可调的、灵活的线程池。还提供了设计用于多线程上下文中的 Collection 实现等。</strong></p>
 <h2 id="一、volatile关键字以及内存可见性"><a href="#一、volatile关键字以及内存可见性" class="headerlink" title="一、volatile关键字以及内存可见性"></a>一、volatile关键字以及内存可见性</h2><p><strong>内存可见性（Memory Visibility）是指当某个线程正在使用对象状态 而另一个线程在同时修改该状态，需要确保当一个线程修改了对象状态后，其他线程能够看到发生的状态变化。<br>可见性错误是指当读操作与写操作在不同的线程中执行时，我们无法确保执行读操作的线程能适时地看到其他线程写入的值，有时甚至是根本不可能的事情。<br>我们可以通过同步来保证对象被安全地发布。除此之外我们也可以 使用一种更加轻量级的 volatile 变量。</strong><br><strong>volatile 关键字<br>Java 提供了一种稍弱的同步机制，即 volatile 变 量，用来确保将变量的更新操作通知到其他线程。<br>可以将 volatile 看做一个轻量级的锁，但是又与锁有些不同：对于多线程，不是一种互斥关系不能保证变量状态的“原子性操作“。</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VolatileTest_1</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		ThreadDemo th = <span class="keyword">new</span> ThreadDemo();</span><br><span class="line">		<span class="keyword">new</span> Thread(th).start();</span><br><span class="line">		<span class="keyword">while</span>(<span class="keyword">true</span>) &#123;</span><br><span class="line">			<span class="comment">//synchronized (th) &#123;		</span></span><br><span class="line">				<span class="keyword">if</span>(th.isFlag()) &#123;		<span class="comment">//需要保证两个线程从主存中得到的数据是一致的，即保证主存数据及时刷新</span></span><br><span class="line">					System.out.println(<span class="string">".........."</span>);</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				<span class="comment">//&#125;</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ThreadDemo</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	 * volatile:当多个线程操作共享数据时,可以保障内存中的数据是可见的,及时刷新的</span></span><br><span class="line"><span class="comment">	 * 相较于synchronize是一种较轻量级的同步策略</span></span><br><span class="line"><span class="comment">	 * 注意:volatile不具备互斥性</span></span><br><span class="line"><span class="comment">	 * volatile不能保证变量的原子性</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">boolean</span> flag = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			Thread.sleep(<span class="number">200</span>);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">			</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		flag = <span class="keyword">true</span>;</span><br><span class="line">		System.out.println(<span class="string">"flag="</span>+isFlag());	<span class="comment">//true</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isFlag</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> flag;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setFlag</span><span class="params">(<span class="keyword">boolean</span> flag)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.flag = flag;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>保证可见性、不保证原子性、禁止指令重排</strong><br>1.保证可见性：当多个线程访问同一个变量时，一个线程修改了这个变量的值，其他线程能够立即看到修改的值；<br>2.不保证原子性；</p>
@@ -436,372 +270,39 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ScheduleThreadPoolTest_14</span> </span>&#123;</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	 * 线程调度</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException, ExecutionException </span>&#123;</span><br><span class="line">		ScheduledExecutorService pool= Executors.newScheduledThreadPool(<span class="number">5</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">			Future&lt;Integer&gt; result=pool.schedule(<span class="keyword">new</span> Callable&lt;Integer&gt;() &#123;</span><br><span class="line">				<span class="meta">@Override</span></span><br><span class="line">				<span class="function"><span class="keyword">public</span> Integer <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">					<span class="keyword">int</span> num = <span class="keyword">new</span> Random().nextInt(<span class="number">50</span>);</span><br><span class="line">					System.out.println(Thread.currentThread().getName()+<span class="string">":"</span>+num);</span><br><span class="line">					<span class="keyword">return</span> num;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;, <span class="number">1</span>, TimeUnit.SECONDS);</span><br><span class="line">			System.out.println(result.get());</span><br><span class="line">		&#125;</span><br><span class="line">		pool.shutdown();</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
         
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/10/JavaEE%E4%B9%8B--%E4%BD%BF%E7%94%A8%E5%88%86%E9%A1%B5%E7%BB%84%E4%BB%B6%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E9%A1%B5/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="多做有趣的事.">
-      <meta itemprop="description" content="联系博主:mineok@foxmail.com">
-    </span>
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2019/11/10/JavaEE%E4%B9%8B--%E4%BD%BF%E7%94%A8%E5%88%86%E9%A1%B5%E7%BB%84%E4%BB%B6%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E9%A1%B5/" rel="next" title="JavaEE之--使用分页组件进行数据分页">
+                  <i class="fa fa-chevron-left"></i> JavaEE之--使用分页组件进行数据分页
+                </a>
+            </div>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="秘境">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/10/JavaEE%E4%B9%8B--%E4%BD%BF%E7%94%A8%E5%88%86%E9%A1%B5%E7%BB%84%E4%BB%B6%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E9%A1%B5/" class="post-title-link" itemprop="url">JavaEE之--使用分页组件进行数据分页</a>
-        </h1>
+            <span class="post-nav-divider"></span>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-11-10 00:54:52" itemprop="dateCreated datePublished" datetime="2019-11-10T00:54:52+08:00">2019-11-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-09 22:26:34" itemprop="dateModified" datetime="2019-11-09T22:26:34+08:00">2019-11-09</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在后端开发中,经常需要对页面进行分页使得界面更加整洁规整,便于用户进行数据的查找,为了更加方便的对数据进行分页,需要使用分页标签库组件,在lib目录中导入此包:<br><img src="https://img-blog.csdnimg.cn/2019042121501740.PNG" alt="在这里插入图片描述"><br>以一个使用了分页标签库的简单的jsp页面进行示例:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@taglib prefix=&quot;pg&quot; uri=&quot;http://jsptags.com/tags/navigation/pager&quot; %&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;%--items:数据总记录数;maxPageItems:每页最大显示数;--%&gt;</span><br><span class="line">&lt;pg:pager url=&quot;/TestTaglib.jsp&quot; items=&quot;1000&quot; maxPageItems=&quot;20&quot; &gt;</span><br><span class="line"></span><br><span class="line">&lt;pg:first&gt;</span><br><span class="line">    &lt;a href=&quot;$&#123;pageUrl&#125;&quot;&gt;首页&lt;/a&gt;</span><br><span class="line">&lt;/pg:first&gt;</span><br><span class="line"></span><br><span class="line">&lt;pg:prev&gt;</span><br><span class="line">    &lt;a href=&quot;$&#123;pageUrl&#125;&quot;&gt;上页&lt;/a&gt;</span><br><span class="line">&lt;/pg:prev&gt;</span><br><span class="line"></span><br><span class="line">&lt;%--设置数字页码--%&gt;</span><br><span class="line">    &lt;pg:pages&gt;</span><br><span class="line">        &lt;a href=&quot;$&#123;pageUrl&#125;&quot;&gt;$&#123;pageNumber&#125;&lt;/a&gt;</span><br><span class="line">    &lt;/c:if&gt;</span><br><span class="line">    &lt;/pg:pages&gt;</span><br><span class="line"></span><br><span class="line">&lt;pg:next&gt;</span><br><span class="line">    &lt;a href=&quot;$&#123;pageUrl&#125;&quot;&gt;下页&lt;/a&gt;</span><br><span class="line">&lt;/pg:next&gt;</span><br><span class="line"></span><br><span class="line">&lt;pg:last&gt;</span><br><span class="line">    &lt;a href=&quot;$&#123;pageUrl&#125;&quot;&gt;尾页&lt;/a&gt;</span><br><span class="line">&lt;/pg:last&gt;</span><br><span class="line">&lt;/pg:pager&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-<p>显示结果:<br><img src="https://img-blog.csdnimg.cn/20190421215632356.PNG" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20190421215755151.PNG" alt="在这里插入图片描述"><br>观察地址栏后参数pager.offset,每当进行换页操作时,pager.offset便按照用户设定好的每页显示数(maxPageItesm)进行增减后传入服务端中以实现对数据表按照设定好的分页规则在页面中分页显示。<br>上述代码存在一处问题：当用户处在第5页时，此时用户仍可点击“5”进入到第5页，对此情况进行优化，优化后当用户处在某一页面时，将该页面页码数字将不再能被点击。<br>优化后代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@taglib prefix=&quot;c&quot; uri=&quot;http://java.sun.com/jstl/core_rt&quot;%&gt;</span><br><span class="line">&lt;%@taglib prefix=&quot;fmt&quot; uri=&quot;http://java.sun.com/jstl/fmt_rt&quot;%&gt;</span><br><span class="line">&lt;%@taglib prefix=&quot;pg&quot; uri=&quot;http://jsptags.com/tags/navigation/pager&quot; %&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;%--items:数据总记录数;maxPageItems:每页最大显示数;--%&gt;</span><br><span class="line">&lt;%-- export=&quot;currentPageNumber=pageNumber&quot;：设一个变量currentPageNumber代表当前内容页的页码数字，将组件内的pageNumber（页码数字,随着页码的改变而改变，与地址栏参数pager.offset关联）值赋给定义的变量，以便于后续进行比较操作。--%&gt;</span><br><span class="line">&lt;pg:pager url=&quot;/TestTaglib.jsp&quot; items=&quot;1000&quot; maxPageItems=&quot;20&quot; export=&quot;currentPageNumber=pageNumber&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;pg:first&gt;</span><br><span class="line">    &lt;a href=&quot;$&#123;pageUrl&#125;&quot;&gt;首页&lt;/a&gt;</span><br><span class="line">&lt;/pg:first&gt;</span><br><span class="line"></span><br><span class="line">&lt;pg:prev&gt;</span><br><span class="line">    &lt;a href=&quot;$&#123;pageUrl&#125;&quot;&gt;上页&lt;/a&gt;</span><br><span class="line">&lt;/pg:prev&gt;</span><br><span class="line"></span><br><span class="line">    &lt;pg:pages&gt;</span><br><span class="line">    &lt;%-- 若当前内容页页码数与组件中存放的页码数pageNumber相同，则页面只将该页码数显示出来，不能进行点击 --%&gt;</span><br><span class="line">    &lt;c:if test=&quot;$&#123;currentPageNumber eq pageNumber&#125;&quot;&gt;</span><br><span class="line">        $&#123;pageNumber&#125;</span><br><span class="line">    &lt;/c:if&gt;</span><br><span class="line">    &lt;c:if test=&quot;$&#123;currentPageNumber != pageNumber&#125;&quot;&gt;</span><br><span class="line">        &lt;a href=&quot;$&#123;pageUrl&#125;&quot;&gt;$&#123;pageNumber&#125;&lt;/a&gt;</span><br><span class="line">    &lt;/c:if&gt;</span><br><span class="line">    &lt;/pg:pages&gt;</span><br><span class="line"></span><br><span class="line">&lt;pg:next&gt;</span><br><span class="line">    &lt;a href=&quot;$&#123;pageUrl&#125;&quot;&gt;下页&lt;/a&gt;</span><br><span class="line">&lt;/pg:next&gt;</span><br><span class="line"></span><br><span class="line">&lt;pg:last&gt;</span><br><span class="line">    &lt;a href=&quot;$&#123;pageUrl&#125;&quot;&gt;尾页&lt;/a&gt;</span><br><span class="line">&lt;/pg:last&gt;</span><br><span class="line">&lt;/pg:pager&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-<p>注意：地址栏后的pager.offset为在当前页面时该参数的值，而当鼠标放到上页、首页、下页、尾页或者数字上时此时浏览器左下角会如下显示：<img src="https://img-blog.csdnimg.cn/20190421223843914.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>此时鼠标放在“下页”，此时左下角显示的为点击后pager.offset参数值将作何变化，从而跳转到点击到的页码。所以在分页组件中，正是依赖于pager.offset参数这种动态的变化，实现分页操作，而上述组件中的pageNumber也依赖于pager.offset的增减而进行改变(pager.offset/maxPageItems + 1）从而实现面对不同分页需求时所需进行的逻辑操作。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2019/11/10/Python%E5%9F%BA%E7%A1%80-1/" rel="prev" title="Python基础-1">
+                  Python基础-1 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
       </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/10/JavaEE%E4%B9%8B--%E7%99%BB%E5%BD%95%E9%A1%B5%E9%9D%A2(%E7%94%A8%E6%88%B7%E5%90%8D%E3%80%81%E5%AF%86%E7%A0%81%E3%80%81%E9%AA%8C%E8%AF%81%E7%A0%81)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="多做有趣的事.">
-      <meta itemprop="description" content="联系博主:mineok@foxmail.com">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="秘境">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/10/JavaEE%E4%B9%8B--%E7%99%BB%E5%BD%95%E9%A1%B5%E9%9D%A2(%E7%94%A8%E6%88%B7%E5%90%8D%E3%80%81%E5%AF%86%E7%A0%81%E3%80%81%E9%AA%8C%E8%AF%81%E7%A0%81)/" class="post-title-link" itemprop="url">JavaEE之--登录页面(用户名、密码、验证码)</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-11-10 00:54:52" itemprop="dateCreated datePublished" datetime="2019-11-10T00:54:52+08:00">2019-11-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-09 22:25:55" itemprop="dateModified" datetime="2019-11-09T22:25:55+08:00">2019-11-09</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>1.登陆界面（简易制作，丑勿喷）:<br>login.jsp:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot; src=&quot;js/js.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;登录页面&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div id=&quot;top&quot;&gt;&lt;span style=&quot;color:red&quot;&gt;$&#123;errors&#125;&lt;/span&gt;&lt;/div&gt;</span><br><span class="line">&lt;form id=&quot;login&quot; action=&quot;/servlet/LoginServlet&quot; method=&quot;post&quot;&gt;</span><br><span class="line">    用户名:&lt;input type=&quot;text&quot; name=&quot;user&quot; id=&quot;user&quot; /&gt;&lt;br&gt;</span><br><span class="line">    密&amp;nbsp;&amp;nbsp;&amp;nbsp;码:&lt;input type=&quot;password&quot; name=&quot;pwd&quot; id=&quot;pwd&quot; /&gt;&lt;br&gt;</span><br><span class="line">    验证码(点击图片更换验证码):&lt;br&gt;</span><br><span class="line">    &lt;input name=&quot;check&quot; type=&quot;text&quot; id=&quot;check&quot; maxlength=&quot;4&quot; class=&quot;check_input&quot; /&gt;&lt;br&gt;</span><br><span class="line">    &lt;img src=&quot;images/checkcode.png&quot; id=&quot;safecode&quot; onclick=&quot;reloadcode()&quot;/&gt;&lt;br&gt;</span><br><span class="line">    &lt;input type=&quot;submit&quot; value=&quot;确定&quot;&gt;</span><br><span class="line">    &lt;input type=&quot;reset&quot; value=&quot;重置&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/form&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdnimg.cn/20190422183437305.PNG" alt="在这里插入图片描述"><br>注:<br>1.action=”/servlet/LoginServlet”为登录界面表单提交后,将页面请求转发到LoginServlet处理登录请求。<br>2.  &lt; src=”images/checkcode.png” id=”safecode” onclick=”reloadcode()”/&gt;该语句用于处理更换验证码操作。<br>3.  &lt;script type=”text/javascript” src=”js/js.js” 用于响应js.js文件中的函数。<br><strong>4. <div id="top"><span style="color:red">${errors}</span></div>用于传递登录出现问题时的信息.</strong></p>
-<p>2.页面验证码制作:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">import com.sun.image.codec.jpeg.JPEGCodec;</span><br><span class="line">import com.sun.image.codec.jpeg.JPEGImageEncoder;</span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.annotation.WebServlet;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import java.awt.*;</span><br><span class="line">import java.awt.image.BufferedImage;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.OutputStream;</span><br><span class="line">import java.util.Random;</span><br><span class="line"></span><br><span class="line">@WebServlet(name = &quot;CheckCodeServlet&quot;,urlPatterns = &#123;&quot;/images/checkcode.png&quot;&#125;)</span><br><span class="line">public class CheckCodeServlet extends HttpServlet &#123;</span><br><span class="line">    private String code = &quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890&quot;;</span><br><span class="line"></span><br><span class="line">    /*</span><br><span class="line">    随机选取一个字符</span><br><span class="line">     */</span><br><span class="line">    private char ranCheckCode()&#123;</span><br><span class="line">        int randomIndex=new Random().nextInt(code.length());//得到随机的位置</span><br><span class="line">        return code.charAt(randomIndex);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /*</span><br><span class="line">    产生0-200的随机数设置颜色</span><br><span class="line">     */</span><br><span class="line">    private int ranNum()&#123;</span><br><span class="line">        return new Random().nextInt(200);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        StringBuffer checkcode =new StringBuffer();</span><br><span class="line">        for (int i = 0; i &lt;4 ; i++) &#123;</span><br><span class="line">            checkcode.append(ranCheckCode());//将四个随机得到的字符拼接为验证码</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        String check =checkcode.toString();//得到验证码</span><br><span class="line"></span><br><span class="line">        request.getSession().setAttribute(&quot;checkcode&quot;,check);//将生成的验证码存起来,用于验证</span><br><span class="line"></span><br><span class="line">        //1.在内存中生成图片</span><br><span class="line">        BufferedImage img =new BufferedImage(44,20,BufferedImage.TYPE_INT_RGB);</span><br><span class="line">        //2.从图片缓存中取出画笔对象(该画笔对象用于修改图片缓存区的像素数据)</span><br><span class="line">        Graphics2D g2d = (Graphics2D) img.getGraphics();</span><br><span class="line">        //3.用画笔将图片缓存填充为白色背景</span><br><span class="line">        g2d.setColor(new Color(255,255,255));//将画笔设置为白色</span><br><span class="line">        g2d.fillRect(0,0,44,20);//从原点坐标开始44X20的区域画为白色</span><br><span class="line">        //4.在得到的白色背景板上开始画验证码</span><br><span class="line">        for (int i = 0; i &lt; check.length(); i++) &#123;</span><br><span class="line">            g2d.setColor(new Color(ranNum(),ranNum(),ranNum()));//随机生成画笔颜色</span><br><span class="line">            String c=check.charAt(i)+&quot;&quot;;</span><br><span class="line">            g2d.drawString(c,11*i,16);//从x坐标开始画单个字符串,循环四次,得到画好的验证码图片</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //将验证码图片转换成某种图片格式写到客户端</span><br><span class="line">        response.setContentType(&quot;image/jpeg&quot;);</span><br><span class="line">        OutputStream output = response.getOutputStream();</span><br><span class="line">        //得到压缩后jpeg字节,(通过缓存输出流)</span><br><span class="line">        JPEGImageEncoder encoder= JPEGCodec.createJPEGEncoder(output);</span><br><span class="line">        //encoder.encode将图片缓存流编码</span><br><span class="line">        encoder.encode(img);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">注: JPEGImageEncoder 在JDK8之后已被取消,有新方法代替之。</span><br></pre></td></tr></table></figure>
-
-<p>3.LoginServlet：登陆请求处理服务器</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.annotation.WebServlet;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.sql.Connection;</span><br><span class="line">import java.sql.PreparedStatement;</span><br><span class="line">import java.sql.ResultSet;</span><br><span class="line"></span><br><span class="line">@WebServlet(name = &quot;LoginServlet&quot;, urlPatterns = &#123;&quot;/servlet/LoginServlet&quot;&#125;)</span><br><span class="line">public class LoginServlet extends HttpServlet &#123;</span><br><span class="line">    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        //获取表单提交的数据</span><br><span class="line">        String user = request.getParameter(&quot;user&quot;);</span><br><span class="line">        String pwd = request.getParameter(&quot;pwd&quot;);</span><br><span class="line">        String chknumber = request.getParameter(&quot;check&quot;);</span><br><span class="line">        //校验验证码</span><br><span class="line">        String chkcode = (String)request.getSession().getAttribute(&quot;checkcode&quot;);</span><br><span class="line"></span><br><span class="line">        Connection conn = null;</span><br><span class="line">        PreparedStatement prst = null;</span><br><span class="line">        ResultSet rs = null;</span><br><span class="line">        try &#123;</span><br><span class="line">            //获取表单提交的数据</span><br><span class="line">            //输入验证码时不区分大小写</span><br><span class="line">            if(chknumber.toUpperCase().equals(chkcode.toUpperCase()))&#123;</span><br><span class="line">                //校验登陆帐号</span><br><span class="line">                String sql = &quot;select * from user where user = ?&quot; ;</span><br><span class="line">                conn = DB.getConnection();						//博主自己整合好的jdbc连接类</span><br><span class="line">                prst = conn.prepareStatement(sql);</span><br><span class="line">                prst.setString(1,&quot;admin&quot;);			//向sql语句传入&quot;admin&quot;参数,得到数据库中用户名为&quot;admin&quot;的用户信息用来与表单传递来的参数进行比对操作</span><br><span class="line">                rs = prst.executeQuery();</span><br><span class="line">                if(rs.next())&#123;</span><br><span class="line">                    String user1 = rs.getString(&quot;user&quot;);</span><br><span class="line">                    String pwd1 = rs.getString(&quot;pwd&quot;);</span><br><span class="line">                    if(user1.equals(user) )&#123;</span><br><span class="line">                        //校验密码</span><br><span class="line">                        if(pwd1.equals(pwd))&#123;</span><br><span class="line">                            //选择sendRedirect以防止任何需要刷新页面的请求响应(用户名,密码,验证码错误之类)后验证码图片缺失</span><br><span class="line">                            response.sendRedirect(&quot;/登录成功.jsp&quot;);</span><br><span class="line">                        &#125;else&#123;</span><br><span class="line">                            request.getSession().setAttribute(&quot;errors&quot;,&quot;密码输入错误！&quot;);</span><br><span class="line">                            //选择sendRedirect以防止任何需要刷新页面的请求响应(用户名,密码,验证码错误之类)后验证码图片缺失</span><br><span class="line">                            response.sendRedirect(&quot;/login.jsp&quot;);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;else&#123;</span><br><span class="line">                        request.getSession().setAttribute(&quot;errors&quot;,&quot;用户名输入错误！&quot;);</span><br><span class="line">                        //转回登陆页面</span><br><span class="line">                        //选择sendRedirect以防止任何需要刷新页面的请求响应(用户名,密码,验证码错误之类)后验证码图片缺失</span><br><span class="line">                        response.sendRedirect(&quot;/login.jsp&quot;);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                request.getSession().setAttribute(&quot;errors&quot;,&quot;验证码错误！&quot;);</span><br><span class="line">                //选择sendRedirect以防止任何需要刷新页面的请求响应(用户名,密码,验证码错误之类)后验证码图片缺失</span><br><span class="line">                response.sendRedirect(&quot;/login.jsp&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; finally &#123;</span><br><span class="line">            DB.closeConnection(conn);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;</span><br><span class="line">注：数据库表中已从在用户名为admin，密码admin的用户。</span><br></pre></td></tr></table></figure>
-<p>4.刷新验证码<br>目录下新建一个js文件,编写一个可以使验证码响应刷新的函数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function reloadcode()&#123;</span><br><span class="line">    var verify=document.getElementById(&apos;safecode&apos;);</span><br><span class="line">    verify.src = &quot;/images/checkcode.png?&quot; + Math.random();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>分析：通过document.getElementById得到验证码图片路径，通过在图片路径后添加随机数使得服务器（CheckCodeservlet）每次响应后都会产生不同的图片路径，从而得到新的验证码图片，实现刷新操作。</p>
-<p><img src="https://img-blog.csdnimg.cn/2019042219401437.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>5.登陆成功.jsp<br><strong>用户名,密码,验证码输入无误登录成功后转到此页面。</strong></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page contentType=<span class="string">"text/html;charset=UTF-8"</span> language=<span class="string">"java"</span> %&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;当你看到这个界面说明你已经成功登录!<span class="xml"><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span></span><br><span class="line">&lt;<span class="regexp">/head&gt;</span></span><br><span class="line"><span class="regexp">&lt;body&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>body&gt;</span><br><span class="line">&lt;<span class="regexp">/html&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/10/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="多做有趣的事.">
-      <meta itemprop="description" content="联系博主:mineok@foxmail.com">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="秘境">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/10/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-11-10 00:26:37" itemprop="dateCreated datePublished" datetime="2019-11-10T00:26:37+08:00">2019-11-10</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/09/SpringMVC-%E5%B0%86%E5%AF%B9%E8%B1%A1%E8%BD%AC%E6%8D%A2%E4%B8%BAjson%E4%B8%B2%E5%93%8D%E5%BA%94%E5%9C%A8%E9%A1%B5%E9%9D%A2%E6%97%B6%E6%97%A5%E6%9C%9F%E6%A0%BC%E5%BC%8F%E5%87%BA%E9%94%99%E7%9A%84%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="多做有趣的事.">
-      <meta itemprop="description" content="联系博主:mineok@foxmail.com">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="秘境">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/09/SpringMVC-%E5%B0%86%E5%AF%B9%E8%B1%A1%E8%BD%AC%E6%8D%A2%E4%B8%BAjson%E4%B8%B2%E5%93%8D%E5%BA%94%E5%9C%A8%E9%A1%B5%E9%9D%A2%E6%97%B6%E6%97%A5%E6%9C%9F%E6%A0%BC%E5%BC%8F%E5%87%BA%E9%94%99%E7%9A%84%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">SpringMVC-将对象转换为json串响应在页面时日期格式出错的问题</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-11-09 16:41:00 / 修改时间：19:50:18" itemprop="dateCreated datePublished" datetime="2019-11-09T16:41:00+08:00">2019-11-09</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><strong>JSON返回的对象实体类如下:</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.annotation.JsonFormat;</span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JSONObj</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String sex;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>Controller层的代码如下:</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExampleController</span> </span>&#123;</span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/test20"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> JSONObj <span class="title">test20</span><span class="params">()</span></span>&#123;</span><br><span class="line">       JSONObj jsonObj = <span class="keyword">new</span> JSONObj();</span><br><span class="line">       jsonObj.setAge(<span class="number">1</span>);</span><br><span class="line">       jsonObj.setName(<span class="string">"aaa"</span>);</span><br><span class="line">       jsonObj.setSex(<span class="string">"男"</span>);</span><br><span class="line">       jsonObj.setDate(<span class="keyword">new</span> Date());</span><br><span class="line">        <span class="keyword">return</span> jsonObj;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>启动服务页面响应的结果:</strong><br><img src="https://img-blog.csdnimg.cn/20191011232019797.png" alt="在这里插入图片描述"><br><strong>可以看到,实体类的除日期外的其他数据一切正常,日期返回的是一串数字。</strong><br><strong>原因：</strong><br><strong><em>后台在返回json数据的时候，用自身的序列化机制会把时间变成一段很长的数字，就像上面的显示一样。</em></strong><br><strong>解决方法：</strong><br><strong><em>在实体类的Date上面添加@JsonFormat，它的作用是，出参时，自动把Date型对象数据转化成正确的格式化后的字符串出去</em></strong></p>
-<p><strong>修改后的实体类代码：</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.annotation.JsonFormat;</span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JSONObj</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String sex;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line">    <span class="meta">@JsonFormat</span>(pattern = <span class="string">"yyyy年MM月dd日 HH:mm:ss"</span>,timezone = <span class="string">"GMT+8"</span>)</span><br><span class="line">    <span class="keyword">private</span> Date date;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>启动服务页面响应的结果:</strong><br><img src="https://img-blog.csdnimg.cn/20191011232433878.png" alt="在这里插入图片描述"><br><strong>问题得到解决！</strong></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/09/SpringMVC-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="多做有趣的事.">
-      <meta itemprop="description" content="联系博主:mineok@foxmail.com">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="秘境">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/09/SpringMVC-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" class="post-title-link" itemprop="url">SpringMVC-文件上传</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-11-09 16:41:00 / 修改时间：22:33:11" itemprop="dateCreated datePublished" datetime="2019-11-09T16:41:00+08:00">2019-11-09</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="1-配置文件上传解析器"><a href="#1-配置文件上传解析器" class="headerlink" title="1.配置文件上传解析器:"></a>1.配置文件上传解析器:</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@Import</span>(WebConfig<span class="class">.<span class="keyword">class</span>)</span></span><br><span class="line"><span class="class">@<span class="title">EnableTransactionManagement</span></span></span><br><span class="line"><span class="class"><span class="title">public</span> <span class="title">class</span> <span class="title">RootConfig</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span>(<span class="string">"multipartResolver"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> CommonsMultipartResolver <span class="title">commonsMultipartResolver</span><span class="params">()</span></span>&#123;</span><br><span class="line">     CommonsMultipartResolver file = <span class="keyword">new</span> CommonsMultipartResolver();</span><br><span class="line">     file.setMaxUploadSize(<span class="number">1024</span>*<span class="number">1024</span>*<span class="number">5</span>);    <span class="comment">// 文件限制大小5mb</span></span><br><span class="line">     <span class="keyword">return</span> file;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>注意！！！：配置解析器bean的名字必须是multipartResolver，@Bean(“multipartResolver”)， 否则一定无法上传!</strong> </p>
-<h2 id="2-上传表单"><a href="#2-上传表单" class="headerlink" title="2.上传表单"></a>2.上传表单</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">%@ page contentType=<span class="string">"text/html;charset=UTF-8"</span> language=<span class="string">"java"</span> %&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;<span class="regexp">/title&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;form action=<span class="string">"/upload.action"</span> enctype=<span class="string">"multipart/form-data"</span> method=<span class="string">"post"</span>&gt;</span><br><span class="line">    文件&lt;input type=<span class="string">"file"</span> name=<span class="string">"photo"</span>/&gt;</span><br><span class="line">    &lt;input type=<span class="string">"submit"</span> value=<span class="string">"确定"</span>&gt;</span><br><span class="line">    &lt;input type=<span class="string">"reset"</span> value=<span class="string">"取消"</span>&gt;</span><br><span class="line">&lt;<span class="regexp">/form&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>body&gt;</span><br><span class="line">&lt;<span class="regexp">/html&gt;</span></span><br></pre></td></tr></table></figure>
-<p><strong>注意！！！：form标签中，一定要添加enctype=”multipart/form-data”属性!提交方式必须POST!</strong><br><img src="https://img-blog.csdnimg.cn/20191012000636826.png" alt="在这里插入图片描述"></p>
-<h2 id="3-处理上传文件的Controller方法"><a href="#3-处理上传文件的Controller方法" class="headerlink" title="3 处理上传文件的Controller方法"></a>3 处理上传文件的Controller方法</h2><p><strong>以上传<img src="https://img-blog.csdnimg.cn/20191012001431108.png" alt="在这里插入图片描述">为例:</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExampleController</span> </span>&#123;</span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/upload"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">upload</span><span class="params">(MultipartFile photo,HttpServletRequest request)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">            <span class="comment">//取出文件原名</span></span><br><span class="line">        String fileName=photo.getOriginalFilename();</span><br><span class="line">        System.out.println(<span class="string">"原文件名:"</span>+fileName);</span><br><span class="line">        </span><br><span class="line">            <span class="comment">//起新名字</span></span><br><span class="line">            <span class="comment">//新文件名:UUID+截取后缀</span></span><br><span class="line">        String newFileName = UUID.randomUUID()+fileName.substring(fileName.lastIndexOf(<span class="string">"."</span>));  </span><br><span class="line">        System.out.println(<span class="string">"新文件名:"</span>+newFileName);</span><br><span class="line">        </span><br><span class="line">            <span class="comment">//上传文件,绝对路径</span></span><br><span class="line">        String rootPath = request.getSession().getServletContext().getRealPath(<span class="string">"/"</span>);</span><br><span class="line">        System.out.println(<span class="string">"文件当前的绝对路径:"</span>+rootPath);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//创建上传文件要保存的完整路径</span></span><br><span class="line">        String fullPath = rootPath+<span class="string">"upload/"</span>+newFileName;</span><br><span class="line">        System.out.println(<span class="string">"文件要保存到的完整路径:"</span>+fullPath);</span><br><span class="line">        </span><br><span class="line">        File file = <span class="keyword">new</span> File(fullPath);</span><br><span class="line">        <span class="comment">//递归建目录</span></span><br><span class="line">        <span class="keyword">if</span>(!file.exists())&#123;</span><br><span class="line">            file.mkdirs();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//向磁盘中的fullPath写入这个文件</span></span><br><span class="line">        photo.transferTo(file);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"success"</span>;   <span class="comment">// //转换到success.jsp,事先已配好视图解析器</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>上传成功后返回success.jsp提示成功,控制台显示如下:</strong><br><img src="https://img-blog.csdnimg.cn/20191012002004871.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20191012002207778.png" alt="在这里插入图片描述"><br><strong>成功!</strong></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
   </article>
   
   
   
 
   </div>
-
-  
-
 
 
           </div>
@@ -830,6 +331,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java-JUC-简介"><span class="nav-number">1.</span> <span class="nav-text">Java JUC 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、volatile关键字以及内存可见性"><span class="nav-number">1.1.</span> <span class="nav-text">一、volatile关键字以及内存可见性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、原子变量-CAS算法"><span class="nav-number">2.</span> <span class="nav-text">二、原子变量 CAS算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CAS算法"><span class="nav-number">2.1.</span> <span class="nav-text">CAS算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原子变量"><span class="nav-number">2.2.</span> <span class="nav-text">原子变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、CountDownLatch"><span class="nav-number">2.3.</span> <span class="nav-text">三、CountDownLatch</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、实现-Callable-接口"><span class="nav-number">2.4.</span> <span class="nav-text">五、实现 Callable 接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、Lock-同步锁"><span class="nav-number">2.5.</span> <span class="nav-text">六、Lock 同步锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#显示锁-Lock"><span class="nav-number">2.6.</span> <span class="nav-text">显示锁 Lock</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七、Condition控制线程通信"><span class="nav-number">2.7.</span> <span class="nav-text">七、Condition控制线程通信</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#八、线程按序交替（使用Condition控制线程通信）"><span class="nav-number">2.8.</span> <span class="nav-text">八、线程按序交替（使用Condition控制线程通信）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#九、ReadWriteLock-读写锁"><span class="nav-number">2.9.</span> <span class="nav-text">九、ReadWriteLock 读写锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十、线程八锁"><span class="nav-number">2.10.</span> <span class="nav-text">十、线程八锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十一、线程池"><span class="nav-number">2.11.</span> <span class="nav-text">十一、线程池</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十二、线程调度"><span class="nav-number">2.12.</span> <span class="nav-text">十二、线程调度</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
