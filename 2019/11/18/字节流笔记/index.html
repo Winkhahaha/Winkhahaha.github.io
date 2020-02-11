@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/c.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/c32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/c16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="秘境" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="###20.01_IO流(IO流概述及其分类)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="字节流笔记">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;18&#x2F;%E5%AD%97%E8%8A%82%E6%B5%81%E7%AC%94%E8%AE%B0&#x2F;index.html">
+<meta property="og:site_name" content="秘境">
+<meta property="og:description" content="###20.01_IO流(IO流概述及其分类)">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2088-06-23T20:54:56.878Z">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2019/11/18/%E5%AD%97%E8%8A%82%E6%B5%81%E7%AC%94%E8%AE%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>字节流笔记 | 秘境</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">秘境</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/18/%E5%AD%97%E8%8A%82%E6%B5%81%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/user.jpg">
+      <meta itemprop="name" content="多做有趣的事.">
+      <meta itemprop="description" content="联系博主:mineok@foxmail.com">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="秘境">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          字节流笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-11-18 23:27:02" itemprop="dateCreated datePublished" datetime="2019-11-18T23:27:02+08:00">2019-11-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2088-06-24 04:54:56" itemprop="dateModified" datetime="2088-06-24T04:54:56+08:00">2088-06-24</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>###20.01_IO流(IO流概述及其分类)</p><a id="more"></a>
+<ul>
+<li>1.概念<ul>
+<li>IO流用来处理设备之间的数据传输</li>
+<li>Java对数据的操作是通过流的方式</li>
+<li>Java用于操作流的类都在IO包中</li>
+<li>流按流向分为两种：输入流，输出流。</li>
+<li>流按操作类型分为两种：<ul>
+<li>字节流 : 字节流可以操作任何数据,因为在计算机中任何数据都是以字节的形式存储的</li>
+<li>字符流 : 字符流只能操作纯字符数据，比较方便。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>2.IO流常用父类<ul>
+<li>字节流的抽象父类：<ul>
+<li>InputStream </li>
+<li>OutputStream</li>
+</ul>
+</li>
+<li>字符流的抽象父类：<ul>
+<li>Reader </li>
+<li>Writer        </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>3.IO程序书写<ul>
+<li>使用前，导入IO包中的类</li>
+<li>使用时，进行IO异常处理</li>
+<li>使用后，释放资源</li>
+</ul>
+</li>
+</ul>
+<p>###20.02_IO流(FileInputStream)</p>
+<ul>
+<li><p>read()一次读取一个字节</p>
+</li>
+<li><pre><code>FileInputStream fis = new FileInputStream(&quot;aaa.txt&quot;);    //创建一个文件输入流对象,并关联aaa.txt
+int b;                                                    //定义变量,记录每次读到的字节
+while((b = fis.read()) != -1) {                            //将每次读到的字节赋值给b并判断是否是-1
+    System.out.println(b);                                //打印每一个字节
+}
+
+fis.close();                                            //关闭流释放资源</code></pre><p>###20.03_IO流(read()方法返回值为什么是int)</p>
+</li>
+<li><p>read()方法读取的是一个字节,为什么返回是int,而不是byte</p>
+</li>
+<li><pre><code>因为字节输入流可以操作任意类型的文件,比如图片音频等,这些文件底层都是以二进制形式的存储的,如果每次读取都返回byte,有可能在读到中间的时候遇到111111111
+那么这11111111是byte类型的-1,我们的程序是遇到-1就会停止不读了,后面的数据就读不到了,所以在读取的时候用int类型接收,如果11111111会在其前面补上
+24个0凑足4个字节,那么byte类型的-1就变成int类型的255了这样可以保证整个数据读完,而结束标记的-1就是int类型</code></pre><p>###20.04_IO流(FileOutputStream)</p>
+</li>
+<li><p>write()一次写出一个字节</p>
+</li>
+<li><pre><code>FileOutputStream fos = new FileOutputStream(&quot;bbb.txt&quot;);    //如果没有bbb.txt,会创建出一个
+//fos.write(97);                        //虽然写出的是一个int数,但是在写出的时候会将前面的24个0去掉,所以写出的一个byte
+fos.write(98);
+fos.write(99);
+fos.close();</code></pre><p>###20.05_IO流(FileOutputStream追加)</p>
+</li>
+<li><p>A:案例演示</p>
+<ul>
+<li>FileOutputStream的构造方法写出数据如何实现数据的追加写入</li>
+</ul>
+</li>
+<li><pre><code>FileOutputStream fos = new FileOutputStream(&quot;bbb.txt&quot;,true);    //如果没有bbb.txt,会创建出一个
+//fos.write(97);                        //虽然写出的是一个int数,但是在写出的时候会将前面的24个0去掉,所以写出的一个byte
+fos.write(98);
+fos.write(99);
+fos.close();</code></pre></li>
+</ul>
+<p>###20.06_IO流(拷贝图片)</p>
+<ul>
+<li><p>FileInputStream读取</p>
+</li>
+<li><p>FileOutputStream写出</p>
+<pre><code>FileInputStream fis = new FileInputStream(&quot;致青春.mp3&quot;);    //创建输入流对象,关联致青春.mp3
+FileOutputStream fos = new FileOutputStream(&quot;copy.mp3&quot;);//创建输出流对象,关联copy.mp3
+
+int b;
+while((b = fis.read()) != -1) {
+    fos.write(b);
+}
+
+fis.close();
+fos.close();</code></pre></li>
+</ul>
+<p>###20.07_IO流(拷贝音频文件画原理图)</p>
+<ul>
+<li>A:案例演示<ul>
+<li>字节流一次读写一个字节复制音频</li>
+</ul>
+</li>
+<li>弊端:效率太低</li>
+</ul>
+<p>###20.08_IO流(字节数组拷贝之available()方法)</p>
+<ul>
+<li><p>A:案例演示</p>
+<ul>
+<li>int read(byte[] b):一次读取一个字节数组</li>
+<li>write(byte[] b):一次写出一个字节数组</li>
+<li>available()获取读的文件所有的字节个数</li>
+</ul>
+</li>
+<li><p>弊端:有可能会内存溢出 </p>
+<pre><code>FileInputStream fis = new FileInputStream(&quot;致青春.mp3&quot;);
+FileOutputStream fos = new FileOutputStream(&quot;copy.mp3&quot;);
+byte[] arr = new byte[fis.available()];                    //根据文件大小做一个字节数组
+fis.read(arr);                                            //将文件上的所有字节读取到数组中
+fos.write(arr);                                            //将数组中的所有字节一次写到了文件上
+fis.close();
+fos.close();</code></pre></li>
+</ul>
+<p>###20.09_IO流(定义小数组)</p>
+<ul>
+<li>write(byte[] b)</li>
+<li>write(byte[] b, int off, int len)写出有效的字节个数</li>
+</ul>
+<p>###20.10_IO流(定义小数组的标准格式)</p>
+<ul>
+<li><p>A:案例演示</p>
+<ul>
+<li><p>字节流一次读写一个字节数组复制图片和视频<br>  FileInputStream fis = new FileInputStream(“致青春.mp3”);<br>  FileOutputStream fos = new FileOutputStream(“copy.mp3”);<br>  int len;<br>  byte[] arr = new byte[1024 * 8];                    //自定义字节数组</p>
+<p>  while((len = fis.read(arr)) != -1) {</p>
+<pre><code>//fos.write(arr);
+fos.write(arr, 0, len);                            //写出字节数组写出有效个字节个数</code></pre><p>  }</p>
+<p>  fis.close();<br>  fos.close();<br>###20.11_IO流(BufferedInputStream和BufferOutputStream拷贝)</p>
+</li>
+</ul>
+</li>
+<li><p>A:缓冲思想</p>
+<ul>
+<li>字节流一次读写一个数组的速度明显比一次读写一个字节的速度快很多，</li>
+<li>这是加入了数组这样的缓冲区效果，java本身在设计的时候，</li>
+<li>也考虑到了这样的设计思想(装饰设计模式后面讲解)，所以提供了字节缓冲区流</li>
+</ul>
+</li>
+<li><p>B.BufferedInputStream</p>
+<ul>
+<li>BufferedInputStream内置了一个缓冲区(数组)</li>
+<li>从BufferedInputStream中读取一个字节时</li>
+<li>BufferedInputStream会一次性从文件中读取8192个, 存在缓冲区中, 返回给程序一个</li>
+<li>程序再次读取时, 就不用找文件了, 直接从缓冲区中获取</li>
+<li>直到缓冲区中所有的都被使用过, 才重新从文件中读取8192个</li>
+</ul>
+</li>
+<li><p>C.BufferedOutputStream</p>
+<ul>
+<li>BufferedOutputStream也内置了一个缓冲区(数组)</li>
+<li>程序向流中写出字节时, 不会直接写到文件, 先写到缓冲区中</li>
+<li>直到缓冲区写满, BufferedOutputStream才会把缓冲区中的数据一次性写到文件里</li>
+</ul>
+</li>
+<li><p>D.拷贝的代码 </p>
+<pre><code>FileInputStream fis = new FileInputStream(&quot;致青春.mp3&quot;);            //创建文件输入流对象,关联致青春.mp3
+BufferedInputStream bis = new BufferedInputStream(fis);            //创建缓冲区对fis装饰
+FileOutputStream fos = new FileOutputStream(&quot;copy.mp3&quot;);        //创建输出流对象,关联copy.mp3
+BufferedOutputStream bos = new BufferedOutputStream(fos);        //创建缓冲区对fos装饰
+
+int b;
+while((b = bis.read()) != -1) {        
+    bos.write(b);
+}
+
+bis.close();                        //只关装饰后的对象即可
+bos.close();</code></pre></li>
+<li><p>E.小数组的读写和带Buffered的读取哪个更快?</p>
+<ul>
+<li>定义小数组如果是8192个字节大小和Buffered比较的话</li>
+<li>定义小数组会略胜一筹,因为读和写操作的是同一个数组</li>
+<li>而Buffered操作的是两个数组</li>
+</ul>
+</li>
+</ul>
+<p>###20.12_IO流(flush和close方法的区别)</p>
+<ul>
+<li>flush()方法<ul>
+<li>用来刷新缓冲区的,刷新后可以再次写出 </li>
+</ul>
+</li>
+<li>close()方法<ul>
+<li>用来关闭流释放资源的的,如果是带缓冲区的流对象的close()方法,不但会关闭流,还会再关闭流之前刷新缓冲区,关闭后不能再写出<br>###20.13_IO流(字节流读写中文) </li>
+</ul>
+</li>
+<li>字节流读取中文的问题<ul>
+<li>字节流在读中文的时候有可能会读到半个中文,造成乱码 </li>
+</ul>
+</li>
+<li>字节流写出中文的问题<ul>
+<li>字节流直接操作的字节,所以写出中文必须将字符串转换成字节数组 </li>
+<li>写出回车换行 write(“\r\n”.getBytes());</li>
+</ul>
+</li>
+</ul>
+<p>###20.14_IO流(流的标准处理异常代码1.6版本及其以前)</p>
+<ul>
+<li><p>try finally嵌套</p>
+<pre><code>FileInputStream fis = null;
+FileOutputStream fos = null;
+try {
+    fis = new FileInputStream(&quot;aaa.txt&quot;);
+    fos = new FileOutputStream(&quot;bbb.txt&quot;);
+    int b;
+    while((b = fis.read()) != -1) {
+        fos.write(b);
+    }
+} finally {
+    try {
+        if(fis != null)
+            fis.close();
+    }finally {
+        if(fos != null)
+            fos.close();
+    }
+}</code></pre></li>
+</ul>
+<p>###20.15_IO流(流的标准处理异常代码1.7版本)</p>
+<ul>
+<li><p>try close</p>
+<pre><code>try(
+    FileInputStream fis = new FileInputStream(&quot;aaa.txt&quot;);
+    FileOutputStream fos = new FileOutputStream(&quot;bbb.txt&quot;);
+    MyClose mc = new MyClose();
+){
+    int b;
+    while((b = fis.read()) != -1) {
+        fos.write(b);
+    }
+}</code></pre></li>
+<li><p>原理</p>
+<ul>
+<li>在try()中创建的流对象必须实现了AutoCloseable这个接口,如果实现了,在try后面的{}(读写代码)执行后就会自动调用,流对象的close方法将流关掉 </li>
+</ul>
+</li>
+</ul>
+<p>###20.16_IO流(图片加密)</p>
+<ul>
+<li><p>给图片加密</p>
+<pre><code>BufferedInputStream bis = new BufferedInputStream(new FileInputStream(&quot;a.jpg&quot;));
+BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(&quot;b.jpg&quot;));
+
+int b;
+while((b = bis.read()) != -1) {
+    bos.write(b ^ 123);
+}
+
+bis.close();
+bos.close();</code></pre></li>
+</ul>
+<p>###20.17_IO流(拷贝文件)</p>
+<ul>
+<li><p>在控制台录入文件的路径,将文件拷贝到当前项目下</p>
+<pre><code>Scanner sc = new Scanner(System.in);
+System.out.println(&quot;请输入一个文件路径&quot;);
+String line = sc.nextLine();                //将键盘录入的文件路径存储在line中
+File file = new File(line);                    //封装成File对象
+FileInputStream fis = new FileInputStream(file);
+FileOutputStream fos = new FileOutputStream(file.getName());
+
+int len;
+byte[] arr = new byte[8192];                //定义缓冲区
+while((len = fis.read(arr)) != -1) {
+    fos.write(arr,0,len);
+}
+
+fis.close();
+fos.close();</code></pre></li>
+</ul>
+<p>###20.18_IO流(录入数据拷贝到文件)</p>
+<ul>
+<li><p>将键盘录入的数据拷贝到当前项目下的text.txt文件中,键盘录入数据当遇到quit时就退出</p>
+<pre><code>Scanner sc = new Scanner(System.in);
+FileOutputStream fos = new FileOutputStream(&quot;text.txt&quot;);
+System.out.println(&quot;请输入:&quot;);
+while(true) {
+    String line = sc.nextLine();
+    if(&quot;quit&quot;.equals(line))
+        break;
+    fos.write(line.getBytes());
+    fos.write(&quot;\r\n&quot;.getBytes());
+}
+
+fos.close();</code></pre><p>###20.19_day20总结</p>
+</li>
+<li><p>把今天的知识点总结一遍。</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2019/11/17/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="next" title="多线程笔记">
+                  <i class="fa fa-chevron-left"></i> 多线程笔记
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2019/11/18/%E5%AD%97%E7%AC%A6%E6%B5%81%E7%AC%94%E8%AE%B0/" rel="prev" title="字符流笔记">
+                  字符流笔记 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="多做有趣的事."
+      src="/images/user.jpg">
+  <p class="site-author-name" itemprop="name">多做有趣的事.</p>
+  <div class="site-description" itemprop="description">联系博主:mineok@foxmail.com</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Winkhahaha" title="GitHub &amp;rarr; https:&#x2F;&#x2F;github.com&#x2F;Winkhahaha" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/mineok@foxmail.com" title="E-Mail &amp;rarr; mineok@foxmail.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">多做有趣的事.</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">101k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:32</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='255,69,0' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

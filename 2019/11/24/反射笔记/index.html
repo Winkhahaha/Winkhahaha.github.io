@@ -51,21 +51,17 @@
   };
 </script>
 
-  <meta name="description" content="JSON返回的对象实体类如下:12345678910import com.fasterxml.jackson.annotation.JsonFormat;import lombok.Data;import java.util.Date;@Datapublic class JSONObj &amp;#123;    private String name;    private String sex;">
-<meta name="keywords" content="Spring">
+  <meta name="description" content="day27授课目录：###27.01_反射(类的加载概述和加载时机)">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SpringMVC-将对象转换为json串响应在页面时日期格式出错的问题">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;09&#x2F;SpringMVC-%E5%B0%86%E5%AF%B9%E8%B1%A1%E8%BD%AC%E6%8D%A2%E4%B8%BAjson%E4%B8%B2%E5%93%8D%E5%BA%94%E5%9C%A8%E9%A1%B5%E9%9D%A2%E6%97%B6%E6%97%A5%E6%9C%9F%E6%A0%BC%E5%BC%8F%E5%87%BA%E9%94%99%E7%9A%84%E9%97%AE%E9%A2%98&#x2F;index.html">
+<meta property="og:title" content="反射笔记">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;24&#x2F;%E5%8F%8D%E5%B0%84%E7%AC%94%E8%AE%B0&#x2F;index.html">
 <meta property="og:site_name" content="秘境">
-<meta property="og:description" content="JSON返回的对象实体类如下:12345678910import com.fasterxml.jackson.annotation.JsonFormat;import lombok.Data;import java.util.Date;@Datapublic class JSONObj &amp;#123;    private String name;    private String sex;">
+<meta property="og:description" content="day27授课目录：###27.01_反射(类的加载概述和加载时机)">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191011232019797.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191011232433878.png">
-<meta property="og:updated_time" content="2019-11-09T11:50:18.368Z">
+<meta property="og:updated_time" content="2019-11-25T14:36:14.408Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191011232019797.png">
 
-<link rel="canonical" href="http://yoursite.com/2019/11/09/SpringMVC-%E5%B0%86%E5%AF%B9%E8%B1%A1%E8%BD%AC%E6%8D%A2%E4%B8%BAjson%E4%B8%B2%E5%93%8D%E5%BA%94%E5%9C%A8%E9%A1%B5%E9%9D%A2%E6%97%B6%E6%97%A5%E6%9C%9F%E6%A0%BC%E5%BC%8F%E5%87%BA%E9%94%99%E7%9A%84%E9%97%AE%E9%A2%98/">
+<link rel="canonical" href="http://yoursite.com/2019/11/24/%E5%8F%8D%E5%B0%84%E7%AC%94%E8%AE%B0/">
 
 
 <script id="page-configurations">
@@ -79,7 +75,7 @@
   };
 </script>
 
-  <title>SpringMVC-将对象转换为json串响应在页面时日期格式出错的问题 | 秘境</title>
+  <title>反射笔记 | 秘境</title>
   
 
 
@@ -188,7 +184,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/09/SpringMVC-%E5%B0%86%E5%AF%B9%E8%B1%A1%E8%BD%AC%E6%8D%A2%E4%B8%BAjson%E4%B8%B2%E5%93%8D%E5%BA%94%E5%9C%A8%E9%A1%B5%E9%9D%A2%E6%97%B6%E6%97%A5%E6%9C%9F%E6%A0%BC%E5%BC%8F%E5%87%BA%E9%94%99%E7%9A%84%E9%97%AE%E9%A2%98/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/24/%E5%8F%8D%E5%B0%84%E7%AC%94%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/user.jpg">
@@ -201,7 +197,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          SpringMVC-将对象转换为json串响应在页面时日期格式出错的问题
+          反射笔记
         </h1>
 
         <div class="post-meta">
@@ -210,10 +206,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2019-11-09 16:41:00 / 修改时间：19:50:18" itemprop="dateCreated datePublished" datetime="2019-11-09T16:41:00+08:00">2019-11-09</time>
+              <time title="创建时间：2019-11-24 14:49:46" itemprop="dateCreated datePublished" datetime="2019-11-24T14:49:46+08:00">2019-11-24</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-11-25 22:36:14" itemprop="dateModified" datetime="2019-11-25T22:36:14+08:00">2019-11-25</time>
+              </span>
 
           <br>
             <span class="post-meta-item" title="本文字数">
@@ -221,14 +223,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>932</span>
+              <span>3.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -240,14 +242,209 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><strong>JSON返回的对象实体类如下:</strong></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.annotation.JsonFormat;</span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JSONObj</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String sex;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><a id="more"></a>
+        <p>day27授课目录：</p><p>###27.01_反射(类的加载概述和加载时机)</p><a id="more"></a>
 
-<p><strong>Controller层的代码如下:</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExampleController</span> </span>&#123;</span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/test20"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> JSONObj <span class="title">test20</span><span class="params">()</span></span>&#123;</span><br><span class="line">       JSONObj jsonObj = <span class="keyword">new</span> JSONObj();</span><br><span class="line">       jsonObj.setAge(<span class="number">1</span>);</span><br><span class="line">       jsonObj.setName(<span class="string">"aaa"</span>);</span><br><span class="line">       jsonObj.setSex(<span class="string">"男"</span>);</span><br><span class="line">       jsonObj.setDate(<span class="keyword">new</span> Date());</span><br><span class="line">        <span class="keyword">return</span> jsonObj;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>启动服务页面响应的结果:</strong><br><img src="https://img-blog.csdnimg.cn/20191011232019797.png" alt="在这里插入图片描述"><br><strong>可以看到,实体类的除日期外的其他数据一切正常,日期返回的是一串数字。</strong><br><strong>原因：</strong><br><strong><em>后台在返回json数据的时候，用自身的序列化机制会把时间变成一段很长的数字，就像上面的显示一样。</em></strong><br><strong>解决方法：</strong><br><strong><em>在实体类的Date上面添加@JsonFormat，它的作用是，出参时，自动把Date型对象数据转化成正确的格式化后的字符串出去</em></strong></p>
-<p><strong>修改后的实体类代码：</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.annotation.JsonFormat;</span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JSONObj</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String sex;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line">    <span class="meta">@JsonFormat</span>(pattern = <span class="string">"yyyy年MM月dd日 HH:mm:ss"</span>,timezone = <span class="string">"GMT+8"</span>)</span><br><span class="line">    <span class="keyword">private</span> Date date;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>启动服务页面响应的结果:</strong><br><img src="https://img-blog.csdnimg.cn/20191011232433878.png" alt="在这里插入图片描述"><br><strong>问题得到解决！</strong></p>
+<ul>
+<li><p>A:类的加载概述</p>
+<ul>
+<li><p>当程序要使用某个类时，如果该类还未被加载到内存中，则系统会通过加载，连接，初始化三步来实现对这个类进行初始化。</p>
+</li>
+<li><p>加载 </p>
+<ul>
+<li>就是指将class文件读入内存，并为之创建一个Class对象。任何类被使用时系统都会建立一个Class对象。</li>
+</ul>
+</li>
+<li><p>连接</p>
+<ul>
+<li>验证 是否有正确的内部结构，并和其他类协调一致</li>
+<li>准备 负责为类的静态成员分配内存，并设置默认初始化值</li>
+<li>解析 将类的二进制数据中的符号引用替换为直接引用</li>
+</ul>
+</li>
+<li><p>初始化 就是我们以前讲过的初始化步骤</p>
+</li>
+</ul>
+</li>
+<li><p>B:加载时机</p>
+<ul>
+<li>创建类的实例</li>
+<li>访问类的静态变量，或者为静态变量赋值</li>
+<li>调用类的静态方法</li>
+<li>使用反射方式来强制创建某个类或接口对应的java.lang.Class对象</li>
+<li>初始化某个类的子类</li>
+<li>直接使用java.exe命令来运行某个主类</li>
+</ul>
+</li>
+</ul>
+<p>###27.02_反射(类加载器的概述和分类)</p>
+<ul>
+<li>A:类加载器的概述<ul>
+<li>负责将.class文件加载到内存中，并为之生成对应的Class对象。虽然我们不需要关心类加载机制，但是了解这个机制我们就能更好的理解程序的运行。</li>
+</ul>
+</li>
+<li>B:类加载器的分类<ul>
+<li>Bootstrap ClassLoader 根类加载器</li>
+<li>Extension ClassLoader 扩展类加载器</li>
+<li>Sysetm ClassLoader 系统类加载器</li>
+</ul>
+</li>
+<li>C:类加载器的作用<ul>
+<li>Bootstrap ClassLoader 根类加载器<ul>
+<li>也被称为引导类加载器，负责Java核心类的加载</li>
+<li>比如System,String等。在JDK中JRE的lib目录下rt.jar文件中</li>
+</ul>
+</li>
+<li>Extension ClassLoader 扩展类加载器<ul>
+<li>负责JRE的扩展目录中jar包的加载。</li>
+<li>在JDK中JRE的lib目录下ext目录</li>
+</ul>
+</li>
+<li>Sysetm ClassLoader 系统类加载器<ul>
+<li>负责在JVM启动时加载来自java命令的class文件，以及classpath环境变量所指定的jar包和类路径</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>###27.03_反射(反射概述)</p>
+<ul>
+<li><p>A:反射概述</p>
+<ul>
+<li>JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；</li>
+<li>对于任意一个对象，都能够调用它的任意一个方法和属性；</li>
+<li>这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。</li>
+<li>要想解剖一个类,必须先要获取到该类的字节码文件对象。</li>
+<li>而解剖使用的就是Class类中的方法，所以先要获取到每一个字节码文件对应的Class类型的对象。</li>
+</ul>
+</li>
+<li><p>B:三种方式</p>
+<ul>
+<li>a:Object类的getClass()方法,判断两个对象是否是同一个字节码文件</li>
+<li>b:静态属性class,锁对象</li>
+<li>c:Class类中静态方法forName(),读取配置文件</li>
+</ul>
+</li>
+<li><p>C:案例演示</p>
+<ul>
+<li>获取class文件对象的三种方式</li>
+</ul>
+</li>
+</ul>
+<p>###27.04_反射(Class.forName()读取配置文件举例)</p>
+<ul>
+<li><p>榨汁机(Juicer)榨汁的案例</p>
+</li>
+<li><p>分别有水果(Fruit)苹果(Apple)香蕉(Banana)桔子(Orange)榨汁(squeeze)</p>
+<p> public class Demo2_Reflect {</p>
+<pre><code>    /**
+     * 榨汁机(Juicer)榨汁的案例
+     * 分别有水果(Fruit)苹果(Apple)香蕉(Banana)桔子(Orange)榨汁(squeeze)
+     * @throws Exception 
+     */
+    public static void main(String[] args) throws Exception {
+        /*Juicer j = new Juicer();
+        //j.run(new Apple());
+        j.run(new Orange());*/
+        BufferedReader br = new BufferedReader(new FileReader(&quot;config.properties&quot;));    //创建输入流对象,关联配置文件
+        Class&lt;?&gt; clazz = Class.forName(br.readLine());                                    //读取配置文件一行内容,获取该类的字节码对象
+        Fruit f = (Fruit) clazz.newInstance();                                            //通过字节码对象创建实例对象
+        Juicer j = new Juicer();
+        j.run(f);
+    }
+
+}
+interface Fruit {
+    public void squeeze();
+}
+
+class Apple implements Fruit {
+    public void squeeze() {
+        System.out.println(&quot;榨出一杯苹果汁儿&quot;);
+    }
+}
+
+class Orange implements Fruit {
+    public void squeeze() {
+        System.out.println(&quot;榨出一杯桔子汁儿&quot;);
+    }
+}
+
+class Juicer {
+    public void run(Fruit f) {
+        f.squeeze();
+    }
+
+}</code></pre><p>###27.05_反射(通过反射获取带参构造方法并使用)</p>
+</li>
+<li><p>Constructor</p>
+<ul>
+<li>Class类的newInstance()方法是使用该类无参的构造函数创建对象, 如果一个类没有无参的构造函数, 就不能这样创建了,可以调用Class类的getConstructor(String.class,int.class)方法获取一个指定的构造函数然后再调用Constructor类的newInstance(“张三”,20)方法创建对象</li>
+</ul>
+</li>
+</ul>
+<p>###27.06_反射(通过反射获取成员变量并使用)</p>
+<ul>
+<li>Field<ul>
+<li>Class.getField(String)方法可以获取类中的指定字段(可见的), 如果是私有的可以用getDeclaedField(“name”)方法获取,通过set(obj, “李四”)方法可以设置指定对象上该字段的值, 如果是私有的需要先调用setAccessible(true)设置访问权限,用获取的指定的字段调用get(obj)可以获取指定对象中该字段的值</li>
+</ul>
+</li>
+</ul>
+<p>###27.07_反射(通过反射获取方法并使用)</p>
+<ul>
+<li>Method<ul>
+<li>Class.getMethod(String, Class…) 和 Class.getDeclaredMethod(String, Class…)方法可以获取类中的指定方法,调用invoke(Object, Object…)可以调用该方法,Class.getMethod(“eat”) invoke(obj) Class.getMethod(“eat”,int.class) invoke(obj,10)</li>
+</ul>
+</li>
+</ul>
+<p>###27.08_反射(通过反射越过泛型检查)</p>
+<ul>
+<li>A:案例演示<ul>
+<li>ArrayList<integer>的一个对象，在这个集合中添加一个字符串数据，如何实现呢？</integer></li>
+</ul>
+</li>
+</ul>
+<p>###27.09_反射(通过反射写一个通用的设置某个对象的某个属性为指定的值)</p>
+<ul>
+<li>A:案例演示<ul>
+<li>public void setProperty(Object obj, String propertyName, Object value){}，此方法可将obj对象中名为propertyName的属性的值设置为value。</li>
+</ul>
+</li>
+</ul>
+<p>###27.10_反射(练习)</p>
+<ul>
+<li>已知一个类，定义如下： <ul>
+<li>package cn.itcast.heima;<ul>
+<li>public class DemoClass {<br>public void run() {<pre><code>System.out.println(&quot;welcome to heima!&quot;);</code></pre>   }<br>}<ul>
+<li>(1) 写一个Properties格式的配置文件，配置类的完整名称。 </li>
+<li>(2) 写一个程序，读取这个Properties配置文件，获得类的完整名称并加载这个类，用反射的方式运行run方法。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>###27.11_反射(动态代理的概述和实现)</p>
+<ul>
+<li><p>A:动态代理概述</p>
+<ul>
+<li><p>代理：本来应该自己做的事情，请了别人来做，被请的人就是代理对象。</p>
+</li>
+<li><p>举例：春节回家买票让人代买</p>
+</li>
+<li><p>动态代理：在程序运行过程中产生的这个对象,而程序运行过程中产生对象其实就是我们刚才反射讲解的内容，所以，动态代理其实就是通过反射来生成一个代理</p>
+</li>
+<li><p>在Java中java.lang.reflect包下提供了一个Proxy类和一个InvocationHandler接口，通过使用这个类和接口就可以生成动态代理对象。JDK提供的代理只能针对接口做代理。我们有更强大的代理cglib，Proxy类中的方法创建动态代理类对象</p>
+</li>
+<li><p>public static Object newProxyInstance(ClassLoader loader,Class&lt;?&gt;[] interfaces,InvocationHandler h)</p>
+</li>
+<li><p>最终会调用InvocationHandler的方法</p>
+</li>
+<li><p>InvocationHandler Object invoke(Object proxy,Method method,Object[] args)</p>
+</li>
+</ul>
+</li>
+</ul>
 
     </div>
 
@@ -256,24 +453,21 @@
     
 
       <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/Spring/" rel="tag"># Spring</a>
-          </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/2019/11/09/SpringMVC-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" rel="next" title="SpringMVC-文件上传">
-                  <i class="fa fa-chevron-left"></i> SpringMVC-文件上传
+                <a href="/2019/11/24/File%E7%B1%BB%E7%AC%94%E8%AE%B0/" rel="next" title="File类笔记">
+                  <i class="fa fa-chevron-left"></i> File类笔记
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/2019/11/10/hello-world/" rel="prev" title="Hello World">
-                  Hello World <i class="fa fa-chevron-right"></i>
+                <a href="/2019/11/24/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="prev" title="网络编程笔记">
+                  网络编程笔记 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>

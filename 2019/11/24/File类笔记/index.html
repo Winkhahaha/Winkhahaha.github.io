@@ -51,16 +51,17 @@
   };
 </script>
 
-  <meta name="description" content="联系博主:mineok@foxmail.com">
-<meta property="og:type" content="website">
-<meta property="og:title" content="秘境">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;archives&#x2F;2019&#x2F;11&#x2F;index.html">
+  <meta name="description" content="###19.14_File类(File类的概述和构造方法)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="File类笔记">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;24&#x2F;File%E7%B1%BB%E7%AC%94%E8%AE%B0&#x2F;index.html">
 <meta property="og:site_name" content="秘境">
-<meta property="og:description" content="联系博主:mineok@foxmail.com">
+<meta property="og:description" content="###19.14_File类(File类的概述和构造方法)">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-11-24T06:45:23.087Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/archives/2019/11/">
+<link rel="canonical" href="http://yoursite.com/2019/11/24/File%E7%B1%BB%E7%AC%94%E8%AE%B0/">
 
 
 <script id="page-configurations">
@@ -68,13 +69,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
-    isArchive: true
+    isArchive: false
   };
 </script>
 
-  <title>归档 | 秘境</title>
+  <title>File类笔记 | 秘境</title>
   
 
 
@@ -178,232 +179,222 @@
           <div class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 21 篇日志。 继续努力。</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/24/File%E7%B1%BB%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/user.jpg">
+      <meta itemprop="name" content="多做有趣的事.">
+      <meta itemprop="description" content="联系博主:mineok@foxmail.com">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="秘境">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          File类笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-11-24 14:44:43 / 修改时间：14:45:23" itemprop="dateCreated datePublished" datetime="2019-11-24T14:44:43+08:00">2019-11-24</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <h1 class="collection-header">2019</h1>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-11-24T14:49:54+08:00"
-              content="2019-11-24">
-          11-24
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/11/24/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/" itemprop="url">
-            <span itemprop="name">网络编程笔记</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-11-24T14:49:46+08:00"
-              content="2019-11-24">
-          11-24
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/11/24/%E5%8F%8D%E5%B0%84%E7%AC%94%E8%AE%B0/" itemprop="url">
-            <span itemprop="name">反射笔记</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-11-24T14:44:43+08:00"
-              content="2019-11-24">
-          11-24
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/11/24/File%E7%B1%BB%E7%AC%94%E8%AE%B0/" itemprop="url">
-            <span itemprop="name">File类笔记</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-11-18T23:27:29+08:00"
-              content="2019-11-18">
-          11-18
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/11/18/%E5%85%B6%E4%BB%96%E6%B5%81%E7%AC%94%E8%AE%B0/" itemprop="url">
-            <span itemprop="name">其他流笔记</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-11-18T23:27:11+08:00"
-              content="2019-11-18">
-          11-18
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/11/18/%E5%AD%97%E7%AC%A6%E6%B5%81%E7%AC%94%E8%AE%B0/" itemprop="url">
-            <span itemprop="name">字符流笔记</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-11-18T23:27:02+08:00"
-              content="2019-11-18">
-          11-18
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/11/18/%E5%AD%97%E8%8A%82%E6%B5%81%E7%AC%94%E8%AE%B0/" itemprop="url">
-            <span itemprop="name">字节流笔记</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-11-17T22:34:51+08:00"
-              content="2019-11-17">
-          11-17
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/11/17/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%AC%94%E8%AE%B0/" itemprop="url">
-            <span itemprop="name">多线程笔记</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-11-12T23:23:01+08:00"
-              content="2019-11-12">
-          11-12
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/11/12/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E7%9A%84%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" itemprop="url">
-            <span itemprop="name">设计模式之工厂模式的简单工厂模式</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-11-12T22:11:04+08:00"
-              content="2019-11-12">
-          11-12
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/11/12/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/" itemprop="url">
-            <span itemprop="name">设计模式之观察者模式</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-11-10T00:54:52+08:00"
-              content="2019-11-10">
-          11-10
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/11/10/Python%E5%9F%BA%E7%A1%80-2-%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%8F%8A%E5%85%B6%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/" itemprop="url">
-            <span itemprop="name">Python基础-2-基本数据类型及其常用方法</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
+        <p>###19.14_File类(File类的概述和构造方法)</p><a id="more"></a>
+<ul>
+<li>A:File类的概述<ul>
+<li>File更应该叫做一个路径<ul>
+<li>文件路径或者文件夹路径  </li>
+<li>路径分为绝对路径和相对路径</li>
+<li>绝对路径是一个固定的路径,从盘符开始</li>
+<li>相对路径相对于某个位置,在eclipse下是指当前项目下,在dos下</li>
+</ul>
+</li>
+<li>查看API指的是当前路径</li>
+<li>文件和目录路径名的抽象表示形式</li>
+</ul>
+</li>
+<li>B:构造方法<ul>
+<li>File(String pathname)：根据一个路径得到File对象</li>
+<li>File(String parent, String child):根据一个目录和一个子文件/目录得到File对象</li>
+<li>File(File parent, String child):根据一个父File对象和一个子文件/目录得到File对象</li>
+</ul>
+</li>
+<li>C:案例演示<ul>
+<li>File类的构造方法</li>
+</ul>
+</li>
+</ul>
+<p>###19.15_File类(File类的创建功能)</p>
+<ul>
+<li><p>A:创建功能</p>
+<ul>
+<li>public boolean createNewFile():创建文件 如果存在这样的文件，就不创建了</li>
+<li>public boolean mkdir():创建文件夹 如果存在这样的文件夹，就不创建了</li>
+<li>public boolean mkdirs():创建文件夹,如果父文件夹不存在，会帮你创建出来</li>
+</ul>
+</li>
+<li><p>B:案例演示</p>
+<ul>
+<li><p>File类的创建功能</p>
+</li>
+<li><p>注意事项：</p>
+<ul>
+<li>如果你创建文件或者文件夹忘了写盘符路径，那么，默认在项目路径下。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>###19.16_File类(File类的重命名和删除功能)</p>
+<ul>
+<li>A:重命名和删除功能<ul>
+<li>public boolean renameTo(File dest):把文件重命名为指定的文件路径</li>
+<li>public boolean delete():删除文件或者文件夹</li>
+</ul>
+</li>
+<li>B:重命名注意事项<ul>
+<li>如果路径名相同，就是改名。</li>
+<li>如果路径名不同，就是改名并剪切。</li>
+</ul>
+</li>
+<li>C:删除注意事项：<ul>
+<li>Java中的删除不走回收站。</li>
+<li>要删除一个文件夹，请注意该文件夹内不能包含文件或者文件夹</li>
+</ul>
+</li>
+</ul>
+<p>###19.17_File类(File类的判断功能)</p>
+<ul>
+<li>A:判断功能<ul>
+<li>public boolean isDirectory():判断是否是目录</li>
+<li>public boolean isFile():判断是否是文件</li>
+<li>public boolean exists():判断是否存在</li>
+<li>public boolean canRead():判断是否可读</li>
+<li>public boolean canWrite():判断是否可写</li>
+<li>public boolean isHidden():判断是否隐藏</li>
+</ul>
+</li>
+<li>B:案例演示<ul>
+<li>File类的判断功能</li>
+</ul>
+</li>
+</ul>
+<p>###19.18_File类(File类的获取功能)</p>
+<ul>
+<li>A:获取功能<ul>
+<li>public String getAbsolutePath()：获取绝对路径</li>
+<li>public String getPath():获取路径</li>
+<li>public String getName():获取名称</li>
+<li>public long length():获取长度。字节数</li>
+<li>public long lastModified():获取最后一次的修改时间，毫秒值</li>
+<li>public String[] list():获取指定目录下的所有文件或者文件夹的名称数组</li>
+<li>public File[] listFiles():获取指定目录下的所有文件或者文件夹的File数组 </li>
+</ul>
+</li>
+<li>B:案例演示<ul>
+<li>File类的获取功能</li>
+</ul>
+</li>
+</ul>
+<p>###19.19_File类(输出指定目录下指定后缀的文件名)</p>
+<ul>
+<li>A:案例演示<ul>
+<li>需求：判断E盘目录下是否有后缀名为.jpg的文件，如果有，就输出该文件名称</li>
+</ul>
+</li>
+</ul>
+<p>###19.20_File类(文件名称过滤器的概述及使用)</p>
+<ul>
+<li>A:文件名称过滤器的概述<ul>
+<li>public String[] list(FilenameFilter filter)</li>
+<li>public File[] listFiles(FileFilter filter)</li>
+</ul>
+</li>
+<li>B:文件名称过滤器的使用<ul>
+<li>需求：判断E盘目录下是否有后缀名为.jpg的文件，如果有，就输出该文件名称</li>
+</ul>
+</li>
+<li>C:源码分析<ul>
+<li>带文件名称过滤器的list()方法的源码</li>
+</ul>
+</li>
+</ul>
+<p>###19.21_File类(递归)</p>
+<ul>
+<li>5的阶乘        </li>
+</ul>
+<p>###19.22_day19总结<br>把今天的知识点总结一遍。</p>
 
     </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2019/11/18/%E5%85%B6%E4%BB%96%E6%B5%81%E7%AC%94%E8%AE%B0/" rel="next" title="其他流笔记">
+                  <i class="fa fa-chevron-left"></i> 其他流笔记
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2019/11/24/%E5%8F%8D%E5%B0%84%E7%AC%94%E8%AE%B0/" rel="prev" title="反射笔记">
+                  反射笔记 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
   </div>
-  
-  
-  
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/2019/11/page/2/">2</a><a class="extend next" rel="next" href="/archives/2019/11/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
-
 
 
           </div>

@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/c.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/c32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/c16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="秘境" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="day26授课目录：###26.01_网络编程(网络编程概述)(了解)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络编程笔记">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;24&#x2F;%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0&#x2F;index.html">
+<meta property="og:site_name" content="秘境">
+<meta property="og:description" content="day26授课目录：###26.01_网络编程(网络编程概述)(了解)">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2088-07-01T22:50:09.948Z">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2019/11/24/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>网络编程笔记 | 秘境</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">秘境</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/24/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/user.jpg">
+      <meta itemprop="name" content="多做有趣的事.">
+      <meta itemprop="description" content="联系博主:mineok@foxmail.com">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="秘境">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          网络编程笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-11-24 14:49:54" itemprop="dateCreated datePublished" datetime="2019-11-24T14:49:54+08:00">2019-11-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2088-07-02 06:50:09" itemprop="dateModified" datetime="2088-07-02T06:50:09+08:00">2088-07-02</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>day26授课目录：</p><p>###26.01_网络编程(网络编程概述)(了解)</p><a id="more"></a>
+
+<ul>
+<li>A:计算机网络<ul>
+<li>是指将地理位置不同的具有独立功能的多台计算机及其外部设备，通过通信线路连接起来，在网络操作系统，网络管理软件及网络通信协议的管理和协调下，实现资源共享和信息传递的计算机系统。</li>
+</ul>
+</li>
+<li>B:网络编程<ul>
+<li>就是用来实现网络互连的不同计算机上运行的程序间可以进行数据交换。</li>
+</ul>
+</li>
+</ul>
+<p>###26.02_网络编程(网络编程三要素之IP概述)(掌握)</p>
+<ul>
+<li>每个设备在网络中的唯一标识</li>
+<li>每台网络终端在网络中都有一个独立的地址，我们在网络中传输数据就是使用这个地址。 </li>
+<li>ipconfig：查看本机IP192.168.12.42</li>
+<li>ping：测试连接192.168.40.62</li>
+<li>本地回路地址：127.0.0.1 255.255.255.255是广播地址</li>
+<li>IPv4：4个字节组成，4个0-255。大概42亿，30亿都在北美，亚洲4亿。2011年初已经用尽。 </li>
+<li>IPv6：8组，每组4个16进制数。</li>
+<li>1a2b:0000:aaaa:0000:0000:0000:aabb:1f2f</li>
+<li>1a2b::aaaa:0000:0000:0000:aabb:1f2f</li>
+<li>1a2b:0000:aaaa::aabb:1f2f</li>
+<li>1a2b:0000:aaaa::0000:aabb:1f2f</li>
+<li>1a2b:0000:aaaa:0000::aabb:1f2f</li>
+</ul>
+<p>###26.03_网络编程(网络编程三要素之端口号概述)(掌握)</p>
+<ul>
+<li>每个程序在设备上的唯一标识</li>
+<li>每个网络程序都需要绑定一个端口号，传输数据的时候除了确定发到哪台机器上，还要明确发到哪个程序。</li>
+<li>端口号范围从0-65535</li>
+<li>编写网络应用就需要绑定一个端口号，尽量使用1024以上的，1024以下的基本上都被系统程序占用了。</li>
+<li>常用端口<ul>
+<li>mysql: 3306</li>
+<li>oracle: 1521</li>
+<li>web: 80</li>
+<li>tomcat: 8080</li>
+<li>QQ: 4000</li>
+<li>feiQ: 2425</li>
+</ul>
+</li>
+</ul>
+<p>###26.04_网络编程(网络编程三要素协议)(掌握)</p>
+<ul>
+<li>为计算机网络中进行数据交换而建立的规则、标准或约定的集合。</li>
+<li>UDP<ul>
+<li>面向无连接，数据不安全，速度快。不区分客户端与服务端。</li>
+</ul>
+</li>
+<li>TCP<br>　　* 面向连接（三次握手），数据安全，速度略低。分为客户端和服务端。<ul>
+<li>三次握手: 客户端先向服务端发起请求, 服务端响应请求, 传输数据</li>
+</ul>
+</li>
+</ul>
+<p>###26.05_网络编程(Socket通信原理图解)(了解)</p>
+<ul>
+<li>A:Socket套接字概述：<ul>
+<li>网络上具有唯一标识的IP地址和端口号组合在一起才能构成唯一能识别的标识符套接字。</li>
+<li>通信的两端都有Socket。</li>
+<li>网络通信其实就是Socket间的通信。</li>
+<li>数据在两个Socket间通过IO流传输。</li>
+<li>Socket在应用程序中创建，通过一种绑定机制与驱动程序建立关系，告诉自己所对应的IP和port。</li>
+</ul>
+</li>
+</ul>
+<p>###26.06_网络编程(UDP传输)(了解)</p>
+<ul>
+<li>1.发送Send<ul>
+<li>创建DatagramSocket, 随机端口号</li>
+<li>创建DatagramPacket, 指定数据, 长度, 地址, 端口</li>
+<li>使用DatagramSocket发送DatagramPacket</li>
+<li>关闭DatagramSocket</li>
+</ul>
+</li>
+<li>2.接收Receive<ul>
+<li>创建DatagramSocket, 指定端口号</li>
+<li>创建DatagramPacket, 指定数组, 长度</li>
+<li>使用DatagramSocket接收DatagramPacket</li>
+<li>关闭DatagramSocket</li>
+<li>从DatagramPacket中获取数据</li>
+</ul>
+</li>
+<li>3.接收方获取ip和端口号<ul>
+<li>String ip = packet.getAddress().getHostAddress();</li>
+<li>int port = packet.getPort();</li>
+</ul>
+</li>
+</ul>
+<p>###26.07_网络编程(UDP传输优化)</p>
+<ul>
+<li><p>接收端Receive</p>
+</li>
+<li><pre><code>DatagramSocket socket = new DatagramSocket(6666);                        //创建socket相当于创建码头
+DatagramPacket packet = new DatagramPacket(new byte[1024], 1024);        //创建packet相当于创建集装箱
+
+while(true) {
+    socket.receive(packet);                                                //接收货物
+    byte[] arr = packet.getData();
+    int len = packet.getLength();
+    String ip = packet.getAddress().getHostAddress();
+    System.out.println(ip + &quot;:&quot; + new String(arr,0,len));
+}</code></pre></li>
+<li><p>发送端Send</p>
+<pre><code>DatagramSocket socket = new DatagramSocket();        //创建socket相当于创建码头
+Scanner sc = new Scanner(System.in);
+
+while(true) {
+    String str = sc.nextLine();
+    if(&quot;quit&quot;.equals(str))
+        break;
+    DatagramPacket packet =                             //创建packet相当于创建集装箱
+            new DatagramPacket(str.getBytes(), str.getBytes().length, InetAddress.getByName(&quot;127.0.0.1&quot;), 6666);
+    socket.send(packet);            //发货
+}
+socket.close();</code></pre><p>###26.08_网络编程(UDP传输多线程)</p>
+</li>
+<li><p>A发送和接收在一个窗口完成</p>
+<pre><code>public class Demo3_MoreThread {
+
+    /**
+     * @param args
+     */
+    public static void main(String[] args) {
+        new Receive().start();
+
+        new Send().start();
+    }
+
+}
+
+class Receive extends Thread {
+    public void run() {
+        try {
+            DatagramSocket socket = new DatagramSocket(6666);                    //创建socket相当于创建码头
+            DatagramPacket packet = new DatagramPacket(new byte[1024], 1024);    //创建packet相当于创建集装箱
+
+            while(true) {
+                socket.receive(packet);                                                //接收货物
+                byte[] arr = packet.getData();
+                int len = packet.getLength();
+                String ip = packet.getAddress().getHostAddress();
+                System.out.println(ip + &quot;:&quot; + new String(arr,0,len));
+            }
+        } catch (IOException e) {
+
+            e.printStackTrace();
+        }
+    }
+}
+
+class Send extends Thread {
+    public void run() {
+        try {
+            DatagramSocket socket = new DatagramSocket();        //创建socket相当于创建码头
+            Scanner sc = new Scanner(System.in);
+
+            while(true) {
+                String str = sc.nextLine();
+                if(&quot;quit&quot;.equals(str))
+                    break;
+                DatagramPacket packet =                             //创建packet相当于创建集装箱
+                        new DatagramPacket(str.getBytes(), str.getBytes().length, InetAddress.getByName(&quot;127.0.0.1&quot;), 6666);
+                socket.send(packet);            //发货
+            }
+            socket.close();
+        }  catch (IOException e) {
+
+            e.printStackTrace();
+        }
+    }
+}</code></pre></li>
+</ul>
+<p>###26.09_网络编程(UDP聊天图形化界面)</p>
+<p>###26.10_网络编程(UDP聊天发送功能)</p>
+<p>###26.11_网络编程(UDP聊天记录功能)</p>
+<p>###26.12_网络编程(UDP聊天清屏功能)</p>
+<p>###26.13_网络编程(UDP聊天震动功能)</p>
+<p>###26.14_网络编程(UDP聊天快捷键和代码优化)</p>
+<p>###26.15_网络编程(UDP聊天生成jar文件)</p>
+<p>###26.16_网络编程(TCP协议)(掌握)</p>
+<ul>
+<li>1.客户端<ul>
+<li>创建Socket连接服务端(指定ip地址,端口号)通过ip地址找对应的服务器</li>
+<li>调用Socket的getInputStream()和getOutputStream()方法获取和服务端相连的IO流</li>
+<li>输入流可以读取服务端输出流写出的数据</li>
+<li>输出流可以写出数据到服务端的输入流</li>
+</ul>
+</li>
+<li>2.服务端<ul>
+<li>创建ServerSocket(需要指定端口号)</li>
+<li>调用ServerSocket的accept()方法接收一个客户端请求，得到一个Socket</li>
+<li>调用Socket的getInputStream()和getOutputStream()方法获取和客户端相连的IO流</li>
+<li>输入流可以读取客户端输出流写出的数据</li>
+<li>输出流可以写出数据到客户端的输入流</li>
+</ul>
+</li>
+</ul>
+<p>###26.17_网络编程(TCP协议代码优化)</p>
+<ul>
+<li><p>客户端</p>
+<pre><code>Socket socket = new Socket(&quot;127.0.0.1&quot;, 9999);        //创建Socket指定ip地址和端口号
+InputStream is = socket.getInputStream();            //获取输入流
+OutputStream os = socket.getOutputStream();            //获取输出流
+BufferedReader br = new BufferedReader(new InputStreamReader(is));
+PrintStream ps = new PrintStream(os);
+
+System.out.println(br.readLine());
+ps.println(&quot;我想报名就业班&quot;);
+System.out.println(br.readLine());
+ps.println(&quot;爷不学了&quot;);
+socket.close();</code></pre></li>
+<li><p>服务端</p>
+<pre><code>ServerSocket server = new ServerSocket(9999);    //创建服务器
+Socket socket = server.accept();                //接受客户端的请求
+InputStream is = socket.getInputStream();        //获取输入流
+OutputStream os = socket.getOutputStream();        //获取输出流
+
+BufferedReader br = new BufferedReader(new InputStreamReader(is));
+PrintStream ps = new PrintStream(os);
+
+ps.println(&quot;欢迎咨询传智播客&quot;);
+System.out.println(br.readLine());
+ps.println(&quot;报满了,请报下一期吧&quot;);
+System.out.println(br.readLine());
+server.close();
+socket.close();</code></pre></li>
+</ul>
+<p>###26.18_网络编程(服务端是多线程的)(掌握)<br>    ServerSocket server = new ServerSocket(9999);    //创建服务器<br>        while(true) {<br>            final Socket socket = server.accept();                //接受客户端的请求<br>            new Thread() {<br>                public void run() {<br>                    try {<br>                        BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));<br>                        PrintStream ps = new PrintStream(socket.getOutputStream());<br>                        ps.println(“欢迎咨询传智播客”);<br>                        System.out.println(br.readLine());<br>                        ps.println(“报满了,请报下一期吧”);<br>                        System.out.println(br.readLine());<br>                        socket.close();<br>                    } catch (IOException e) {<br>                        e.printStackTrace();<br>                    }<br>                }<br>            }.start();<br>        }<br>    }</p>
+<p>###26.19_网络编程(练习)</p>
+<ul>
+<li>客户端向服务器写字符串(键盘录入),服务器(多线程)将字符串反转后写回,客户端再次读取到是反转后的字符串<br>###26.20_网络编程(练习)</li>
+<li>客户端向服务器上传文件<br>###26.21_day26总结</li>
+<li>把今天的知识点总结一遍。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2019/11/24/%E5%8F%8D%E5%B0%84%E7%AC%94%E8%AE%B0/" rel="next" title="反射笔记">
+                  <i class="fa fa-chevron-left"></i> 反射笔记
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2020/02/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95(4)%E4%B9%8B%E5%8D%95%E5%90%91%E9%93%BE%E8%A1%A8/" rel="prev" title="数据结构和算法(4)之单向链表">
+                  数据结构和算法(4)之单向链表 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="多做有趣的事."
+      src="/images/user.jpg">
+  <p class="site-author-name" itemprop="name">多做有趣的事.</p>
+  <div class="site-description" itemprop="description">联系博主:mineok@foxmail.com</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Winkhahaha" title="GitHub &amp;rarr; https:&#x2F;&#x2F;github.com&#x2F;Winkhahaha" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/mineok@foxmail.com" title="E-Mail &amp;rarr; mineok@foxmail.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">多做有趣的事.</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">101k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:32</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='255,69,0' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
