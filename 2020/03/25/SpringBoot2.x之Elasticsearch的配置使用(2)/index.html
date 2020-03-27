@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/c.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/c32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/c16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="秘境" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="实体类12345678910111213141516171819202122232425262728293031323334import lombok.AllArgsConstructor;import lombok.Data;import lombok.NoArgsConstructor;import org.springframework.data.annotation.Id;import o">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot2.x之Elasticsearch的配置使用(2)">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;03&#x2F;25&#x2F;SpringBoot2.x%E4%B9%8BElasticsearch%E7%9A%84%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8(2)&#x2F;index.html">
+<meta property="og:site_name" content="秘境">
+<meta property="og:description" content="实体类12345678910111213141516171819202122232425262728293031323334import lombok.AllArgsConstructor;import lombok.Data;import lombok.NoArgsConstructor;import org.springframework.data.annotation.Id;import o">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200320223623959.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200320223741684.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200320223940198.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200320224359264.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200320224511350.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200320224632500.png">
+<meta property="og:updated_time" content="2020-03-25T14:50:01.837Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200320223623959.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70">
+
+<link rel="canonical" href="http://yoursite.com/2020/03/25/SpringBoot2.x%E4%B9%8BElasticsearch%E7%9A%84%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8(2)/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>SpringBoot2.x之Elasticsearch的配置使用(2) | 秘境</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">秘境</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/25/SpringBoot2.x%E4%B9%8BElasticsearch%E7%9A%84%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8(2)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/user.jpg">
+      <meta itemprop="name" content="多做有趣的事.">
+      <meta itemprop="description" content="联系博主:mineok@foxmail.com">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="秘境">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SpringBoot2.x之Elasticsearch的配置使用(2)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-03-25 22:49:54 / 修改时间：22:50:01" itemprop="dateCreated datePublished" datetime="2020-03-25T22:49:54+08:00">2020-03-25</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="实体类"><a href="#实体类" class="headerlink" title="实体类"></a>实体类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> lombok.AllArgsConstructor;</span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"><span class="keyword">import</span> lombok.NoArgsConstructor;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.annotation.Id;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.elasticsearch.annotations.Document;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.elasticsearch.annotations.Field;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.elasticsearch.annotations.FieldType;</span><br><span class="line"></span><br><span class="line"><span class="comment">//         索引库名称              类型名            分片</span></span><br><span class="line"><span class="meta">@Document</span>(indexName = <span class="string">"mineok3"</span>, type = <span class="string">"item"</span>, shards = <span class="number">1</span>)</span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Item</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Field</span>(type = FieldType.Long)</span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    Long id;</span><br><span class="line">                                    <span class="comment">// 分词     分词类型</span></span><br><span class="line">    <span class="meta">@Field</span>(type = FieldType.Text<span class="comment">/*, analyzer = "ik_smart"*/</span>)</span><br><span class="line">    String title;           <span class="comment">// 标题</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Field</span>(type = FieldType.Keyword)</span><br><span class="line">    String category;        <span class="comment">// 分类</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Field</span>(type = FieldType.Keyword)</span><br><span class="line">    String brand;           <span class="comment">// 品牌</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Field</span>(type = FieldType.Double)</span><br><span class="line">    Double price;           <span class="comment">// 价格</span></span><br><span class="line">                                        <span class="comment">// 不适用该字段检索数据</span></span><br><span class="line">    <span class="meta">@Field</span>(type = FieldType.Keyword, index = <span class="keyword">false</span>)</span><br><span class="line">    String images;          <span class="comment">// 图片地址</span></span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><a id="more"></a>
+<h4 id="Repository"><a href="#Repository" class="headerlink" title="Repository"></a>Repository</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ItemRepository</span> <span class="keyword">extends</span> <span class="title">ElasticsearchRepository</span>&lt;<span class="title">Item</span>,<span class="title">Integer</span>&gt;</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="测试类"><a href="#测试类" class="headerlink" title="测试类"></a>测试类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ItemTest</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    ElasticsearchTemplate elasticsearchTemplate;</span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    ItemRepository itemRepository;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="创建索引库"><a href="#创建索引库" class="headerlink" title="创建索引库"></a>创建索引库</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">createIndexs</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="comment">// 创建索引库</span></span><br><span class="line">       <span class="comment">// 索引库名字,类型,文档,字段</span></span><br><span class="line">       elasticsearchTemplate.createIndex(Item<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">       <span class="comment">// 创建映射</span></span><br><span class="line">       elasticsearchTemplate.putMapping(Item<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200320223623959.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h4 id="存储数据"><a href="#存储数据" class="headerlink" title="存储数据"></a>存储数据</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">saveTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       List&lt;Item&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">       list.add(<span class="keyword">new</span> Item(<span class="number">2L</span>, <span class="string">"坚果手机R1"</span>, <span class="string">" 手机"</span>, <span class="string">"锤子"</span>, <span class="number">3699.00</span>, <span class="string">"http://image.taobao.com/123.jpg"</span>));</span><br><span class="line">       list.add(<span class="keyword">new</span> Item(<span class="number">3L</span>, <span class="string">"华为META10"</span>, <span class="string">" 手机"</span>, <span class="string">"华为"</span>, <span class="number">4499.00</span>, <span class="string">"http://image.taobao.com/3.jpg"</span>)); <span class="comment">// 接收对象集合，实现批量新增    </span></span><br><span class="line">       list.add(<span class="keyword">new</span> Item(<span class="number">4L</span>, <span class="string">"苹果手机"</span>, <span class="string">" 手机"</span>, <span class="string">"苹果"</span>, <span class="number">9999.00</span>, <span class="string">"http://image.taobao.com/123.jpg"</span>));</span><br><span class="line">       itemRepository.saveAll(list);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200320223741684.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h4 id="查询数据"><a href="#查询数据" class="headerlink" title="查询数据"></a>查询数据</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">queryTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       Iterable&lt;Item&gt; all = itemRepository.findAll();</span><br><span class="line">       <span class="keyword">for</span> (Item item : all) &#123;</span><br><span class="line">           System.out.println(item);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200320223940198.png" alt="在这里插入图片描述"></p>
+<h4 id="条件查询"><a href="#条件查询" class="headerlink" title="条件查询"></a>条件查询</h4><h5 id="Repository-1"><a href="#Repository-1" class="headerlink" title="Repository"></a>Repository</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ItemRepository</span> <span class="keyword">extends</span> <span class="title">ElasticsearchRepository</span>&lt;<span class="title">Item</span>,<span class="title">Integer</span>&gt;</span>&#123;</span><br><span class="line">	<span class="comment">// 自定义条件查询语句</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Item&gt; <span class="title">findItemByPriceBetween</span><span class="params">(Double start,Double end)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">queryBy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       List&lt;Item&gt; itemByPriceBetween = itemRepository.findItemByPriceBetween(<span class="number">1000</span>D, <span class="number">4000</span>D);</span><br><span class="line">       <span class="keyword">for</span> (Item item : itemByPriceBetween) &#123;</span><br><span class="line">           System.out.println(item);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200320224359264.png" alt="在这里插入图片描述"></p>
+<h4 id="原生查询"><a href="#原生查询" class="headerlink" title="原生查询"></a>原生查询</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">queryProperty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 按照标题中是否包含"手机"查询</span></span><br><span class="line">        MatchQueryBuilder queryBuilder = QueryBuilders.matchQuery(<span class="string">"title"</span>, <span class="string">"手机"</span>);</span><br><span class="line">        <span class="comment">// 本地Search查询构建器(包装)</span></span><br><span class="line">        NativeSearchQueryBuilder searchQueryBuilder = <span class="keyword">new</span> NativeSearchQueryBuilder();</span><br><span class="line">        <span class="comment">// 增加过滤条件:只要title,price,排除的字段数组为空</span></span><br><span class="line">        searchQueryBuilder.withSourceFilter(<span class="keyword">new</span> FetchSourceFilter(<span class="keyword">new</span> String[]&#123;<span class="string">"title"</span>, <span class="string">"price"</span>&#125;, <span class="keyword">null</span>));</span><br><span class="line">        <span class="comment">// 按照价格降序排序</span></span><br><span class="line">        searchQueryBuilder.withSort(SortBuilders.fieldSort(<span class="string">"price"</span>).order(SortOrder.DESC));</span><br><span class="line">        <span class="comment">// 分页</span></span><br><span class="line">        searchQueryBuilder.withPageable(PageRequest.of(<span class="number">0</span>, <span class="number">2</span>));</span><br><span class="line">        <span class="comment">// 创建附加条件的查询(包装)</span></span><br><span class="line">        searchQueryBuilder.withQuery(queryBuilder);</span><br><span class="line">        Iterable&lt;Item&gt; items = itemRepository.search(searchQueryBuilder.build());</span><br><span class="line">        <span class="keyword">for</span> (Item item : items) &#123;</span><br><span class="line">            System.out.println(item);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"总条数:"</span> + ((Page&lt;Item&gt;) items).getTotalElements());</span><br><span class="line">        System.out.println(<span class="string">"总页数:"</span> + ((Page&lt;Item&gt;) items).getTotalPages());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200320224511350.png" alt="在这里插入图片描述"></p>
+<h4 id="聚合查询"><a href="#聚合查询" class="headerlink" title="聚合查询"></a>聚合查询</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">queryProperty2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="comment">// 按照标题中是否包含"手机"查询</span></span><br><span class="line">       MatchQueryBuilder queryBuilder = QueryBuilders.matchQuery(<span class="string">"title"</span>, <span class="string">"手机"</span>);</span><br><span class="line">       <span class="comment">// 本地Search查询构建器(包装)</span></span><br><span class="line">       NativeSearchQueryBuilder searchQueryBuilder = <span class="keyword">new</span> NativeSearchQueryBuilder();</span><br><span class="line">       <span class="comment">// 按品牌分组</span></span><br><span class="line">       searchQueryBuilder.addAggregation(AggregationBuilders.terms(<span class="string">"popularBrand"</span>).field(<span class="string">"brand"</span>));</span><br><span class="line">       <span class="comment">// 查询并返回聚合结果</span></span><br><span class="line">       AggregatedPage&lt;Item&gt; items = elasticsearchTemplate.queryForPage(searchQueryBuilder.build(), Item<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">       <span class="comment">// 解析</span></span><br><span class="line">       Aggregations aggregations = items.getAggregations();</span><br><span class="line">       StringTerms popularBrand = aggregations.get(<span class="string">"popularBrand"</span>);</span><br><span class="line">       List&lt;StringTerms.Bucket&gt; buckets = popularBrand.getBuckets();</span><br><span class="line">       <span class="comment">// 遍历</span></span><br><span class="line">       <span class="keyword">for</span> (StringTerms.Bucket bucket : buckets) &#123;</span><br><span class="line">           System.out.println(<span class="string">"品牌分组:"</span> + bucket.getKeyAsString());</span><br><span class="line">           System.out.println(<span class="string">"该品牌分组下的商品数量:"</span> + bucket.getDocCount());</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200320224632500.png" alt="在这里插入图片描述"></p>
+<h4 id="GitHub-SpringBoot相关Demo"><a href="#GitHub-SpringBoot相关Demo" class="headerlink" title="GitHub:SpringBoot相关Demo"></a><a href="https://github.com/Winkhahaha/SpringBootTest" target="_blank" rel="noopener">GitHub:SpringBoot相关Demo</a></h4>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2020/03/25/SpringAOP%E5%9F%BA%E4%BA%8E%E6%B3%A8%E8%A7%A3%E7%9A%84%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8/" rel="next" title="SpringAOP基于注解的配置使用">
+                  <i class="fa fa-chevron-left"></i> SpringAOP基于注解的配置使用
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2020/03/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95(21)%E4%B9%8B%E9%A1%BA%E5%BA%8F%E5%AD%98%E5%82%A8%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="prev" title="数据结构和算法(21)之顺序存储二叉树">
+                  数据结构和算法(21)之顺序存储二叉树 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#实体类"><span class="nav-number">1.</span> <span class="nav-text">实体类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Repository"><span class="nav-number">2.</span> <span class="nav-text">Repository</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试类"><span class="nav-number">3.</span> <span class="nav-text">测试类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建索引库"><span class="nav-number">4.</span> <span class="nav-text">创建索引库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#存储数据"><span class="nav-number">5.</span> <span class="nav-text">存储数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询数据"><span class="nav-number">6.</span> <span class="nav-text">查询数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#条件查询"><span class="nav-number">7.</span> <span class="nav-text">条件查询</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Repository-1"><span class="nav-number">7.1.</span> <span class="nav-text">Repository</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原生查询"><span class="nav-number">8.</span> <span class="nav-text">原生查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#聚合查询"><span class="nav-number">9.</span> <span class="nav-text">聚合查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GitHub-SpringBoot相关Demo"><span class="nav-number">10.</span> <span class="nav-text">GitHub:SpringBoot相关Demo</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="多做有趣的事."
+      src="/images/user.jpg">
+  <p class="site-author-name" itemprop="name">多做有趣的事.</p>
+  <div class="site-description" itemprop="description">联系博主:mineok@foxmail.com</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">71</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Winkhahaha" title="GitHub &amp;rarr; https:&#x2F;&#x2F;github.com&#x2F;Winkhahaha" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/mineok@foxmail.com" title="E-Mail &amp;rarr; mineok@foxmail.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">多做有趣的事.</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">260k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:57</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='255,69,0' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
