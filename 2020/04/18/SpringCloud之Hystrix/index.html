@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/c.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/c32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/c16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="秘境" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="学习SpringCloud的日常Demo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringCloud之Hystrix">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;04&#x2F;18&#x2F;SpringCloud%E4%B9%8BHystrix&#x2F;index.html">
+<meta property="og:site_name" content="秘境">
+<meta property="og:description" content="学习SpringCloud的日常Demo">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200418180422324.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200418180940314.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200418180951886.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200418181220979.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200418181632497.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200418181956727.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200418182316442.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200418183003102.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200418183129366.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200418182717682.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200418182915200.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200418183258725.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200418183500421.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200418183555132.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200418183804618.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200418184007849.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200418184017104.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200418184103111.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200418184121393.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;2020041818553437.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200418184327811.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200418184422921.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200418184734865.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200418184957778.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;2020041818522477.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200418185300840.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200418185348788.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70">
+<meta property="og:updated_time" content="2020-04-18T10:56:32.562Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200418180422324.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70">
+
+<link rel="canonical" href="http://yoursite.com/2020/04/18/SpringCloud%E4%B9%8BHystrix/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>SpringCloud之Hystrix | 秘境</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">秘境</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/18/SpringCloud%E4%B9%8BHystrix/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/user.jpg">
+      <meta itemprop="name" content="多做有趣的事.">
+      <meta itemprop="description" content="联系博主:mineok@foxmail.com">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="秘境">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SpringCloud之Hystrix
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-18 18:56:25 / 修改时间：18:56:32" itemprop="dateCreated datePublished" datetime="2020-04-18T18:56:25+08:00">2020-04-18</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>16k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>14 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>学习SpringCloud的日常Demo</p>
+</blockquote><a id="more"></a>
+<h4 id="Hystrix是什么"><a href="#Hystrix是什么" class="headerlink" title="Hystrix是什么?"></a>Hystrix是什么?</h4><ul>
+<li>Hystrix是一个用于处理分布式系统的延迟和容错的开源库, 在分布式系统里,许多依赖不可避免的会调用失败，比如超时、异常等</li>
+<li>Hystrix能够保证在一个依赖出问题的情况下，不会导致整体服务失败，避免级联故障,以提高分布式系统的弹性。</li>
+<li>“断路器”本身是一种开关装置,当某个服务单元发生故障之后，通过断路器的故障监控(类似熔断保险丝)，向调用方返回一个符合预期的、可处理的备选响应(FallBack) ，而不是长时间的等待或者抛出调用方无法处理的异常，这样就保证了服务调用方的线程不会被长时间、不必要地占用,从而避免了故障在分布式系统中的蔓延,乃至雪崩。</li>
+</ul>
+<p><strong>目前已经停更</strong></p>
+<h4 id="module-cloud-provider-hystrix-payment8001模块构建"><a href="#module-cloud-provider-hystrix-payment8001模块构建" class="headerlink" title="module cloud-provider-hystrix-payment8001模块构建"></a>module cloud-provider-hystrix-payment8001模块构建</h4><h5 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h5><p><img src="https://img-blog.csdnimg.cn/20200418180422324.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h5 id="POM"><a href="#POM" class="headerlink" title="POM"></a>POM</h5><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span>?&gt;</span><br><span class="line">&lt;project xmlns=<span class="string">"http://maven.apache.org/POM/4.0.0"</span></span><br><span class="line">         xmlns:xsi=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line">         xsi:schemaLocation=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span><br><span class="line">    &lt;parent&gt;</span><br><span class="line">        &lt;artifactId&gt;cloud2020&lt;/artifactId&gt;</span><br><span class="line">        &lt;groupId&gt;com.mineok.springcloud&lt;/groupId&gt;</span><br><span class="line">        &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;</span><br><span class="line">    &lt;/parent&gt;</span><br><span class="line">    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;</span><br><span class="line"></span><br><span class="line">    &lt;groupId&gt;com.mineok.springcloud&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;cloud-provider-hystrix-payment8001&lt;/artifactId&gt;</span><br><span class="line"></span><br><span class="line">    &lt;dependencies&gt;</span><br><span class="line">        &lt;!--hystrix--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-cloud-starter-netflix-hystrix&lt;/artifactId&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;!--eureka client--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-client&lt;/artifactId&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;!--web--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;dependency&gt;&lt;!-- 引入自己定义的api通用包，可以使用Payment支付Entity --&gt;</span><br><span class="line">            &lt;groupId&gt;com.mineok.springcloud&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;cloud-api-commons&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;$&#123;project.version&#125;&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-devtools&lt;/artifactId&gt;</span><br><span class="line">            &lt;scope&gt;runtime&lt;/scope&gt;</span><br><span class="line">            &lt;optional&gt;true&lt;/optional&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;lombok&lt;/artifactId&gt;</span><br><span class="line">            &lt;optional&gt;true&lt;/optional&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;</span><br><span class="line">            &lt;scope&gt;test&lt;/scope&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">    &lt;/dependencies&gt;</span><br><span class="line">&lt;/project&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="application-yml"><a href="#application-yml" class="headerlink" title="application.yml"></a>application.yml</h5><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8001</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">cloud-provider-hystrix-payment</span></span><br><span class="line"></span><br><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">register-with-eureka:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">fetch-registry:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line">      <span class="comment">#defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://eureka7001.com:7001/eureka</span></span><br></pre></td></tr></table></figure>
+<h5 id="主启动类"><a href="#主启动类" class="headerlink" title="主启动类"></a>主启动类</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableEurekaClient</span></span><br><span class="line"><span class="meta">@EnableCircuitBreaker</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PaymentHystrixMain8001</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(PaymentHystrixMain8001<span class="class">.<span class="keyword">class</span>, <span class="title">args</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PaymentService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">paymentInfo_OK</span><span class="params">(Integer id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"线程池:"</span> + Thread.currentThread().getName() + <span class="string">" paymentInfo_OK id:"</span> + id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@HystrixCommand</span>(fallbackMethod = <span class="string">"paymentInfo_TimeOUTHandler"</span>, commandProperties = &#123;</span><br><span class="line">            <span class="meta">@HystrixProperty</span>(name = <span class="string">"execution.isolation.thread.timeoutInMilliseconds"</span>, value = <span class="string">"3000"</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">paymentInfo_TimeOUT</span><span class="params">(Integer id)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        <span class="comment">// 超时或异常都会进入兜底方法</span></span><br><span class="line">        <span class="comment">// int age = 10 / 0;</span></span><br><span class="line">        <span class="keyword">int</span> time = <span class="number">2</span>;</span><br><span class="line">        TimeUnit.SECONDS.sleep(time);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"线程池:"</span> + Thread.currentThread().getName() + <span class="string">" paymentInfo_TimeOut --&gt; id:"</span> + id + <span class="string">" 耗时/秒:"</span> + time;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">paymentInfo_TimeOUTHandler</span><span class="params">(Integer id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"线程池:"</span> + Thread.currentThread().getName() + <span class="string">" 系统繁忙,请稍后再试 --&gt; id:"</span> + id;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="Controller"><a href="#Controller" class="headerlink" title="Controller"></a>Controller</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PaymentController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> PaymentService paymentService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;server.port&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String serverPort;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/payment/hystrix/ok/&#123;id&#125;"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">paymentInfo_OK</span><span class="params">(@PathVariable(<span class="string">"id"</span>)</span> Integer id) </span>&#123;</span><br><span class="line">        String result = paymentService.paymentInfo_OK(id);</span><br><span class="line">        log.info(<span class="string">"result:"</span> + result);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/payment/hystrix/timeout/&#123;id&#125;"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">paymentInfo_TimeOut</span><span class="params">(@PathVariable(<span class="string">"id"</span>)</span> Integer id) <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        String result = paymentService.paymentInfo_TimeOUT(id);</span><br><span class="line">        log.info(<span class="string">"result:"</span> + result);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h5><p><img src="https://img-blog.csdnimg.cn/20200418180940314.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200418180951886.png" alt="在这里插入图片描述"></p>
+<h5 id="使用JMeter进行压测"><a href="#使用JMeter进行压测" class="headerlink" title="使用JMeter进行压测"></a>使用JMeter进行压测</h5><p><strong>启动后,发现不只是超时的服务卡,就连之前ok的服务也会卡的2-3秒</strong></p>
+<h4 id="cloud-consumer-feign-hystrix-order80模块构建"><a href="#cloud-consumer-feign-hystrix-order80模块构建" class="headerlink" title="cloud-consumer-feign-hystrix-order80模块构建"></a>cloud-consumer-feign-hystrix-order80模块构建</h4><h5 id="目录结构-1"><a href="#目录结构-1" class="headerlink" title="目录结构"></a>目录结构</h5><p><img src="https://img-blog.csdnimg.cn/20200418181220979.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h5 id="POM-1"><a href="#POM-1" class="headerlink" title="POM"></a>POM</h5><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span>?&gt;</span><br><span class="line">&lt;project xmlns=<span class="string">"http://maven.apache.org/POM/4.0.0"</span></span><br><span class="line">         xmlns:xsi=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line">         xsi:schemaLocation=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span><br><span class="line">    &lt;parent&gt;</span><br><span class="line">        &lt;artifactId&gt;cloud2020&lt;/artifactId&gt;</span><br><span class="line">        &lt;groupId&gt;com.mineok.springcloud&lt;/groupId&gt;</span><br><span class="line">        &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;</span><br><span class="line">    &lt;/parent&gt;</span><br><span class="line">    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;</span><br><span class="line"></span><br><span class="line">    &lt;groupId&gt;com.mineok.springcloud&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;cloud-consumer-feign-hystrix-order80&lt;/artifactId&gt;</span><br><span class="line"></span><br><span class="line">    &lt;dependencies&gt;</span><br><span class="line">        &lt;!--openfeign--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-cloud-starter-openfeign&lt;/artifactId&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;!--hystrix--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-cloud-starter-netflix-hystrix&lt;/artifactId&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;!--eureka client--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-client&lt;/artifactId&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;!-- 引入自己定义的api通用包，可以使用Payment支付Entity --&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;com.mineok.springcloud&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;cloud-api-commons&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;$&#123;project.version&#125;&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;!--web--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;!--一般基础通用配置--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-devtools&lt;/artifactId&gt;</span><br><span class="line">            &lt;scope&gt;runtime&lt;/scope&gt;</span><br><span class="line">            &lt;optional&gt;true&lt;/optional&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;lombok&lt;/artifactId&gt;</span><br><span class="line">            &lt;optional&gt;true&lt;/optional&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;</span><br><span class="line">            &lt;scope&gt;test&lt;/scope&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">    &lt;/dependencies&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;/project&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="application-yml-1"><a href="#application-yml-1" class="headerlink" title="application.yml"></a>application.yml</h5><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">80</span></span><br><span class="line"></span><br><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">register-with-eureka:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://eureka7001.com:7001/eureka/</span></span><br><span class="line"></span><br><span class="line"><span class="attr">feign:</span></span><br><span class="line">  <span class="attr">hystrix:</span></span><br><span class="line">    <span class="attr">enabled:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h5 id="主启动类-1"><a href="#主启动类-1" class="headerlink" title="主启动类"></a>主启动类</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableFeignClients</span></span><br><span class="line"><span class="meta">@EnableHystrix</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OrderHystrixMain80</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(OrderHystrixMain80<span class="class">.<span class="keyword">class</span>, <span class="title">args</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="Service-1"><a href="#Service-1" class="headerlink" title="Service"></a>Service</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@FeignClient</span>(value = <span class="string">"CLOUD-PROVIDER-HYSTRIX-PAYMENT"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">PaymentHystrixService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/payment/hystrix/ok/&#123;id&#125;"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">paymentInfo_OK</span><span class="params">(@PathVariable(<span class="string">"id"</span>)</span> Integer id)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/payment/hystrix/timeout/&#123;id&#125;"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">paymentInfo_TimeOut</span><span class="params">(@PathVariable(<span class="string">"id"</span>)</span> Integer id) <span class="keyword">throws</span> InterruptedException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="Controller-1"><a href="#Controller-1" class="headerlink" title="Controller"></a>Controller</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OrderHystrixController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> PaymentHystrixService paymentHystrixService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/consumer/payment/hystrix/ok/&#123;id&#125;"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">paymentInfo_OK</span><span class="params">(@PathVariable(<span class="string">"id"</span>)</span> Integer id) </span>&#123;</span><br><span class="line">        <span class="comment">// int age = 10/0;</span></span><br><span class="line">        String result = paymentHystrixService.paymentInfo_OK(id);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/consumer/payment/hystrix/timeout/&#123;id&#125;"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">paymentInfo_TimeOut</span><span class="params">(@PathVariable(<span class="string">"id"</span>)</span> Integer id) <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        String result = paymentHystrixService.paymentInfo_TimeOut(id);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="测试-1"><a href="#测试-1" class="headerlink" title="测试"></a>测试</h5><p><img src="https://img-blog.csdnimg.cn/20200418181632497.png" alt="在这里插入图片描述"></p>
+<h4 id="服务降级-8001模块"><a href="#服务降级-8001模块" class="headerlink" title="服务降级(8001模块)"></a>服务降级(8001模块)</h4><h5 id="主启动开启Hystrix"><a href="#主启动开启Hystrix" class="headerlink" title="主启动开启Hystrix"></a>主启动开启Hystrix</h5><p><img src="https://img-blog.csdnimg.cn/20200418181956727.png" alt="在这里插入图片描述"></p>
+<h5 id="添加兜底方法"><a href="#添加兜底方法" class="headerlink" title="添加兜底方法"></a>添加兜底方法</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PaymentService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">paymentInfo_OK</span><span class="params">(Integer id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"线程池:"</span> + Thread.currentThread().getName() + <span class="string">" paymentInfo_OK id:"</span> + id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@HystrixCommand</span>(fallbackMethod = <span class="string">"paymentInfo_TimeOUTHandler"</span>, commandProperties = &#123;</span><br><span class="line">            <span class="meta">@HystrixProperty</span>(name = <span class="string">"execution.isolation.thread.timeoutInMilliseconds"</span>, value = <span class="string">"3000"</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">paymentInfo_TimeOUT</span><span class="params">(Integer id)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        <span class="comment">// 超时或异常都会进入兜底方法</span></span><br><span class="line">        <span class="comment">// int age = 10 / 0;</span></span><br><span class="line">        <span class="keyword">int</span> time = <span class="number">2</span>;</span><br><span class="line">        TimeUnit.SECONDS.sleep(time);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"线程池:"</span> + Thread.currentThread().getName() + <span class="string">" paymentInfo_TimeOut --&gt; id:"</span> + id + <span class="string">" 耗时/秒:"</span> + time;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">paymentInfo_TimeOUTHandler</span><span class="params">(Integer id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"线程池:"</span> + Thread.currentThread().getName() + <span class="string">" 系统繁忙,请稍后再试 --&gt; id:"</span> + id;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="测试-2"><a href="#测试-2" class="headerlink" title="测试"></a>测试</h5><p><img src="https://img-blog.csdnimg.cn/20200418182316442.png" alt="在这里插入图片描述"></p>
+<h4 id="服务降级-80模块"><a href="#服务降级-80模块" class="headerlink" title="服务降级(80模块)"></a>服务降级(80模块)</h4><p><img src="https://img-blog.csdnimg.cn/20200418183003102.png" alt="在这里插入图片描述"></p>
+<h5 id="OrderHystrixController定制兜底方法"><a href="#OrderHystrixController定制兜底方法" class="headerlink" title="OrderHystrixController定制兜底方法"></a>OrderHystrixController定制兜底方法</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/consumer/payment/hystrix/timeout/&#123;id&#125;"</span>)</span><br><span class="line">    <span class="comment">// 定制的兜底方法</span></span><br><span class="line">    <span class="meta">@HystrixCommand</span>(fallbackMethod = <span class="string">"paymentTimeOutFallbackMethod"</span>, commandProperties = &#123;</span><br><span class="line">            <span class="meta">@HystrixProperty</span>(name = <span class="string">"execution.isolation.thread.timeoutInMilliseconds"</span>, value = <span class="string">"1500"</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">paymentInfo_TimeOut</span><span class="params">(@PathVariable(<span class="string">"id"</span>)</span> Integer id) <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        <span class="comment">// int age = 10/0;</span></span><br><span class="line">        String result = paymentHystrixService.paymentInfo_TimeOut(id);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">paymentTimeOutFallbackMethod</span><span class="params">(@PathVariable(<span class="string">"id"</span>)</span> Integer id) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"我是消费者80,对方支付系统繁忙请10秒钟后再试或者自己运行出错请检查自己,o(╥﹏╥)o"</span> + id;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h5 id="测试-3"><a href="#测试-3" class="headerlink" title="测试"></a>测试</h5><p><img src="https://img-blog.csdnimg.cn/20200418183129366.png" alt="在这里插入图片描述"></p>
+<h4 id="全局服务降级-DefaultProperties-80模块"><a href="#全局服务降级-DefaultProperties-80模块" class="headerlink" title="全局服务降级@DefaultProperties(80模块)"></a>全局服务降级@DefaultProperties(80模块)</h4><p><strong>对于业务我们不可能每一个方法都写一个单独的fallback方法,所以可以统一的处理这些fallback方法指定全局降级的方法</strong><br><img src="https://img-blog.csdnimg.cn/20200418182717682.png" alt="在这里插入图片描述"></p>
+<h5 id="OrderHystrixController"><a href="#OrderHystrixController" class="headerlink" title="OrderHystrixController"></a>OrderHystrixController</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="meta">@DefaultProperties</span>(defaultFallback = <span class="string">"payment_Global_FallbackMethod"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OrderHystrixController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> PaymentHystrixService paymentHystrixService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/consumer/payment/hystrix/ok/&#123;id&#125;"</span>)</span><br><span class="line">    <span class="comment">// 没有指定专门的兜底处理,转为全局处理</span></span><br><span class="line">     <span class="meta">@HystrixCommand</span> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">paymentInfo_OK</span><span class="params">(@PathVariable(<span class="string">"id"</span>)</span> Integer id) </span>&#123;</span><br><span class="line">         <span class="keyword">int</span> age = <span class="number">10</span>/<span class="number">0</span>;</span><br><span class="line">        String result = paymentHystrixService.paymentInfo_OK(id);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 下面是全局fallback方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">payment_Global_FallbackMethod</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Global异常处理信息，请稍后再试，/(ㄒoㄒ)/~~"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="测试-4"><a href="#测试-4" class="headerlink" title="测试"></a>测试</h5><p><img src="https://img-blog.csdnimg.cn/20200418182915200.png" alt="在这里插入图片描述"></p>
+<h4 id="客户端的通配服务降级-80模块"><a href="#客户端的通配服务降级-80模块" class="headerlink" title="客户端的通配服务降级(80模块)"></a>客户端的通配服务降级(80模块)</h4><p><strong>建立Service接口的实现类即可,这样既解耦而且代码量处理的很少,不用在一个controller里面进行大量的代码堆积,解决了代码膨胀与混乱</strong><br><img src="https://img-blog.csdnimg.cn/20200418183258725.png" alt="在这里插入图片描述"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PaymentFallbackService</span> <span class="keyword">implements</span> <span class="title">PaymentHystrixService</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">paymentInfo_OK</span><span class="params">(Integer id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"-----PaymentFallbackService fall back-paymentInfo_OK ,o(╥﹏╥)o"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">paymentInfo_TimeOut</span><span class="params">(Integer id)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"-----PaymentFallbackService fall back-paymentInfo_TimeOut ,o(╥﹏╥)o"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="OrderHystrixController-1"><a href="#OrderHystrixController-1" class="headerlink" title="OrderHystrixController"></a>OrderHystrixController</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="meta">@DefaultProperties</span>(defaultFallback = <span class="string">"payment_Global_FallbackMethod"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OrderHystrixController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> PaymentHystrixService paymentHystrixService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/consumer/payment/hystrix/ok/&#123;id&#125;"</span>)</span><br><span class="line">    <span class="comment">// @HystrixCommand不使用该注解则转到通配服务降级处理</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">paymentInfo_OK</span><span class="params">(@PathVariable(<span class="string">"id"</span>)</span> Integer id) </span>&#123;</span><br><span class="line">         <span class="keyword">int</span> age = <span class="number">10</span>/<span class="number">0</span>;</span><br><span class="line">        String result = paymentHystrixService.paymentInfo_OK(id);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h5 id="测试-5"><a href="#测试-5" class="headerlink" title="测试"></a>测试</h5><p><img src="https://img-blog.csdnimg.cn/20200418183500421.png" alt="在这里插入图片描述"></p>
+<h4 id="服务熔断"><a href="#服务熔断" class="headerlink" title="服务熔断"></a>服务熔断</h4><p><a href="https://martinfowler.com/bliki/CircuitBreaker.html" target="_blank" rel="noopener">马丁福勒,永远滴神！</a><br><img src="https://img-blog.csdnimg.cn/20200418183555132.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h4 id="服务熔断-8001"><a href="#服务熔断-8001" class="headerlink" title="服务熔断(8001)"></a>服务熔断(8001)</h4><h5 id="主启动类-2"><a href="#主启动类-2" class="headerlink" title="主启动类"></a>主启动类</h5><p><img src="https://img-blog.csdnimg.cn/20200418183804618.png" alt="在这里插入图片描述"></p>
+<h5 id="Service-2"><a href="#Service-2" class="headerlink" title="Service"></a>Service</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 服务熔断</span></span><br><span class="line">    <span class="meta">@HystrixCommand</span>(fallbackMethod = <span class="string">"paymentCircuitBreaker_fallback"</span>,commandProperties = &#123;</span><br><span class="line">            <span class="meta">@HystrixProperty</span>(name = <span class="string">"circuitBreaker.enabled"</span>,value = <span class="string">"true"</span>),                    <span class="comment">// 是否开启断路器</span></span><br><span class="line">            <span class="meta">@HystrixProperty</span>(name = <span class="string">"circuitBreaker.requestVolumeThreshold"</span>,value = <span class="string">"10"</span>),       <span class="comment">// 请求次数</span></span><br><span class="line">            <span class="meta">@HystrixProperty</span>(name = <span class="string">"circuitBreaker.sleepWindowInMilliseconds"</span>,value = <span class="string">"10000"</span>), <span class="comment">// 时间窗口期</span></span><br><span class="line">            <span class="meta">@HystrixProperty</span>(name = <span class="string">"circuitBreaker.errorThresholdPercentage"</span>,value = <span class="string">"60"</span>),     <span class="comment">// 失败率达到多少后跳闸</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">paymentCircuitBreaker</span><span class="params">(@PathVariable(<span class="string">"id"</span>)</span> Integer id) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (id &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"******id 不能负数"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        String serialNumber = IdUtil.simpleUUID();</span><br><span class="line">        <span class="keyword">return</span> Thread.currentThread().getName() + <span class="string">"\t"</span> + <span class="string">"调用成功，流水号: "</span> + serialNumber;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">paymentCircuitBreaker_fallback</span><span class="params">(@PathVariable(<span class="string">"id"</span>)</span> Integer id) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"id 不能负数，请稍后再试，/(ㄒoㄒ)/~~   id: "</span> + id;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h5 id="Controller-2"><a href="#Controller-2" class="headerlink" title="Controller"></a>Controller</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//====服务熔断</span></span><br><span class="line">   <span class="meta">@GetMapping</span>(<span class="string">"/payment/circuit/&#123;id&#125;"</span>)</span><br><span class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">paymentCircuitBreaker</span><span class="params">(@PathVariable(<span class="string">"id"</span>)</span> Integer id)</span></span><br><span class="line"><span class="function">   </span>&#123;</span><br><span class="line">       String result = paymentService.paymentCircuitBreaker(id);</span><br><span class="line">       log.info(<span class="string">"****result: "</span>+result);</span><br><span class="line">       <span class="keyword">return</span> result;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h5 id="测试-6"><a href="#测试-6" class="headerlink" title="测试"></a>测试</h5><p><img src="https://img-blog.csdnimg.cn/20200418184007849.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200418184017104.png" alt="在这里插入图片描述"><br><strong>当我们调用失败的次数达到我们设置的预期值,我们 &gt; 0的值也开始服务报错</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20200418184103111.png" alt="在这里插入图片描述"><br><strong>等一段时间后,服务又可以正常使用了</strong><br><img src="https://img-blog.csdnimg.cn/20200418184121393.png" alt="在这里插入图片描述"></p>
+<h4 id="服务熔断总结"><a href="#服务熔断总结" class="headerlink" title="服务熔断总结"></a>服务熔断总结</h4><ul>
+<li><strong>熔断打开</strong><br>请求不再进行调用当前服务，内部设置时钟一般为MTTR (平均故障处理时间)，当打开时长达到所设时钟则进入半熔断状态</li>
+<li><strong>熔断关闭</strong><br>熔断关闭不会对服务进行熔断</li>
+<li><strong>熔断半开</strong><br>部分请求根据规则调用当前服务，如果请求成功且符合规则则认为当前服务恢复正常，关闭熔断<h5 id="断路器开启条件"><a href="#断路器开启条件" class="headerlink" title="断路器开启条件"></a>断路器开启条件</h5><img src="https://img-blog.csdnimg.cn/2020041818553437.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><h5 id="熔断的参数设置"><a href="#熔断的参数设置" class="headerlink" title="熔断的参数设置"></a>熔断的参数设置</h5><img src="https://img-blog.csdnimg.cn/20200418184327811.png" alt="在这里插入图片描述"><h5 id="涉汲到断路器的重要参数"><a href="#涉汲到断路器的重要参数" class="headerlink" title="涉汲到断路器的重要参数"></a>涉汲到断路器的重要参数</h5><img src="https://img-blog.csdnimg.cn/20200418184422921.png" alt="在这里插入图片描述"><h5 id="原来的主逻辑要如何恢复"><a href="#原来的主逻辑要如何恢复" class="headerlink" title="原来的主逻辑要如何恢复"></a>原来的主逻辑要如何恢复</h5></li>
+</ul>
+<p><strong>hystrix为我们实现了自动恢复功能</strong></p>
+<ul>
+<li>当断路器打开,对主逻辑进行熔断之后，hystrix会启动一个休眠时间窗在这个时间窗内,降级逻辑是临时的成为主逻辑</li>
+<li>当休眠时间窗到期，断路器将进入半开状态,释放一次请求到原来的主逻辑上,如果此次请求正常返回,那么断路器将继续闭合</li>
+<li>主逻辑恢复,如果这次请求依然有问题，断路器继续进入打开状态,休眠时间窗重新计时<h4 id="服务限流"><a href="#服务限流" class="headerlink" title="服务限流"></a>服务限流</h4></li>
+</ul>
+<p><strong><em>且听下回分解</em></strong></p>
+<h4 id="Hystrix-DashBoard图形化界面-module-cloud-consumer-hystrix-dashboard9001模块构建"><a href="#Hystrix-DashBoard图形化界面-module-cloud-consumer-hystrix-dashboard9001模块构建" class="headerlink" title="Hystrix DashBoard图形化界面(module cloud-consumer-hystrix-dashboard9001模块构建)"></a>Hystrix DashBoard图形化界面(module cloud-consumer-hystrix-dashboard9001模块构建)</h4><h5 id="目录结构-2"><a href="#目录结构-2" class="headerlink" title="目录结构"></a>目录结构</h5><p><img src="https://img-blog.csdnimg.cn/20200418184734865.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h5 id="POM-2"><a href="#POM-2" class="headerlink" title="POM"></a>POM</h5><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span>?&gt;</span><br><span class="line">&lt;project xmlns=<span class="string">"http://maven.apache.org/POM/4.0.0"</span></span><br><span class="line">         xmlns:xsi=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line">         xsi:schemaLocation=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span><br><span class="line">    &lt;parent&gt;</span><br><span class="line">        &lt;artifactId&gt;cloud2020&lt;/artifactId&gt;</span><br><span class="line">        &lt;groupId&gt;com.mineok.springcloud&lt;/groupId&gt;</span><br><span class="line">        &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;</span><br><span class="line">    &lt;/parent&gt;</span><br><span class="line">    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;</span><br><span class="line"></span><br><span class="line">    &lt;groupId&gt;com.mineok.springcloud&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;cloud-consumer-hystrix-dashboard9001&lt;/artifactId&gt;</span><br><span class="line"></span><br><span class="line">    &lt;dependencies&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-cloud-starter-netflix-hystrix-dashboard&lt;/artifactId&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-devtools&lt;/artifactId&gt;</span><br><span class="line">            &lt;scope&gt;runtime&lt;/scope&gt;</span><br><span class="line">            &lt;optional&gt;true&lt;/optional&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;lombok&lt;/artifactId&gt;</span><br><span class="line">            &lt;optional&gt;true&lt;/optional&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;</span><br><span class="line">            &lt;scope&gt;test&lt;/scope&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">    &lt;/dependencies&gt;</span><br><span class="line">&lt;/project&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="application-yml-2"><a href="#application-yml-2" class="headerlink" title="application.yml"></a>application.yml</h5><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">9001</span></span><br></pre></td></tr></table></figure>
+<h5 id="主启动类-3"><a href="#主启动类-3" class="headerlink" title="主启动类"></a>主启动类</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableHystrixDashboard</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HystrixDashboardMain9001</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">            SpringApplication.run(HystrixDashboardMain9001<span class="class">.<span class="keyword">class</span>, <span class="title">args</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="测试-7"><a href="#测试-7" class="headerlink" title="测试"></a>测试</h5><p><img src="https://img-blog.csdnimg.cn/20200418184957778.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h4 id="监控cloud-provider-hystrix-payment8001"><a href="#监控cloud-provider-hystrix-payment8001" class="headerlink" title="监控cloud-provider-hystrix-payment8001"></a>监控cloud-provider-hystrix-payment8001</h4><h5 id="PaymentHystrixMain8001主启动类"><a href="#PaymentHystrixMain8001主启动类" class="headerlink" title="PaymentHystrixMain8001主启动类"></a>PaymentHystrixMain8001主启动类</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableEurekaClient</span></span><br><span class="line"><span class="meta">@EnableCircuitBreaker</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PaymentHystrixMain8001</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(PaymentHystrixMain8001<span class="class">.<span class="keyword">class</span>, <span class="title">args</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *此配置是为了服务监控而配置，与服务容错本身无关，springcloud升级后的坑</span></span><br><span class="line"><span class="comment">     *ServletRegistrationBean因为springboot的默认路径不是"/hystrix.stream"，</span></span><br><span class="line"><span class="comment">     *只要在自己的项目里配置上下面的servlet就可以了</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ServletRegistrationBean <span class="title">getServlet</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        HystrixMetricsStreamServlet streamServlet = <span class="keyword">new</span> HystrixMetricsStreamServlet();</span><br><span class="line">        ServletRegistrationBean registrationBean = <span class="keyword">new</span> ServletRegistrationBean(streamServlet);</span><br><span class="line">        registrationBean.setLoadOnStartup(<span class="number">1</span>);</span><br><span class="line">        registrationBean.addUrlMappings(<span class="string">"/hystrix.stream"</span>);</span><br><span class="line">        registrationBean.setName(<span class="string">"HystrixMetricsStreamServlet"</span>);</span><br><span class="line">        <span class="keyword">return</span> registrationBean;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="进行监控"><a href="#进行监控" class="headerlink" title="进行监控"></a>进行监控</h5><p><img src="https://img-blog.csdnimg.cn/2020041818522477.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h5 id="查看数据监控"><a href="#查看数据监控" class="headerlink" title="查看数据监控"></a>查看数据监控</h5><p><strong>访问正常,断路器未开启</strong><br><img src="https://img-blog.csdnimg.cn/20200418185300840.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>当我们尝试触发熔断机制,疯狂访问抛异常的服务时,断路器就会打开</strong><br><img src="https://img-blog.csdnimg.cn/20200418185348788.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h4 id="GitHub-SpringCloud日常Demo"><a href="#GitHub-SpringCloud日常Demo" class="headerlink" title="GitHub:SpringCloud日常Demo"></a><a href="https://github.com/Winkhahaha/SpringCloudDemo" target="_blank" rel="noopener">GitHub:SpringCloud日常Demo</a></h4>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2020/04/15/CAS%E7%9A%84ABA%E9%97%AE%E9%A2%98%E5%8F%8A%E5%85%B6%E8%A7%A3%E5%86%B3%20/" rel="next" title="CAS的ABA问题及其解决 ">
+                  <i class="fa fa-chevron-left"></i> CAS的ABA问题及其解决 
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Hystrix是什么"><span class="nav-number">1.</span> <span class="nav-text">Hystrix是什么?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#module-cloud-provider-hystrix-payment8001模块构建"><span class="nav-number">2.</span> <span class="nav-text">module cloud-provider-hystrix-payment8001模块构建</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#目录结构"><span class="nav-number">2.1.</span> <span class="nav-text">目录结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#POM"><span class="nav-number">2.2.</span> <span class="nav-text">POM</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#application-yml"><span class="nav-number">2.3.</span> <span class="nav-text">application.yml</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#主启动类"><span class="nav-number">2.4.</span> <span class="nav-text">主启动类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Service"><span class="nav-number">2.5.</span> <span class="nav-text">Service</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Controller"><span class="nav-number">2.6.</span> <span class="nav-text">Controller</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#测试"><span class="nav-number">2.7.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用JMeter进行压测"><span class="nav-number">2.8.</span> <span class="nav-text">使用JMeter进行压测</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cloud-consumer-feign-hystrix-order80模块构建"><span class="nav-number">3.</span> <span class="nav-text">cloud-consumer-feign-hystrix-order80模块构建</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#目录结构-1"><span class="nav-number">3.1.</span> <span class="nav-text">目录结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#POM-1"><span class="nav-number">3.2.</span> <span class="nav-text">POM</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#application-yml-1"><span class="nav-number">3.3.</span> <span class="nav-text">application.yml</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#主启动类-1"><span class="nav-number">3.4.</span> <span class="nav-text">主启动类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Service-1"><span class="nav-number">3.5.</span> <span class="nav-text">Service</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Controller-1"><span class="nav-number">3.6.</span> <span class="nav-text">Controller</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#测试-1"><span class="nav-number">3.7.</span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务降级-8001模块"><span class="nav-number">4.</span> <span class="nav-text">服务降级(8001模块)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#主启动开启Hystrix"><span class="nav-number">4.1.</span> <span class="nav-text">主启动开启Hystrix</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#添加兜底方法"><span class="nav-number">4.2.</span> <span class="nav-text">添加兜底方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#测试-2"><span class="nav-number">4.3.</span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务降级-80模块"><span class="nav-number">5.</span> <span class="nav-text">服务降级(80模块)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#OrderHystrixController定制兜底方法"><span class="nav-number">5.1.</span> <span class="nav-text">OrderHystrixController定制兜底方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#测试-3"><span class="nav-number">5.2.</span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#全局服务降级-DefaultProperties-80模块"><span class="nav-number">6.</span> <span class="nav-text">全局服务降级@DefaultProperties(80模块)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#OrderHystrixController"><span class="nav-number">6.1.</span> <span class="nav-text">OrderHystrixController</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#测试-4"><span class="nav-number">6.2.</span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#客户端的通配服务降级-80模块"><span class="nav-number">7.</span> <span class="nav-text">客户端的通配服务降级(80模块)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#OrderHystrixController-1"><span class="nav-number">7.1.</span> <span class="nav-text">OrderHystrixController</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#测试-5"><span class="nav-number">7.2.</span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务熔断"><span class="nav-number">8.</span> <span class="nav-text">服务熔断</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务熔断-8001"><span class="nav-number">9.</span> <span class="nav-text">服务熔断(8001)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#主启动类-2"><span class="nav-number">9.1.</span> <span class="nav-text">主启动类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Service-2"><span class="nav-number">9.2.</span> <span class="nav-text">Service</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Controller-2"><span class="nav-number">9.3.</span> <span class="nav-text">Controller</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#测试-6"><span class="nav-number">9.4.</span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务熔断总结"><span class="nav-number">10.</span> <span class="nav-text">服务熔断总结</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#断路器开启条件"><span class="nav-number">10.1.</span> <span class="nav-text">断路器开启条件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#熔断的参数设置"><span class="nav-number">10.2.</span> <span class="nav-text">熔断的参数设置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#涉汲到断路器的重要参数"><span class="nav-number">10.3.</span> <span class="nav-text">涉汲到断路器的重要参数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#原来的主逻辑要如何恢复"><span class="nav-number">10.4.</span> <span class="nav-text">原来的主逻辑要如何恢复</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务限流"><span class="nav-number">11.</span> <span class="nav-text">服务限流</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Hystrix-DashBoard图形化界面-module-cloud-consumer-hystrix-dashboard9001模块构建"><span class="nav-number">12.</span> <span class="nav-text">Hystrix DashBoard图形化界面(module cloud-consumer-hystrix-dashboard9001模块构建)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#目录结构-2"><span class="nav-number">12.1.</span> <span class="nav-text">目录结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#POM-2"><span class="nav-number">12.2.</span> <span class="nav-text">POM</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#application-yml-2"><span class="nav-number">12.3.</span> <span class="nav-text">application.yml</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#主启动类-3"><span class="nav-number">12.4.</span> <span class="nav-text">主启动类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#测试-7"><span class="nav-number">12.5.</span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#监控cloud-provider-hystrix-payment8001"><span class="nav-number">13.</span> <span class="nav-text">监控cloud-provider-hystrix-payment8001</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#PaymentHystrixMain8001主启动类"><span class="nav-number">13.1.</span> <span class="nav-text">PaymentHystrixMain8001主启动类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#进行监控"><span class="nav-number">13.2.</span> <span class="nav-text">进行监控</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查看数据监控"><span class="nav-number">13.3.</span> <span class="nav-text">查看数据监控</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GitHub-SpringCloud日常Demo"><span class="nav-number">14.</span> <span class="nav-text">GitHub:SpringCloud日常Demo</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="多做有趣的事."
+      src="/images/user.jpg">
+  <p class="site-author-name" itemprop="name">多做有趣的事.</p>
+  <div class="site-description" itemprop="description">联系博主:mineok@foxmail.com</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Winkhahaha" title="GitHub &amp;rarr; https:&#x2F;&#x2F;github.com&#x2F;Winkhahaha" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/mineok@foxmail.com" title="E-Mail &amp;rarr; mineok@foxmail.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">多做有趣的事.</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">298k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:31</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='255,69,0' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
