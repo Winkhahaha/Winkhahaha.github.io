@@ -183,7 +183,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F(3)%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%20(1)/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95(5)%E4%B9%8B%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/user.jpg">
@@ -197,7 +197,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2020/03/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F(3)%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%20(1)/" class="post-title-link" itemprop="url">设计模式之工厂模式(3)抽象工厂模式 (1)</a>
+            <a href="/2020/03/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95(5)%E4%B9%8B%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/" class="post-title-link" itemprop="url">数据结构和算法(5)之双向链表</a>
         </h1>
 
         <div class="post-meta">
@@ -208,7 +208,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-03-16 21:24:32 / 修改时间：21:24:37" itemprop="dateCreated datePublished" datetime="2020-03-16T21:24:32+08:00">2020-03-16</time>
+              <time title="创建时间：2020-03-16 21:28:11 / 修改时间：21:28:18" itemprop="dateCreated datePublished" datetime="2020-03-16T21:28:11+08:00">2020-03-16</time>
             </span>
 
           <br>
@@ -217,7 +217,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.5k</span>
+              <span>3.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -236,164 +236,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h4 id="使用抽象工厂模式完成披萨案例"><a href="#使用抽象工厂模式完成披萨案例" class="headerlink" title="使用抽象工厂模式完成披萨案例"></a>使用抽象工厂模式完成披萨案例</h4><ul>
-<li><strong>创建型模式</strong>  </li>
-<li><strong>范围\目的:对象模式</strong><br><img src="https://img-blog.csdnimg.cn/20200311144514184.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>代码实现:</strong><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 是一个抽象工厂模式的抽象层</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AbsFactory</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 让工厂子类来具体实现</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Pizza <span class="title">createPizza</span><span class="params">(String orderType)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BJFactory</span> <span class="keyword">implements</span> <span class="title">AbsFactory</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Pizza <span class="title">createPizza</span><span class="params">(String orderType)</span> </span>&#123;</span><br><span class="line">        Pizza pizza = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (orderType.equals(<span class="string">"chess"</span>)) &#123;</span><br><span class="line">            pizza = <span class="keyword">new</span> BJCheesePizza();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (orderType.equals(<span class="string">"pepper"</span>)) &#123;</span><br><span class="line">            pizza = <span class="keyword">new</span> BJPepperPizza();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pizza;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LDFactory</span> <span class="keyword">implements</span> <span class="title">AbsFactory</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Pizza <span class="title">createPizza</span><span class="params">(String orderType)</span> </span>&#123;</span><br><span class="line">        Pizza pizza = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (orderType.equals(<span class="string">"chess"</span>)) &#123;</span><br><span class="line">            pizza = <span class="keyword">new</span> LDCheesePizza();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (orderType.equals(<span class="string">"pepper"</span>)) &#123;</span><br><span class="line">            pizza = <span class="keyword">new</span> LDPepperPizza();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pizza;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OrderPizza</span> </span>&#123;</span><br><span class="line">    AbsFactory factory;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">OrderPizza</span><span class="params">(AbsFactory factory)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.factory = factory;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Pizza pizza = <span class="keyword">null</span>;</span><br><span class="line">        String orderType = <span class="string">""</span>; <span class="comment">// 用户输入的pizza类型</span></span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            orderType = getType();</span><br><span class="line">            pizza = factory.createPizza(orderType);     <span class="comment">// 抽象方法,由工厂子类实现</span></span><br><span class="line">            <span class="comment">//输出pizza</span></span><br><span class="line">            <span class="keyword">if</span> (pizza != <span class="keyword">null</span>) &#123; <span class="comment">// 订购成功</span></span><br><span class="line">                pizza.prepare();    <span class="comment">// 输出pizza名称信息</span></span><br><span class="line">                pizza.bake();</span><br><span class="line">                pizza.cut();</span><br><span class="line">                pizza.box();</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">"订购披萨失败"</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">while</span> (<span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 写一个方法，可以获取客户输入的披萨种类</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">getType</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            BufferedReader strin = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">            System.out.println(<span class="string">"input pizza 种类:"</span>);</span><br><span class="line">            String str = strin.readLine();</span><br><span class="line">            <span class="keyword">return</span> str;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义抽象的pizza</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Pizza</span> </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> String name; <span class="comment">//名字</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//准备原材料, 不同的披萨不一样，因此，我们做成抽象方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">prepare</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bake</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(name + <span class="string">" baking;"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">cut</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(name + <span class="string">" cutting;"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//打包</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">box</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(name + <span class="string">" boxing;"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 具体的pizza</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BJCheesePizza</span> <span class="keyword">extends</span> <span class="title">Pizza</span> </span>&#123;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">prepare</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		setName(<span class="string">"北京奶酪pizza"</span>);</span><br><span class="line">		System.out.println(<span class="string">"准备*北京奶酪*原材料"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BJPepperPizza</span> <span class="keyword">extends</span> <span class="title">Pizza</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">prepare</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		setName(<span class="string">"北京胡椒pizza"</span>);</span><br><span class="line">		System.out.println(<span class="string">"准备*北京胡椒*原材料"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LDCheesePizza</span> <span class="keyword">extends</span> <span class="title">Pizza</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">prepare</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		setName(<span class="string">"伦敦奶酪pizza"</span>);</span><br><span class="line">		System.out.println(<span class="string">"准备*伦敦奶酪*原材料"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LDPepperPizza</span> <span class="keyword">extends</span> <span class="title">Pizza</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">prepare</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		setName(<span class="string">"伦敦胡椒pizza"</span>);</span><br><span class="line">		System.out.println(<span class="string">"准备*伦敦胡椒*原材料"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 测试类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        String s = <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">boolean</span> flag = <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">while</span> (flag) &#123;</span><br><span class="line">            System.out.println(<span class="string">"欢迎来到pizza点单系统!请按照提示输入!"</span>);</span><br><span class="line">            System.out.println(<span class="string">"北京----&gt;北京地区披萨"</span>);</span><br><span class="line">            System.out.println(<span class="string">"伦敦----&gt;伦敦地区披萨"</span>);</span><br><span class="line">            System.out.println(<span class="string">"quit---&gt;退出"</span>);</span><br><span class="line">            s = sc.nextLine();</span><br><span class="line">            <span class="keyword">switch</span> (s) &#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"北京"</span>:</span><br><span class="line">                    <span class="keyword">new</span> OrderPizza(<span class="keyword">new</span> BJFactory()).buy();</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"伦敦"</span>:</span><br><span class="line">                    <span class="keyword">new</span> OrderPizza(<span class="keyword">new</span> LDFactory()).buy();</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"quit"</span>:</span><br><span class="line">                    flag = <span class="keyword">false</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">default</span>:</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<img src="https://img-blog.csdnimg.cn/20200311144835873.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><h4 id="工厂模式小结"><a href="#工厂模式小结" class="headerlink" title="工厂模式小结"></a>工厂模式小结</h4><img src="https://img-blog.csdnimg.cn/20200311145136991.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><h4 id="GitHub-设计模式源代码"><a href="#GitHub-设计模式源代码" class="headerlink" title="GitHub:设计模式源代码"></a><a href="https://github.com/Winkhahaha/Java_DesignPattern" target="_blank" rel="noopener">GitHub:设计模式源代码</a></h4></li>
-</ul>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F(3)%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/user.jpg">
-      <meta itemprop="name" content="多做有趣的事.">
-      <meta itemprop="description" content="联系博主:mineok@foxmail.com">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="秘境">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F(3)%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">设计模式之工厂模式(3)抽象工厂模式</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-03-16 21:24:16 / 修改时间：21:24:23" itemprop="dateCreated datePublished" datetime="2020-03-16T21:24:16+08:00">2020-03-16</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>3.5k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="使用抽象工厂模式完成披萨案例"><a href="#使用抽象工厂模式完成披萨案例" class="headerlink" title="使用抽象工厂模式完成披萨案例"></a>使用抽象工厂模式完成披萨案例</h4><ul>
-<li><strong>创建型模式</strong>  </li>
-<li><strong>范围\目的:对象模式</strong><br><img src="https://img-blog.csdnimg.cn/20200311144514184.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>代码实现:</strong><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 是一个抽象工厂模式的抽象层</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AbsFactory</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 让工厂子类来具体实现</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Pizza <span class="title">createPizza</span><span class="params">(String orderType)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BJFactory</span> <span class="keyword">implements</span> <span class="title">AbsFactory</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Pizza <span class="title">createPizza</span><span class="params">(String orderType)</span> </span>&#123;</span><br><span class="line">        Pizza pizza = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (orderType.equals(<span class="string">"chess"</span>)) &#123;</span><br><span class="line">            pizza = <span class="keyword">new</span> BJCheesePizza();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (orderType.equals(<span class="string">"pepper"</span>)) &#123;</span><br><span class="line">            pizza = <span class="keyword">new</span> BJPepperPizza();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pizza;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LDFactory</span> <span class="keyword">implements</span> <span class="title">AbsFactory</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Pizza <span class="title">createPizza</span><span class="params">(String orderType)</span> </span>&#123;</span><br><span class="line">        Pizza pizza = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (orderType.equals(<span class="string">"chess"</span>)) &#123;</span><br><span class="line">            pizza = <span class="keyword">new</span> LDCheesePizza();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (orderType.equals(<span class="string">"pepper"</span>)) &#123;</span><br><span class="line">            pizza = <span class="keyword">new</span> LDPepperPizza();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pizza;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OrderPizza</span> </span>&#123;</span><br><span class="line">    AbsFactory factory;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">OrderPizza</span><span class="params">(AbsFactory factory)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.factory = factory;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Pizza pizza = <span class="keyword">null</span>;</span><br><span class="line">        String orderType = <span class="string">""</span>; <span class="comment">// 用户输入的pizza类型</span></span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            orderType = getType();</span><br><span class="line">            pizza = factory.createPizza(orderType);     <span class="comment">// 抽象方法,由工厂子类实现</span></span><br><span class="line">            <span class="comment">//输出pizza</span></span><br><span class="line">            <span class="keyword">if</span> (pizza != <span class="keyword">null</span>) &#123; <span class="comment">// 订购成功</span></span><br><span class="line">                pizza.prepare();    <span class="comment">// 输出pizza名称信息</span></span><br><span class="line">                pizza.bake();</span><br><span class="line">                pizza.cut();</span><br><span class="line">                pizza.box();</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">"订购披萨失败"</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">while</span> (<span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 写一个方法，可以获取客户输入的披萨种类</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">getType</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            BufferedReader strin = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">            System.out.println(<span class="string">"input pizza 种类:"</span>);</span><br><span class="line">            String str = strin.readLine();</span><br><span class="line">            <span class="keyword">return</span> str;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义抽象的pizza</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Pizza</span> </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> String name; <span class="comment">//名字</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//准备原材料, 不同的披萨不一样，因此，我们做成抽象方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">prepare</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bake</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(name + <span class="string">" baking;"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">cut</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(name + <span class="string">" cutting;"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//打包</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">box</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(name + <span class="string">" boxing;"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 具体的pizza</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BJCheesePizza</span> <span class="keyword">extends</span> <span class="title">Pizza</span> </span>&#123;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">prepare</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		setName(<span class="string">"北京奶酪pizza"</span>);</span><br><span class="line">		System.out.println(<span class="string">"准备*北京奶酪*原材料"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BJPepperPizza</span> <span class="keyword">extends</span> <span class="title">Pizza</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">prepare</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		setName(<span class="string">"北京胡椒pizza"</span>);</span><br><span class="line">		System.out.println(<span class="string">"准备*北京胡椒*原材料"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LDCheesePizza</span> <span class="keyword">extends</span> <span class="title">Pizza</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">prepare</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		setName(<span class="string">"伦敦奶酪pizza"</span>);</span><br><span class="line">		System.out.println(<span class="string">"准备*伦敦奶酪*原材料"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LDPepperPizza</span> <span class="keyword">extends</span> <span class="title">Pizza</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">prepare</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		setName(<span class="string">"伦敦胡椒pizza"</span>);</span><br><span class="line">		System.out.println(<span class="string">"准备*伦敦胡椒*原材料"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 测试类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        String s = <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">boolean</span> flag = <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">while</span> (flag) &#123;</span><br><span class="line">            System.out.println(<span class="string">"欢迎来到pizza点单系统!请按照提示输入!"</span>);</span><br><span class="line">            System.out.println(<span class="string">"北京----&gt;北京地区披萨"</span>);</span><br><span class="line">            System.out.println(<span class="string">"伦敦----&gt;伦敦地区披萨"</span>);</span><br><span class="line">            System.out.println(<span class="string">"quit---&gt;退出"</span>);</span><br><span class="line">            s = sc.nextLine();</span><br><span class="line">            <span class="keyword">switch</span> (s) &#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"北京"</span>:</span><br><span class="line">                    <span class="keyword">new</span> OrderPizza(<span class="keyword">new</span> BJFactory()).buy();</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"伦敦"</span>:</span><br><span class="line">                    <span class="keyword">new</span> OrderPizza(<span class="keyword">new</span> LDFactory()).buy();</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"quit"</span>:</span><br><span class="line">                    flag = <span class="keyword">false</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">default</span>:</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<img src="https://img-blog.csdnimg.cn/20200311144835873.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><h4 id="工厂模式小结"><a href="#工厂模式小结" class="headerlink" title="工厂模式小结"></a>工厂模式小结</h4><img src="https://img-blog.csdnimg.cn/20200311145136991.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><h4 id="GitHub-设计模式源代码"><a href="#GitHub-设计模式源代码" class="headerlink" title="GitHub:设计模式源代码"></a><a href="https://github.com/Winkhahaha/Java_DesignPattern" target="_blank" rel="noopener">GitHub:设计模式源代码</a></h4></li>
-</ul>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/user.jpg">
-      <meta itemprop="name" content="多做有趣的事.">
-      <meta itemprop="description" content="联系博主:mineok@foxmail.com">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="秘境">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">设计模式之原型模式</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-03-16 21:24:03 / 修改时间：21:24:10" itemprop="dateCreated datePublished" datetime="2020-03-16T21:24:03+08:00">2020-03-16</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>4.5k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
           <blockquote>
-<p>学习设计模式的日常Demo</p>
-</blockquote><h4 id="原型模式基本介绍"><a href="#原型模式基本介绍" class="headerlink" title="原型模式基本介绍"></a>原型模式基本介绍</h4>
+<p>学习数据结构和算法的日常Demo</p>
+</blockquote><h4 id="双向链表"><a href="#双向链表" class="headerlink" title="双向链表"></a>双向链表</h4>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/03/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/#more" rel="contents">
+              <a class="btn" href="/2020/03/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95(5)%E4%B9%8B%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -417,7 +265,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95(9)%E4%B9%8B%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/user.jpg">
@@ -431,7 +279,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2020/03/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">设计模式之建造者模式</a>
+            <a href="/2020/03/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95(9)%E4%B9%8B%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">数据结构和算法(9)之选择排序</a>
         </h1>
 
         <div class="post-meta">
@@ -442,7 +290,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-03-16 21:23:51 / 修改时间：21:23:54" itemprop="dateCreated datePublished" datetime="2020-03-16T21:23:51+08:00">2020-03-16</time>
+              <time title="创建时间：2020-03-16 21:27:27 / 修改时间：21:27:29" itemprop="dateCreated datePublished" datetime="2020-03-16T21:27:27+08:00">2020-03-16</time>
             </span>
 
           <br>
@@ -451,171 +299,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>学习设计模式的日常Demo</p>
-</blockquote><h4 id="建造者模式基本介绍"><a href="#建造者模式基本介绍" class="headerlink" title="建造者模式基本介绍"></a>建造者模式基本介绍</h4>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/03/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/user.jpg">
-      <meta itemprop="name" content="多做有趣的事.">
-      <meta itemprop="description" content="联系博主:mineok@foxmail.com">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="秘境">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">设计模式之适配器模式</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-03-16 21:23:41 / 修改时间：21:23:45" itemprop="dateCreated datePublished" datetime="2020-03-16T21:23:41+08:00">2020-03-16</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>5.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>学习设计模式的日常Demo</p>
-</blockquote><h4 id="适配器模式基本介绍"><a href="#适配器模式基本介绍" class="headerlink" title="适配器模式基本介绍"></a>适配器模式基本介绍</h4>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/03/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/user.jpg">
-      <meta itemprop="name" content="多做有趣的事.">
-      <meta itemprop="description" content="联系博主:mineok@foxmail.com">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="秘境">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">设计模式之桥接模式</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-03-16 21:23:33 / 修改时间：21:23:36" itemprop="dateCreated datePublished" datetime="2020-03-16T21:23:33+08:00">2020-03-16</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.3k</span>
+              <span>442</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -635,11 +319,11 @@
 
       
           <blockquote>
-<p>学习设计模式的日常Demo</p>
-</blockquote><h4 id="桥接模式基本介绍"><a href="#桥接模式基本介绍" class="headerlink" title="桥接模式基本介绍"></a>桥接模式基本介绍</h4>
+<p>学习数据结构和算法的日常Demo</p>
+</blockquote><h4 id="选择排序基本介绍"><a href="#选择排序基本介绍" class="headerlink" title="选择排序基本介绍"></a>选择排序基本介绍</h4>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/03/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/#more" rel="contents">
+              <a class="btn" href="/2020/03/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95(9)%E4%B9%8B%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -663,7 +347,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E8%A3%85%E9%A5%B0%E8%80%85%E6%A8%A1%E5%BC%8F/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95(10)%E4%B9%8B%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/user.jpg">
@@ -677,7 +361,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2020/03/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E8%A3%85%E9%A5%B0%E8%80%85%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">设计模式之装饰者模式</a>
+            <a href="/2020/03/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95(10)%E4%B9%8B%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">数据结构和算法(10)之插入排序</a>
         </h1>
 
         <div class="post-meta">
@@ -688,7 +372,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-03-16 21:23:24 / 修改时间：21:23:28" itemprop="dateCreated datePublished" datetime="2020-03-16T21:23:24+08:00">2020-03-16</time>
+              <time title="创建时间：2020-03-16 21:27:08 / 修改时间：21:27:15" itemprop="dateCreated datePublished" datetime="2020-03-16T21:27:08+08:00">2020-03-16</time>
             </span>
 
           <br>
@@ -697,253 +381,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.5k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>学习设计模式的日常Demo</p>
-</blockquote><h4 id="装饰者模式介绍"><a href="#装饰者模式介绍" class="headerlink" title="装饰者模式介绍"></a>装饰者模式介绍</h4>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/03/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E8%A3%85%E9%A5%B0%E8%80%85%E6%A8%A1%E5%BC%8F/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/user.jpg">
-      <meta itemprop="name" content="多做有趣的事.">
-      <meta itemprop="description" content="联系博主:mineok@foxmail.com">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="秘境">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">设计模式之组合模式</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-03-16 21:23:15 / 修改时间：21:23:16" itemprop="dateCreated datePublished" datetime="2020-03-16T21:23:15+08:00">2020-03-16</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>3.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>学习设计模式的日常Demo</p>
-</blockquote><h4 id="组合模式基本介绍"><a href="#组合模式基本介绍" class="headerlink" title="组合模式基本介绍"></a>组合模式基本介绍</h4>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/03/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/user.jpg">
-      <meta itemprop="name" content="多做有趣的事.">
-      <meta itemprop="description" content="联系博主:mineok@foxmail.com">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="秘境">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">设计模式之外观模式</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-03-16 21:23:07 / 修改时间：21:23:14" itemprop="dateCreated datePublished" datetime="2020-03-16T21:23:07+08:00">2020-03-16</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>学习设计模式的日常Demo</p>
-</blockquote><h4 id="外观模式基本介绍"><a href="#外观模式基本介绍" class="headerlink" title="外观模式基本介绍"></a>外观模式基本介绍</h4>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/03/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/user.jpg">
-      <meta itemprop="name" content="多做有趣的事.">
-      <meta itemprop="description" content="联系博主:mineok@foxmail.com">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="秘境">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">设计模式之享元模式</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-03-16 21:22:54 / 修改时间：21:22:58" itemprop="dateCreated datePublished" datetime="2020-03-16T21:22:54+08:00">2020-03-16</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.6k</span>
+              <span>620</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -963,11 +401,585 @@
 
       
           <blockquote>
-<p>学习设计模式的日常Demo</p>
-</blockquote><h4 id="享元模式基本介绍"><a href="#享元模式基本介绍" class="headerlink" title="享元模式基本介绍"></a>享元模式基本介绍</h4>
+<p>学习数据结构和算法的日常Demo</p>
+</blockquote><h4 id="插入排序基本介绍"><a href="#插入排序基本介绍" class="headerlink" title="插入排序基本介绍"></a>插入排序基本介绍</h4>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/03/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/#more" rel="contents">
+              <a class="btn" href="/2020/03/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95(10)%E4%B9%8B%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95(11)%E4%B9%8B%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/user.jpg">
+      <meta itemprop="name" content="多做有趣的事.">
+      <meta itemprop="description" content="联系博主:mineok@foxmail.com">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="秘境">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95(11)%E4%B9%8B%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">数据结构和算法(11)之希尔排序</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-03-16 21:26:59 / 修改时间：21:27:06" itemprop="dateCreated datePublished" datetime="2020-03-16T21:26:59+08:00">2020-03-16</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>学习数据结构和算法的日常Demo</p>
+</blockquote><h4 id="希尔排序基本介绍"><a href="#希尔排序基本介绍" class="headerlink" title="希尔排序基本介绍"></a>希尔排序基本介绍</h4>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/03/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95(11)%E4%B9%8B%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95(12)%E4%B9%8B%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/user.jpg">
+      <meta itemprop="name" content="多做有趣的事.">
+      <meta itemprop="description" content="联系博主:mineok@foxmail.com">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="秘境">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95(12)%E4%B9%8B%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">数据结构和算法(12)之快速排序</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-03-16 21:26:54 / 修改时间：21:27:01" itemprop="dateCreated datePublished" datetime="2020-03-16T21:26:54+08:00">2020-03-16</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>929</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>学习数据结构和算法的日常Demo</p>
+</blockquote><h4 id="快速排序基本介绍"><a href="#快速排序基本介绍" class="headerlink" title="快速排序基本介绍"></a>快速排序基本介绍</h4>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/03/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95(12)%E4%B9%8B%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95(13)%E4%B9%8B%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/user.jpg">
+      <meta itemprop="name" content="多做有趣的事.">
+      <meta itemprop="description" content="联系博主:mineok@foxmail.com">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="秘境">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95(13)%E4%B9%8B%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">数据结构和算法(13)之归并排序</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-03-16 21:26:04 / 修改时间：21:26:10" itemprop="dateCreated datePublished" datetime="2020-03-16T21:26:04+08:00">2020-03-16</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>学习数据结构和算法的日常Demo</p>
+</blockquote><h4 id="归并排序基本介绍"><a href="#归并排序基本介绍" class="headerlink" title="归并排序基本介绍"></a>归并排序基本介绍</h4>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/03/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95(13)%E4%B9%8B%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95(14)%E4%B9%8B%E5%9F%BA%E6%95%B0%E6%8E%92%E5%BA%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/user.jpg">
+      <meta itemprop="name" content="多做有趣的事.">
+      <meta itemprop="description" content="联系博主:mineok@foxmail.com">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="秘境">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95(14)%E4%B9%8B%E5%9F%BA%E6%95%B0%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">数据结构和算法(14)之基数排序</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-03-16 21:25:56 / 修改时间：21:26:01" itemprop="dateCreated datePublished" datetime="2020-03-16T21:25:56+08:00">2020-03-16</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>学习数据结构和算法的日常Demo</p>
+</blockquote><h4 id="基数排序基本介绍"><a href="#基数排序基本介绍" class="headerlink" title="基数排序基本介绍"></a>基数排序基本介绍</h4>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/03/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95(14)%E4%B9%8B%E5%9F%BA%E6%95%B0%E6%8E%92%E5%BA%8F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95(15)%E4%B9%8B%E5%A0%86%E6%8E%92%E5%BA%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/user.jpg">
+      <meta itemprop="name" content="多做有趣的事.">
+      <meta itemprop="description" content="联系博主:mineok@foxmail.com">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="秘境">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95(15)%E4%B9%8B%E5%A0%86%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">数据结构和算法(15)之堆排序</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-03-16 21:25:48 / 修改时间：21:25:56" itemprop="dateCreated datePublished" datetime="2020-03-16T21:25:48+08:00">2020-03-16</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>学习数据结构和算法的日常Demo</p>
+</blockquote><h4 id="堆排序基本介绍"><a href="#堆排序基本介绍" class="headerlink" title="堆排序基本介绍"></a>堆排序基本介绍</h4>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/03/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95(15)%E4%B9%8B%E5%A0%86%E6%8E%92%E5%BA%8F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95(8)%E4%B9%8B%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/user.jpg">
+      <meta itemprop="name" content="多做有趣的事.">
+      <meta itemprop="description" content="联系博主:mineok@foxmail.com">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="秘境">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95(8)%E4%B9%8B%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">数据结构和算法(8)之冒泡排序</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-03-16 21:25:40 / 修改时间：21:25:47" itemprop="dateCreated datePublished" datetime="2020-03-16T21:25:40+08:00">2020-03-16</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>797</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>学习数据结构和算法的日常Demo</p>
+</blockquote><h4 id="冒泡排序基本介绍"><a href="#冒泡排序基本介绍" class="headerlink" title="冒泡排序基本介绍"></a>冒泡排序基本介绍</h4>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/03/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95(8)%E4%B9%8B%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%20(2)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/user.jpg">
+      <meta itemprop="name" content="多做有趣的事.">
+      <meta itemprop="description" content="联系博主:mineok@foxmail.com">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="秘境">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%20(2)/" class="post-title-link" itemprop="url">设计模式之观察者模式 (2)</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-03-16 21:25:10 / 修改时间：21:25:13" itemprop="dateCreated datePublished" datetime="2020-03-16T21:25:10+08:00">2020-03-16</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>学习设计模式的日常Demo</p>
+</blockquote><h2 id="一、认识观察者模式"><a href="#一、认识观察者模式" class="headerlink" title="一、认识观察者模式"></a>一、认识观察者模式</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/03/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%20(2)/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -991,7 +1003,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1037,7 +1049,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-count">91</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1089,12 +1101,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">315k</span>
+    <span title="站点总字数">345k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:47</span>
+    <span title="站点阅读时长">5:14</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

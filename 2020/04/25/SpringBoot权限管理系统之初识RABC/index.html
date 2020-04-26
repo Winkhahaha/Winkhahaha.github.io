@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/c.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/c32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/c16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="秘境" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="一个普通的SpringBoot权限管理系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot权限管理系统之初识RABC">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;04&#x2F;25&#x2F;SpringBoot%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E4%B9%8B%E5%88%9D%E8%AF%86RABC&#x2F;index.html">
+<meta property="og:site_name" content="秘境">
+<meta property="og:description" content="一个普通的SpringBoot权限管理系统">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200425004857670.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200425005647331.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200425010802495.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70">
+<meta property="og:updated_time" content="2020-04-24T17:09:12.202Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200425004857670.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70">
+
+<link rel="canonical" href="http://yoursite.com/2020/04/25/SpringBoot%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E4%B9%8B%E5%88%9D%E8%AF%86RABC/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>SpringBoot权限管理系统之初识RABC | 秘境</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">秘境</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/25/SpringBoot%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E4%B9%8B%E5%88%9D%E8%AF%86RABC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/user.jpg">
+      <meta itemprop="name" content="多做有趣的事.">
+      <meta itemprop="description" content="联系博主:mineok@foxmail.com">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="秘境">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SpringBoot权限管理系统之初识RABC
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-25 01:09:04 / 修改时间：01:09:12" itemprop="dateCreated datePublished" datetime="2020-04-25T01:09:04+08:00">2020-04-25</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>221</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>一个普通的SpringBoot权限管理系统</p>
+</blockquote><a id="more"></a>
+<h4 id="权限管理系统定义"><a href="#权限管理系统定义" class="headerlink" title="权限管理系统定义"></a>权限管理系统定义</h4><p><strong>权限管理是一个几乎所有后台系统的都会涉及的一个重要组成部分，主要目的是对整个后台管理系统进行权限的控制，而针对的对象是员工，避免因权限控制缺失或操作不当引发的风险问题，如操作错误，数据泄露等问题。</strong> </p>
+<h4 id="何为RABC-Role-Based-Access-Control"><a href="#何为RABC-Role-Based-Access-Control" class="headerlink" title="何为RABC(Role-Based Access Control)"></a>何为RABC(Role-Based Access Control)</h4><p><img src="https://img-blog.csdnimg.cn/20200425004857670.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>权限管理最终是为了风控， 即哪个部门哪个用户具有哪个权限。</strong> </p>
+<h4 id="基于RBAC的数据表设计"><a href="#基于RBAC的数据表设计" class="headerlink" title="基于RBAC的数据表设计"></a>基于RBAC的数据表设计</h4><p><img src="https://img-blog.csdnimg.cn/20200425005647331.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h4 id="权限管理系统功能总览"><a href="#权限管理系统功能总览" class="headerlink" title="权限管理系统功能总览"></a>权限管理系统功能总览</h4><p><img src="https://img-blog.csdnimg.cn/20200425010802495.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Nzc5NTA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h4 id="GitHub-权限管理系统"><a href="#GitHub-权限管理系统" class="headerlink" title="GitHub:权限管理系统"></a><a href="https://github.com/Winkhahaha/RABC" target="_blank" rel="noopener">GitHub:权限管理系统</a></h4>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2020/04/21/SpringCloud-Alibaba%E4%B9%8BSentinel(1)%E6%B5%81%E6%8E%A7/" rel="next" title="SpringCloud-Alibaba之Sentinel(1)流控">
+                  <i class="fa fa-chevron-left"></i> SpringCloud-Alibaba之Sentinel(1)流控
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2020/04/25/SpringBoot%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E4%B9%8B%E7%94%A8%E6%88%B7%E5%88%97%E8%A1%A8%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2/" rel="prev" title="SpringBoot权限管理系统之用户列表分页查询">
+                  SpringBoot权限管理系统之用户列表分页查询 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#权限管理系统定义"><span class="nav-number">1.</span> <span class="nav-text">权限管理系统定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#何为RABC-Role-Based-Access-Control"><span class="nav-number">2.</span> <span class="nav-text">何为RABC(Role-Based Access Control)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基于RBAC的数据表设计"><span class="nav-number">3.</span> <span class="nav-text">基于RBAC的数据表设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#权限管理系统功能总览"><span class="nav-number">4.</span> <span class="nav-text">权限管理系统功能总览</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GitHub-权限管理系统"><span class="nav-number">5.</span> <span class="nav-text">GitHub:权限管理系统</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="多做有趣的事."
+      src="/images/user.jpg">
+  <p class="site-author-name" itemprop="name">多做有趣的事.</p>
+  <div class="site-description" itemprop="description">联系博主:mineok@foxmail.com</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">91</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Winkhahaha" title="GitHub &amp;rarr; https:&#x2F;&#x2F;github.com&#x2F;Winkhahaha" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/mineok@foxmail.com" title="E-Mail &amp;rarr; mineok@foxmail.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">多做有趣的事.</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">345k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">5:14</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='255,69,0' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

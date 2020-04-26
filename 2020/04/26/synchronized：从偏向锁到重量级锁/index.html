@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/c.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/c32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/c16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="秘境" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="synchronized是面试的热点问题,也是实际开发中常用的关键字,本文将详细介绍synchronized锁升级、锁优化的历程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="synchronized：从偏向锁到重量级锁">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;04&#x2F;26&#x2F;synchronized%EF%BC%9A%E4%BB%8E%E5%81%8F%E5%90%91%E9%94%81%E5%88%B0%E9%87%8D%E9%87%8F%E7%BA%A7%E9%94%81&#x2F;index.html">
+<meta property="og:site_name" content="秘境">
+<meta property="og:description" content="synchronized是面试的热点问题,也是实际开发中常用的关键字,本文将详细介绍synchronized锁升级、锁优化的历程">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200426222002763.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200426222115732.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200426222315734.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200426223143813.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200426224141724.png">
+<meta property="og:updated_time" content="2020-04-26T14:50:59.109Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200426222002763.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/04/26/synchronized%EF%BC%9A%E4%BB%8E%E5%81%8F%E5%90%91%E9%94%81%E5%88%B0%E9%87%8D%E9%87%8F%E7%BA%A7%E9%94%81/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>synchronized：从偏向锁到重量级锁 | 秘境</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">秘境</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/26/synchronized%EF%BC%9A%E4%BB%8E%E5%81%8F%E5%90%91%E9%94%81%E5%88%B0%E9%87%8D%E9%87%8F%E7%BA%A7%E9%94%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/user.jpg">
+      <meta itemprop="name" content="多做有趣的事.">
+      <meta itemprop="description" content="联系博主:mineok@foxmail.com">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="秘境">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          synchronized：从偏向锁到重量级锁
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-26 22:50:51 / 修改时间：22:50:59" itemprop="dateCreated datePublished" datetime="2020-04-26T22:50:51+08:00">2020-04-26</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>synchronized是面试的热点问题,也是实际开发中常用的关键字,本文将详细介绍synchronized锁升级、锁优化的历程</p>
+</blockquote><a id="more"></a>
+<h4 id="从锁对象开始"><a href="#从锁对象开始" class="headerlink" title="从锁对象开始"></a>从锁对象开始</h4><p>锁实际上是加在对象上的，那么被加了锁的对象我们称之为<strong>锁对象</strong>，在java中，任何一个对象都能成为锁对象。</p>
+<p>java对象在内存中的存储结构主要有一下三个部分：</p>
+<ul>
+<li><strong>对象头</strong></li>
+<li><strong>实例数据</strong></li>
+<li><strong>填充数据</strong></li>
+</ul>
+<p>对象头里的数据主要是一些运行时的数据,其简单结构如下:<br><img src="https://img-blog.csdnimg.cn/20200426222002763.png" alt="在这里插入图片描述"><br>从该表格中我们可以看到，对象中关于锁的信息是存在<strong>Markword</strong>里的。<br>当我们任意创建一个对象Test时，该对象的部分Markword关键数据如下:<br><img src="https://img-blog.csdnimg.cn/20200426222115732.png" alt="在这里插入图片描述"><br>从图中可以看出，偏向锁的标志位是“01”，状态是“0”，表示该对象还没有被加上偏向锁。（“1”是表示被加上偏向锁）。<strong>该对象被创建出来的那一刻，就有了偏向锁的标志位，这也说明了所有对象都是可偏向的</strong>，但所有对象的状态都为“0”，也同时说明所有被创建的对象的偏向锁并没有生效。<br>当线程执行到临界区（critical section）时，此时会利用CAS(Compare and Swap)操作，将线程ID插入到Markword中，同时修改偏向锁的标志位。</p>
+<blockquote>
+<p>所谓临界区，就是只允许一个线程进去执行操作的区域，即同步代码块。CAS是一个原子性操作。</p>
+</blockquote>
+<p>此时的Mark word的结构信息如下：<br><img src="https://img-blog.csdnimg.cn/20200426222315734.png" alt="在这里插入图片描述"><br>此时偏向锁的状态为“1”，说明对象的偏向锁生效了，同时也可以看到，哪个线程获得了该对象的锁。</p>
+<h4 id="何为偏向锁"><a href="#何为偏向锁" class="headerlink" title="何为偏向锁?"></a>何为偏向锁?</h4><p><strong>偏向锁是jdk1.6引入的一项锁优化，其中的“偏”是偏心的偏。它的意思就是说，这个锁会偏向于第一个获得它的线程，在接下来的执行过程中，假如该锁没有被其他线程所获取，没有其他线程来竞争该锁，那么持有偏向锁的线程将永远不需要进行同步操作。</strong><br>也就是说:<br>在此线程之后的执行过程中，如果再次进入或者退出同一段同步块代码，并不再需要去进行加锁或者解锁操作，而是会做以下的步骤：</p>
+<ol>
+<li>Load-and-test，也就是简单判断一下当前线程id是否与Markword当中的线程id是否一致</li>
+<li>如果一致，则说明此线程已经成功获得了锁，继续执行下面的代码</li>
+<li>如果不一致，则要检查一下对象是否还是可偏向，即“是否偏向锁”标志位的值</li>
+<li>如果还未偏向，则利用CAS操作来竞争锁，也即是第一次获取锁时的操作<br>如果此对象已经偏向了，并且不是偏向自己，则说明存在了竞争。此时可能就要根据另外线程的情况，可能是重新偏向，也有可能是做偏向撤销，但大部分情况下就是升级成轻量级锁了。</li>
+</ol>
+<p>可以看出，<strong>偏向锁是针对于一个线程而言的</strong>，线程获得锁之后就不会再有解锁等操作了，这样可以省略很多开销。<strong>假如有两个线程来竞争该锁话，那么偏向锁就失效了，进而升级成轻量级锁了</strong>。</p>
+<p>为什么要这样做呢？因为经验表明，<strong>其实大部分情况下，都会是同一个线程进入同一块同步代码块的</strong>。这也是为什么会有偏向锁出现的原因。</p>
+<p>在Jdk1.6中，偏向锁的开关是默认开启的，适用于只有一个线程访问同步块的场景。</p>
+<h4 id="锁膨胀"><a href="#锁膨胀" class="headerlink" title="锁膨胀"></a>锁膨胀</h4><p><strong>刚才说了，当出现有两个线程来竞争锁的话，那么偏向锁就失效了，此时锁就会膨胀，升级为轻量级锁。这也是我们经常所说的锁膨胀</strong></p>
+<h4 id="锁撤销"><a href="#锁撤销" class="headerlink" title="锁撤销"></a>锁撤销</h4><p>由于偏向锁失效了，那么接下来就得把该锁撤销，锁撤销的开销花费还是挺大的，其大概的过程如下：</p>
+<ul>
+<li>在一个安全点停止拥有锁的线程。</li>
+<li>遍历线程栈，如果存在锁记录的话，需要修复锁记录和Markword，使其变成无锁状态。</li>
+<li>唤醒当前线程，将当前锁升级成轻量级锁。</li>
+</ul>
+<p><em>所以，如果某些同步代码块大多数情况下都是有两个及以上的线程竞争的话，那么偏向锁就会是一种累赘，对于这种情况，我们可以一开始就把偏向锁这个默认功能给关闭</em></p>
+<h4 id="轻量级锁"><a href="#轻量级锁" class="headerlink" title="轻量级锁"></a>轻量级锁</h4><blockquote>
+<p>轻量级锁也被称为非阻塞同步、乐观锁，因为这个过程并没有把线程阻塞挂起，而是让线程空循环等待，串行执行。</p>
+</blockquote>
+<p>锁撤销升级为轻量级锁之后，那么对象的Markword也会进行相应的的变化。下面先简单描述下锁撤销之后，升级为轻量级锁的过程：</p>
+<ul>
+<li><strong>线程在自己的栈桢中创建锁记录 LockRecord。</strong></li>
+<li><strong>将锁对象的对象头中的MarkWord复制到线程的刚刚创建的锁记录中。</strong></li>
+<li><strong>将锁记录中的Owner指针指向锁对象。</strong></li>
+<li><strong>将锁对象的对象头的MarkWord替换为指向锁记录的指针。</strong></li>
+</ul>
+<p>之后Markwork如下：<br><img src="https://img-blog.csdnimg.cn/20200426223143813.png" alt="在这里插入图片描述"><br><strong>注：锁标志位”00”表示轻量级锁</strong></p>
+<p><strong>轻量级锁主要有两种:</strong></p>
+<ul>
+<li><strong>自旋锁</strong></li>
+<li><strong>自适应自旋锁</strong><h5 id="自旋锁"><a href="#自旋锁" class="headerlink" title="自旋锁"></a>自旋锁</h5>所谓自旋，就是指当有另外一个线程来竞争锁时，这个线程会在原地循环等待，而不是把该线程给阻塞，直到那个获得锁的线程释放锁之后，这个线程就可以马上获得锁的。</li>
+</ul>
+<p>注意，锁在原地循环的时候，是会消耗cpu的，就相当于在执行一个啥也没有的for循环。</p>
+<p>所以，轻量级锁适用于那些同步代码块执行的很快的场景，这样，线程原地等待很短很短的时间就能够获得锁了。</p>
+<p>经验表明，大部分同步代码块执行的时间都是很短很短的，也正是基于这个原因，才有了轻量级锁这么个东西。</p>
+<h6 id="自旋锁存在的问题"><a href="#自旋锁存在的问题" class="headerlink" title="自旋锁存在的问题"></a>自旋锁存在的问题</h6><p><strong>在持有锁的线程占用锁时间过长或锁的竞争过于激烈时，线程在自旋过程中会长时间获取不到锁资源，将引起CPU的浪费。所以在系统中有复杂锁依赖的情况下不适合采用自旋锁。</strong></p>
+<p>基于这个问题，我们必须给线程空循环设置一个次数，当线程超过了这个次数，我们就认为，继续使用自旋锁就不适合了，<strong>此时锁会再次膨胀，升级为重量级锁。</strong></p>
+<p>默认情况下，自旋的次数为10次，用户可以通过<strong>JVM参数-XX:PreBlockSpin来进行更改。</strong></p>
+<p>注:自旋锁是在JDK1.4的时候引入的</p>
+<h5 id="自适应自旋锁"><a href="#自适应自旋锁" class="headerlink" title="自适应自旋锁"></a>自适应自旋锁</h5><p>所谓自适应自旋锁就是线程空循环等待的自旋次数并非是固定的，而是会动态着根据实际情况来改变自旋等待的次数。</p>
+<p>其大概原理是这样的：</p>
+<p>假如一个线程1刚刚成功获得一个锁，当它把锁释放了之后，线程2获得该锁，并且线程2在运行的过程中，此时线程1又想来获得该锁了，但线程2还没有释放该锁，所以线程1只能自旋等待，<strong>但是虚拟机认为，由于线程1刚刚获得过该锁，那么虚拟机觉得线程1这次自旋也是很有可能能够再次成功获得该锁的，所以会延长线程1自旋的次数。</strong></p>
+<p>另外，如果<strong>对于某一个锁，一个线程自旋之后，很少成功获得该锁，那么以后这个线程要获取该锁时，是有可能直接忽略掉自旋过程</strong>，直接升级为重量级锁的，以免空循环等待浪费资源。</p>
+<h4 id="重量级锁"><a href="#重量级锁" class="headerlink" title="重量级锁"></a>重量级锁</h4><blockquote>
+<p>互斥锁(重量级锁)也称为阻塞同步、悲观锁</p>
+</blockquote>
+<p><strong>轻量级锁膨胀之后，就升级为重量级锁了。重量级锁是依赖对象内部的monitor锁来实现的，而monitor又依赖操作系统的MutexLock(互斥锁)来实现的，所以重量级锁也被称为互斥锁。</strong></p>
+<p>当轻量级所经过锁撤销等步骤升级为重量级锁之后，它的Markword部分数据大体如下:<br><img src="https://img-blog.csdnimg.cn/20200426224141724.png" alt="在这里插入图片描述"></p>
+<h5 id="为什么重量级锁开销大"><a href="#为什么重量级锁开销大" class="headerlink" title="为什么重量级锁开销大?"></a>为什么重量级锁开销大?</h5><p>主要是因为当系统检查到锁是重量级锁之后，会把等待想要获得锁的线程进行阻塞，被阻塞的线程不会消耗cup。<strong>但是阻塞或者唤醒一个线程时，都需要操作系统来帮忙，这就需要从用户态转换到内核态</strong>，而转换状态是需要消耗很多时间的，有可能比用户执行代码的时间还要长。</p>
+<p>这就是说为什么重量级线程开销很大的。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>通过上面的分析，我们知道了synchronized锁的演变过程。</p>
+<p><strong>也就是说，synchronized关键字并非一开始就该对象加上重量级锁，也是从偏向锁，轻量级锁，再到重量级锁的过程。</strong></p>
+<p>这个过程也告诉我们，<strong>假如我们一开始就知道某个同步代码块的锁竞争很激烈、很慢的话，那么就应该直接使用重量级锁</strong>，从而省掉一些锁转换的开销。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2020/04/26/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F(%E5%89%8D%E8%A8%80)%E4%B9%8B_%E5%85%AD%E5%8E%9F%E5%88%99%E4%B8%80%E6%B3%95%E5%88%99_/" rel="next" title="设计模式(前言)之_六原则一法则_">
+                  <i class="fa fa-chevron-left"></i> 设计模式(前言)之_六原则一法则_
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2020/04/26/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95(38)%E4%B9%8B%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98/" rel="prev" title="数据结构和算法(38)之八皇后问题">
+                  数据结构和算法(38)之八皇后问题 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#从锁对象开始"><span class="nav-number">1.</span> <span class="nav-text">从锁对象开始</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#何为偏向锁"><span class="nav-number">2.</span> <span class="nav-text">何为偏向锁?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#锁膨胀"><span class="nav-number">3.</span> <span class="nav-text">锁膨胀</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#锁撤销"><span class="nav-number">4.</span> <span class="nav-text">锁撤销</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#轻量级锁"><span class="nav-number">5.</span> <span class="nav-text">轻量级锁</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#自旋锁"><span class="nav-number">5.1.</span> <span class="nav-text">自旋锁</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#自旋锁存在的问题"><span class="nav-number">5.1.1.</span> <span class="nav-text">自旋锁存在的问题</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#自适应自旋锁"><span class="nav-number">5.2.</span> <span class="nav-text">自适应自旋锁</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#重量级锁"><span class="nav-number">6.</span> <span class="nav-text">重量级锁</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#为什么重量级锁开销大"><span class="nav-number">6.1.</span> <span class="nav-text">为什么重量级锁开销大?</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="多做有趣的事."
+      src="/images/user.jpg">
+  <p class="site-author-name" itemprop="name">多做有趣的事.</p>
+  <div class="site-description" itemprop="description">联系博主:mineok@foxmail.com</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">91</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Winkhahaha" title="GitHub &amp;rarr; https:&#x2F;&#x2F;github.com&#x2F;Winkhahaha" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/mineok@foxmail.com" title="E-Mail &amp;rarr; mineok@foxmail.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">多做有趣的事.</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">345k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">5:14</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='255,69,0' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
